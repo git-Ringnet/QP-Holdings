@@ -1,0 +1,1883 @@
+/*
+Theme Name: PHONGNV Child
+Description: This is a child theme for Flatsome Theme
+Author: UX Themes
+Template: flatsome
+Version: 3.1.19
+*/
+
+.header-language-dropdown {
+    .image-icon {
+        display: none !important;
+    }
+}
+
+.header-button-1 {
+    .button {
+        background: rgba(11, 31, 58, 0.7);
+        box-shadow: 6px 6px 20px rgba(201, 169, 110, 0.3);
+        backdrop-filter: blur(2px);
+        height: 50px;
+        line-height: 50px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        border-width: 1px !important;
+        /*color: #C9A96E;*/
+    }
+}
+
+.hero-section {
+    .hero-title {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 60px;
+        line-height: 82px;
+        letter-spacing: -0.05em;
+
+        background: linear-gradient(360deg, #EDC393 10.98%, #F0C777 20.84%, #FFFFFF 73.17%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .left-frame-button {
+        .img {
+            margin-left: -1% !important;
+        }
+    }
+}
+
+.section-why {
+    .section-why-img {
+        z-index: 1;
+    }
+
+    .stack-why {
+        margin-left: -90px;
+    }
+}
+
+.ellipse-gradient {
+    position: absolute;
+    width: 100%;
+    height: 298px;
+
+    /* Căn giữa chuyên nghiệp hơn */
+    left: 50%;
+    bottom: -195px;
+    transform: translateX(-50%) rotate(1.15deg);
+
+    /* Gradient & Hiệu ứng */
+    background: linear-gradient(265deg, #0b1f3a 17.05%, #0b1f3a 83.46%);
+    filter: blur(63.7px);
+
+    /* Tối ưu hiệu suất cho filter blur */
+    will-change: filter;
+    pointer-events: none;
+    /* Tránh cản trở việc click vào các phần tử bên dưới */
+    z-index: -1;
+}
+
+.section-about {
+    .group-content>.col-inner {
+        padding-top: 70px !important;
+    }
+}
+
+.section-services {
+    margin-top: -60px;
+
+    .section-bg.fill {
+        border-top-left-radius: 60px !important;
+        border-top-right-radius: 60px !important;
+        background: #fff;
+        padding-top: 60px !important;
+    }
+}
+
+.section-3-keys {
+    .section-3-keys-img {
+        position: absolute;
+        width: 290px !important;
+        z-index: 1;
+        left: -135px;
+        top: -110px;
+    }
+
+    .section-3-keys-content>.col-inner {
+        aspect-ratio: 1 / 1;
+        padding: 60px 90px 60px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.post-item {
+    .box-image {
+        /* IMG */
+
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(16, 38, 68, 0) 22.85%, #102644 72.54%);
+
+
+
+    }
+
+    .blog-post-inner {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cat-label {
+        /* Market Update */
+
+
+
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 24px;
+        /* or 240% */
+
+
+        /* Main/4 */
+        color: #C9A96E;
+
+        background: rgba(40, 100, 151, 0.27);
+        border-radius: 120px;
+        width: fit-content;
+        padding-left: 8px;
+        padding-right: 8px;
+
+    }
+
+    .post-title a {
+        /* Title */
+
+
+
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        /* or 133% */
+
+
+        /* Main/2 */
+        color: #FFFFFF;
+
+
+    }
+
+    .post-meta {
+        /* May 05, 2026 */
+
+        order: 2;
+
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 24px;
+        /* identical to box height, or 185% */
+
+        color: #ADB2B1;
+
+        opacity: 1 !important;
+
+
+    }
+}
+
+.section-news {
+    background: #FFFFFF;
+    /* box-shadow: 0px 4px 20px rgba(4, 19, 39, 0.5); */
+    border-radius: 0px 0px 60px 60px;
+    margin-bottom: -60px;
+    z-index: 1;
+}
+
+.divider-gradient {
+    width: 100%;
+    /*max-width: 100v; */
+    /* Giới hạn chiều dài theo thiết kế */
+    height: 1px;
+    border: none;
+
+    /* Chuyển đổi từ linearGradient của SVG */
+    background: linear-gradient(90deg, #FFFFFF 0%, #F0C777 60.17%);
+
+    /* Đảm bảo render sắc nét trên các màn hình */
+    display: block;
+}
+
+.footer-content-social {
+    display: flex;
+    justify-content: space-evenly;
+    color: var(--fs-color-secondary);
+}
+
+.medium-logo-center .logo {
+    /*order: 1;*/
+}
+
+@media (min-width: 768px) {
+    /*order: 2;*/
+}
+
+#main,
+#wrapper,
+body {
+    /* 	background: #F2FAF3 !important; */
+}
+
+.header-wrapper,
+.header-wrapper.stuck {
+    /* 	box-shadow: none !important; */
+    /* 	background: rgba(30, 86, 64, 0.7)!important; */
+}
+
+.section-rounded-top {
+    border-radius: 40px 40px 0 0;
+    overflow: hidden;
+    margin-top: -40px;
+}
+
+
+.section-2 {
+    width: 100%;
+    /*     aspect-ratio: 320 / 1020; */
+    align-items: flex-start;
+
+}
+
+@media (min-width: 768px) {
+    .section-rounded-top {
+        border-radius: 60px 60px 0 0;
+        overflow: hidden;
+        margin-top: -60px;
+    }
+
+    .section-2 {
+        width: 100%;
+        aspect-ratio: 1366 / 745;
+        align-items: center;
+    }
+
+    .section-2-subtitle {
+        margin-bottom: 38px;
+    }
+}
+
+.img-rounded-16 img {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-border-box {
+    height: 100%;
+    background: #F2FAF3;
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    padding: 20px 20px;
+    min-height: 200px;
+    cursor: pointer;
+    /* 	transition: all 0.3s ease; */
+    transition: background-color 0.8s ease;
+
+    .icon-box-text h3 {
+
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 15px;*/
+        font-size: 17px;
+        line-height: 150%;
+        /* or 150% */
+
+        /* Main/2 */
+        color: #292C31;
+
+    }
+
+    .icon-box-text p {
+
+        /* Common/Body 2 */
+
+        font-style: normal;
+        font-weight: 500;
+        /*font-size: 14px;*/
+        font-size: 16px;
+        line-height: 171%;
+        /* or 171% */
+
+        /* Main/2 */
+        color: #292C31;
+    }
+}
+
+.card-border-box:hover {
+    background: var(--primary-color);
+    /*     transform: translateY(-6px); */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.icon-box-text h3,
+.icon-box-text p {
+    transition: color 0.9s ease;
+}
+
+.card-border-box:hover .icon-box-text h3,
+.card-border-box:hover .icon-box-text p {
+    color: #fff;
+}
+
+.card-border-box .icon-box-img {
+    max-width: 40px;
+}
+
+@media (min-width: 768px) {
+    .card-border-box .icon-box-img {
+        max-width: 80px;
+    }
+
+    .card-border-box .icon-box-text h3 {
+
+        font-weight: 600;
+        /*font-size: 20px;*/
+        font-size: 22px;
+        line-height: 150%;
+
+    }
+
+    .card-border-box .icon-box-text p {
+
+        font-weight: 500;
+        /*font-size: 14px;*/
+        font-size: 16px;
+        line-height: 171%;
+    }
+
+    .card-border-box {
+        padding: 50px 20px;
+    }
+}
+
+.heading-3 {
+    /* Sminly Apple Detox+ */
+    /* Desktop/Heading 3 */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 125%;
+    /* identical to box height */
+
+    /* Main/5 */
+}
+
+.heading-4 {
+    /* Desktop/Heading 4 */
+    font-style: normal;
+    font-weight: 700;
+    /*font-size: 24px !important;*/
+    font-size: 26px !important;
+    line-height: 125%;
+}
+
+.subtitle {
+    /* 	font-family: 'Quicksand'; */
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 15px;*/
+    font-size: 17px;
+    line-height: 145%;
+}
+
+.body-2 {
+    font-style: normal;
+    font-weight: 500;
+    /*font-size: 14px;*/
+    font-size: 16px;
+    line-height: 125%;
+}
+
+.text-label {
+    /* Common/Label */
+    /* font-family: 'Quicksand'; */
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 15px;*/
+    font-size: 17px;
+    line-height: 145%;
+}
+
+.heading-giant {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 150px;
+    line-height: 30px;
+    color: #8DC340;
+    opacity: 0.3;
+}
+
+@media (min-width: 768px) {
+    .heading-3 {
+        /* Sminly Apple Detox+ */
+        /* Desktop/Heading 3 */
+        font-style: normal;
+        font-weight: 600;
+        font-size: 38px;
+        /*line-height: 48px;*/
+        /* identical to box height */
+
+        /* Main/5 */
+    }
+
+    .heading-4 {
+        /* Desktop/Heading 4 */
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 28px !important;*/
+        font-size: 30px !important;
+        /*line-height: 38px;*/
+    }
+
+    .subtitle {
+        /* 	font-family: 'Quicksand'; */
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 20px;*/
+        font-size: 22px;
+        /*line-height: 30px;*/
+    }
+
+    .body-2 {
+        font-style: normal;
+        font-weight: 500;
+        /*font-size: 14px;*/
+        font-size: 16px;
+        /*line-height: 24px;*/
+    }
+
+    .text-label {
+        /* Common/Label */
+        /* font-family: 'Quicksand'; */
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 15px;*/
+        font-size: 17px;
+        /*line-height: 22px;*/
+    }
+
+    .heading-giant {
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 150px;
+        line-height: 30px;
+        color: #8DC340;
+        opacity: 0.3;
+    }
+}
+
+.absolute-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 150px;
+    line-height: 1;
+    color: #8DC340;
+    opacity: 0.3;
+
+    pointer-events: none;
+    /* tránh ảnh hưởng hover */
+    user-select: none;
+    /* không chọn được chữ */
+}
+
+.card-number-box {
+    position: relative;
+    padding-left: 54px;
+}
+
+.text-light {
+    color: #E9FDEC;
+}
+
+.box-number {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: -0.005em;
+
+    /* Main/6 */
+    color: #8DC340;
+
+    margin-bottom: 0 !important;
+    width: 40%;
+}
+
+.number-text-box {
+    border-radius: 10px;
+    border: 1px solid #8DC340;
+    backdrop-filter: blur(10px);
+    height: 102px;
+
+    .icon-box-text {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.col-flex-between .col-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 100px;
+}
+
+.banner-testimonials {
+    min-height: 230px;
+
+    .text-box {
+        width: calc(100% - 30px) !important;
+        height: 100%;
+        background: var(--primary-color);
+        border-radius: 16px;
+    }
+
+    .testimonial-name-divider,
+    .star-rating {
+        display: none;
+    }
+
+    .testimonial-meta {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .testimonial-name.test_name {
+        /* Nguyễn Mạnh Hưng */
+
+        /* Common/Subtitle */
+
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        /* identical to box height, or 150% */
+
+        color: #FFFFFF;
+
+
+    }
+
+    .testimonial-company.test_company {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        color: #8DC340;
+    }
+
+    .testimonial-box {
+        padding-left: 24px;
+        padding-top: 24px;
+    }
+
+    .testimonial-comment {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+.slider-custom {
+    padding: 0;
+    bottom: 0px;
+}
+
+.slider-custom .flickity-slider .img {
+    max-width: calc(33% - 16px) !important;
+    width: calc(33% - 16px) !important;
+    /* margin-right: 20px; */
+    /* border: 2px solid #fff; */
+    border-radius: 8px;
+    margin-right: 20px;
+    aspect-ratio: 80 / 100 !important;
+    overflow: hidden;
+    /*     height: 72%; */
+    /*     min-height: 126px; */
+    /*     min-width: 117px; */
+}
+
+.slider-custom .flickity-slider .img img {
+    opacity: 40%;
+}
+
+.slider-custom .flickity-slider .img.is-selected img {
+    opacity: 100%;
+}
+
+.slider-page-dots {
+    margin-top: 14px;
+}
+
+.slider-custom .flickity-page-dots {
+    /* display: none; */
+}
+
+.section-6 {
+    position: relative;
+    min-height: 745px;
+    background: #F2FAF3;
+    width: 100%;
+    /*     aspect-ratio: 1366 / 600; */
+    z-index: 149;
+
+    border-radius: 40px 40px 0 0;
+    overflow: hidden;
+    margin-top: -40px;
+}
+
+.section-6 .section-bg {
+
+    width: 1280px;
+    left: calc(50% - 1280px / 2);
+
+    /* 	background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)); */
+    /* 	background: linear-gradient(0deg, rgba(30,86,50, 1), rgba(30,86,50, 1)), url(https://sminly.vn/wp-content/uploads/2025/11/BG-2-min.jpg); */
+    background: var(--primary-color) url(https://sminly.vn/wp-content/uploads/2025/11/BG-2-min.jpg);
+    /* 	background-blend-mode: multiply;  */
+    /* tùy chọn: để màu phủ lên ảnh */
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 40px;
+    /* 	, url(beautiful-monstera-leaves-shadow-colored-backgroun-2023-11-27-05-19-31-utc.jpg) */
+}
+
+/* .section-6 .section-bg::after {
+    content: "";
+    position: absolute;
+    bottom: -75px;
+    right: -77px;
+    width: 220.49px;
+	height: 148px;
+    background: url('https://sminly.vn/wp-content/uploads/2025/11/Pattern-3.png') center/cover no-repeat;
+} */
+
+
+/* Đưa nội dung lên trên */
+.section-6 .section-content {
+    position: relative;
+    z-index: 5;
+}
+
+.section-extra-img {
+    display: none;
+}
+
+.section-6 .heading-3 {
+    font-weight: 700;
+    /*font-size: 24px;*/
+    font-size: 26px;
+    line-height: 125%;
+}
+
+.section-6 .heading-4 {
+    font-weight: 600;
+    /*font-size: 20px;*/
+    font-size: 22px;
+    line-height: 150%;
+}
+
+.section-6 .body-2 {
+    font-weight: 500;
+    /*font-size: 13px;*/
+    font-size: 15px;
+    line-height: 125%;
+
+}
+
+@media (min-width: 768px) {
+    .section-6 .heading-3 {
+        font-weight: 600;
+        font-size: 38px;
+        line-height: 125%;
+    }
+
+    .section-6 .heading-4 {
+        font-weight: 600;
+        /*font-size: 28px;*/
+        font-size: 30px;
+        line-height: 135%;
+    }
+
+    .section-6 .body-2 {
+        font-weight: 500;
+        /*font-size: 14px;*/
+        font-size: 16px;
+        line-height: 171%;
+
+    }
+
+    .section-6 {
+        position: relative;
+        min-height: 745px;
+        background: #F2FAF3;
+        width: 100%;
+        aspect-ratio: 1366 / 600;
+        z-index: 149;
+
+        border-radius: 0 0 0 0 !important;
+        /*     overflow: hidden; */
+        margin-top: 0 !important;
+    }
+
+    .section-extra-img {
+        position: absolute;
+        bottom: -75px;
+        right: calc(50% - 1280px / 2 - 77px);
+        width: 220.49px;
+        height: 148px;
+        z-index: -1;
+        display: block !important;
+    }
+
+    /* KHỐI BO BÊN TRÁI */
+    .section-6::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50px;
+        width: 40px;
+        height: calc(100% - 100px);
+        background: var(--primary-color);
+        border-radius: 0px 40px 40px 0px;
+        /*     background: linear-gradient(155deg, #145436, #0e3826); */
+        /*     border-radius: 55% 70% 60% 80%; */
+        /*     opacity: 0.75; */
+        /*     filter: blur(25px); */
+        z-index: 0;
+    }
+
+    /* KHỐI BO BÊN PHẢI */
+    .section-6::after {
+
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50px;
+        width: 40px;
+        height: calc(100% - 100px);
+
+        background: var(--primary-color);
+        border-radius: 40px 0px 0px 40px;
+        /*     background: linear-gradient(20deg, #1d6b4a, #0f3f2e); */
+        /*     border-radius: 65% 45% 70% 40%; */
+        /*     opacity: 0.75; */
+        /*     filter: blur(25px); */
+        z-index: 0;
+    }
+}
+
+/* ====== FORM TRÁI ====== */
+.verify-genuine-product .col-left .col-inner {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1.5px solid var(--primary-color);
+    /* 	aspect-ratio: 538 / 320; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verify-genuine-product .col-left input[type="text"],
+.verify-genuine-product .col-left input[type="tel"],
+.verify-genuine-product .col-left input[type="email"] {
+    width: 100%;
+    border: 1.5px solid var(--primary-color);
+    padding: 8px 8px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    /*     font-size: 16px; */
+    color: var(--primary-color);
+    font-weight: 500;
+    min-height: 40px;
+
+
+    font-style: normal;
+    font-weight: 500;
+    /*font-size: 14px;*/
+    font-size: 16px;
+    line-height: 171%;
+    /* color: #1E5632; */
+    /* border: 1.5px solid #1E5632; */
+    /* border-radius: 10px; */
+    background: #FFFFFF;
+}
+
+
+.verify-genuine-product .col-left input::placeholder,
+.verify-genuine-product .col-left input::-webkit-input-placeholder,
+.verify-genuine-product .col-left input::-moz-placeholder,
+.verify-genuine-product .col-left input::-ms-input-placeholder,
+.verify-genuine-product .col-left input:-ms-input-placeholder {
+    font-style: normal;
+    font-weight: 500;
+    /*font-size: 14px;*/
+    font-size: 16px;
+    line-height: 171%;
+    /* color: #1E5632; */
+    /* border: 1.5px solid #1E5632; */
+    /* border-radius: 10px; */
+    background: #FFFFFF;
+}
+
+.verify-genuine-product .col-left input::placeholder {
+    font-style: normal;
+    font-weight: 500;
+    /*font-size: 14px;*/
+    font-size: 16px;
+    line-height: 171%;
+    /* color: #1E5632; */
+    /* border: 1.5px solid #1E5632; */
+    /* border-radius: 10px; */
+    background: #FFFFFF;
+
+}
+
+/* Khi focus */
+.verify-genuine-product .col-left input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+/* ====== FORM PHẢI ====== */
+.verify-genuine-product .col-right .col-inner {
+    background: var(--primary-color);
+    padding: 20px 10px;
+    border-radius: 10px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    /* 	aspect-ratio: 270 / 260; */
+}
+
+.verify-genuine-product .col-right .text-box {
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.verify-genuine-product .col-right .banner-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.verify-genuine-product .col-right .banner {
+    height: 100%;
+    background: var(--primary-color);
+}
+
+.verify-genuine-product .col-right .banner .banner-inner {
+    height: 100%;
+}
+
+.verify-genuine-product .col-right .form-title {
+    /*     font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px; */
+}
+
+.verify-genuine-product .col-right .form-text {
+    /*     font-size: 15px;.verify-genuine-product .col-left .col-inner
+    line-height: 1.6;
+    margin-bottom: 20px; */
+}
+
+.verify-genuine-product .col-right .form-text a {
+    /*     color: #C3FFB0;
+    text-decoration: underline; */
+}
+
+/* Ô nhập mã */
+#validatesCodeText {
+    width: 100%;
+    text-align: center;
+    border: 1.5px solid #8DC340;
+    background: transparent;
+    /*     padding: 18px; */
+    padding: 10px 16px;
+    border-radius: 6px;
+    /* 	height: 50px; */
+
+
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 20px;*/
+    font-size: 22px;
+    line-height: 150%;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    /*     font-size: 20px; */
+    color: #ffffff;
+    /*     letter-spacing: 6px; */
+}
+
+#validatesCodeText::placeholder,
+#validatesCodeText::-webkit-input-placeholder,
+#validatesCodeText::-moz-placeholder,
+#validatesCodeText::-ms-input-placeholder,
+#validatesCodeText:-ms-input-placeholder {
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 20px;*/
+    font-size: 22px;
+    line-height: 150%;
+    color: #ffffff !important;
+    letter-spacing: 6px;
+}
+
+
+
+
+#validatesCodeText::placeholder {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    color: #ffffff !important;
+    letter-spacing: 6px;
+    /*     color: #C2E59C; */
+}
+
+.hidden-submit {
+    display: none !important;
+}
+
+/* Button XÁC MINH */
+#btnCheckCodeLink {
+    background: #FFFFFF;
+    /* Main/1 */
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    padding: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 15px;*/
+    font-size: 17px;
+    line-height: 145%;
+
+    /*     background: #ffffff; */
+    color: var(--primary-color);
+    /*     padding: 12px 34px; */
+    /*     font-size: 17px; */
+    /*     border-radius: 12px; */
+    /*     font-weight: 600; */
+    /*     border: none; */
+    /*     cursor: pointer; */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.25s ease-in-out;
+    min-height: 50px;
+    cursor: pointer;
+}
+
+#btnCheckCodeLink span {
+    min-width: 100px;
+}
+
+#btnCheckCodeLink:hover {
+    background: #F2FAF3;
+}
+
+.wpcf7-spinner {
+    position: absolute;
+    bottom: -25px;
+}
+
+@media (min-width: 768px) {
+    .verify-genuine-product .col-left .col-inner {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        border: 1.5px solid var(--primary-color);
+        aspect-ratio: 538 / 320;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .verify-genuine-product .col-left input[type="text"],
+    .verify-genuine-product .col-left input[type="tel"],
+    .verify-genuine-product .col-left input[type="email"] {
+        width: 100%;
+        border: 1.5px solid var(--primary-color);
+        padding: 10px 16px;
+        margin-bottom: 16px;
+        border-radius: 10px;
+        /*     font-size: 16px; */
+        color: var(--primary-color);
+        font-weight: 500;
+        min-height: 50px;
+
+
+        font-style: normal;
+        font-weight: 500;
+        /*font-size: 14px;*/
+        font-size: 16px;
+        line-height: 171%;
+        /* color: #1E5632; */
+        /* border: 1.5px solid #1E5632; */
+        /* border-radius: 10px; */
+        background: #FFFFFF;
+    }
+
+    .verify-genuine-product .col-right .col-inner {
+        background: var(--primary-color);
+        padding: 40px 30px;
+        border-radius: 20px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 538 / 320;
+    }
+
+    #validatesCodeText {
+        width: 100%;
+        text-align: center;
+        border: 1.5px solid #8DC340;
+        background: transparent;
+        /*     padding: 18px; */
+        padding: 10px 16px;
+        border-radius: 10px;
+        /* 	height: 50px; */
+
+
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 20px;*/
+        font-size: 22px;
+        line-height: 150%;
+
+        margin-bottom: 20px;
+        /*     font-size: 20px; */
+        color: #ffffff;
+        /*     letter-spacing: 6px; */
+    }
+
+    /* Button XÁC MINH */
+    #btnCheckCodeLink {
+        background: #FFFFFF;
+        /* Main/1 */
+        border: 1px solid #FFFFFF;
+        border-radius: 10px;
+        padding: 10px;
+
+        font-style: normal;
+        font-weight: 600;
+        /*font-size: 15px;*/
+        font-size: 17px;
+        line-height: 145%;
+
+        /*     background: #ffffff; */
+        color: var(--primary-color);
+        /*     padding: 12px 34px; */
+        /*     font-size: 17px; */
+        /*     border-radius: 12px; */
+        /*     font-weight: 600; */
+        /*     border: none; */
+        /*     cursor: pointer; */
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.25s ease-in-out;
+        min-height: 50px;
+    }
+}
+
+.verify-genuine-product .wpcf7-not-valid {
+    border-color: var(--fs-color-alert) !important;
+    color: var(--fs-color-alert) !important;
+}
+
+
+/* Bo góc tổng thể */
+.verify-genuine-product {
+    /*     gap: 30px; */
+    /*     align-items: stretch; */
+}
+
+.verify-genuine-product .col {
+    /*     padding: 0 !important; */
+}
+
+/* Xoá chữ “undefined” */
+.verify-genuine-product>p {
+    /*     display: none; */
+}
+
+/* Mobile responsive */
+
+.absolute-footer {
+    display: none !important;
+}
+
+.section-1-slide {
+    .flickity-page-dots {
+        bottom: 80px;
+    }
+
+    .slider .banner {
+        width: 100%;
+        aspect-ratio: 320 / 630;
+    }
+}
+
+.banner-text-box {
+    z-index: 150;
+}
+
+.banner-img {
+    z-index: 149;
+}
+
+@media (min-width: 768px) {
+    .section-1-slide {
+
+        .slider .banner {
+            width: 100%;
+            aspect-ratio: 1366 / 600;
+        }
+    }
+}
+
+.product-slide {
+    .slider-main .img-inner img {
+        width: 100%;
+        border-radius: 16px;
+        aspect-ratio: 260 / 340;
+    }
+
+    .slider-thumbs .img,
+    .slider-thumbs .img-inner img {
+        width: 100%;
+        border-radius: 8px !important;
+        aspect-ratio: 80 / 100 !important;
+    }
+
+    .slider-thumbs {
+        /* 		display: none; */
+        display: block !important;
+    }
+}
+
+.silder-testimonials {
+    .flickity-page-dots {
+        bottom: -30px;
+    }
+}
+
+.section-5-review {
+    width: 100%;
+
+    /* 		aspect-ratio: 320 / 514 ; */
+}
+
+.product-slide {
+    aspect-ratio: 260 / 450;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .product-slide {
+        padding-left: 12.5%;
+        padding-right: 12.5%;
+        aspect-ratio: 345 / 450;
+        width: 100%;
+    }
+
+    .section-5-review {
+        aspect-ratio: 1366 / 573;
+    }
+
+    .silder-testimonials {
+        .flickity-page-dots {
+            bottom: -40px;
+        }
+    }
+}
+
+.section-4-header {
+
+    .section-4-subtitle,
+    .section-4-title-text {
+        text-align: center;
+    }
+}
+
+.section-3-content .list-item .col-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.section-3-content .list-item .card-number-box:nth-child(1),
+.section-3-content .list-item .card-number-box:nth-child(3),
+.card-number-box:nth-child(5) {
+    margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    .slider-thumbs {
+        display: block !important;
+    }
+
+    .section-4-subtitle,
+    .section-4-title-text {
+        text-align: left !important;
+    }
+
+    .section-4-subtitle {
+        margin-bottom: 38px;
+    }
+
+    .section-3-content .list-item .card-number-box:nth-child(1),
+    .section-3-content .list-item .card-number-box:nth-child(3),
+    .card-number-box:nth-child(5) {
+        margin-bottom: 0 !important;
+    }
+}
+
+.explore-video {
+    border-radius: 10px;
+}
+
+.back-to-top {
+    background: var(--fs-color-secondary) !important;
+    border-color: var(--fs-color-secondary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px;
+    height: 40px;
+}
+
+.footer-wrapper {
+    z-index: 149;
+
+    .col-inner {
+        text-align: center;
+    }
+}
+
+
+/* =================================================================
+   2. Wrapper Cố định (Fixed Wrapper) - Giữ nguyên vị trí đã tính
+   ================================================================= */
+.btn-verify-fixed {
+    position: fixed;
+    width: 158px;
+    height: 36px;
+    right: 0px;
+    top: 18px;
+    z-index: 1002;
+}
+
+.fb-page {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 300 / 140;
+    width: 300px !important;
+    display: block !important;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px) {
+    .btn-verify-fixed {
+
+        position: fixed;
+        width: 174px;
+        height: 40px;
+        right: 0px;
+        top: 44px;
+    }
+
+    .footer-wrapper {
+        z-index: 149;
+
+        .col-inner {
+            text-align: left !important;
+        }
+    }
+
+    .fb-page {
+        border-radius: 20px;
+        overflow: hidden;
+        aspect-ratio: 300 / 140;
+        width: 300px !important;
+        display: block !important;
+
+        margin-left: unset;
+        margin-right: unset;
+    }
+}
+
+.fixed-social-wrapper {
+    position: fixed;
+    /* Giữ nguyên logic căn phải đã tính cho màn hình lớn hơn 992px */
+    right: 20px;
+    /* Base for container 100% */
+    bottom: calc(50vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 1000;
+}
+
+/* Các media query cho fixed-social-wrapper (tham khảo phản hồi trước) */
+/* @media (min-width: 992px) { .fixed-social-wrapper { right: calc(50% - 480px + 20px); } }
+@media (min-width: 1179px) { .fixed-social-wrapper { right: calc(50% - 585px + 20px); } }
+@media (min-width: 1310px) { .fixed-social-wrapper { right: calc(50% - 660px); } }
+@media (min-width: 1400px) { .fixed-social-wrapper { right: calc(50% - 690px); } }
+@media (min-width: 1920px) { .fixed-social-wrapper { right: calc(50% - 725px + 20px); } } */
+
+
+/* =================================================================
+   3. Định dạng Các Nút (Lớp trên và Lớp dưới)
+   ================================================================= */
+
+/* 3a. Định dạng cho Nút Gọi (Call Button - Nút trên) */
+.social-button {
+    /* Khởi tạo lại kích thước và kiểu dáng từ Figma (Lớp trên) */
+    width: 45px;
+    height: 45px;
+    background: transparent !important;
+    /*     border: 3px solid #FFFFFF !important; */
+    /*     border-radius: 30px 30px 0px 30px; */
+
+    /*     position: relative; 
+    overflow: visible;  */
+    z-index: 2;
+
+    /*     text-decoration: none;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /*     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    -webkit-animation: shake-br 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+    animation: shake-br 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+}
+
+/* 3b. Tạo Lớp Dưới Cùng (Pseudo-element) */
+/* .social-button::before {
+    content: "";
+    
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #D9C068;
+    opacity: 0.3;
+    filter: blur(7.5px);
+    border-radius: 50px 50px 0px 50px; 
+    top: -13.46px; 
+    left: -13.46px;
+    
+    z-index: 1; 
+} */
+
+/* 3c. Định dạng Icon bên trong (Nằm trên tất cả) */
+.social-button .icon {
+    width: 45px;
+    /* Kích thước icon */
+    height: 45px;
+    z-index: 3;
+}
+
+/* 3d. Định dạng cho Nút Facebook (Giữ nguyên cho tính đồng nhất) */
+
+
+
+/* Hiệu ứng Hover */
+.social-button:hover {
+    /*     background: #c3a859; */
+    transform: scale(1.05);
+}
+
+/* Hiệu ứng blur cũng có thể scale theo khi hover */
+.social-button:hover::before {
+    transform: scale(1.05);
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2025-10-23 1:50:0
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation shake-br
+ * ----------------------------------------
+ */
+@-webkit-keyframes shake-br {
+
+    0%,
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+    }
+
+    10% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    20%,
+    40%,
+    60% {
+        -webkit-transform: rotate(-4deg);
+        transform: rotate(-4deg);
+    }
+
+    30%,
+    50%,
+    70% {
+        -webkit-transform: rotate(4deg);
+        transform: rotate(4deg);
+    }
+
+    80% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    90% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+@keyframes shake-br {
+
+    0%,
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+    }
+
+    10% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    20%,
+    40%,
+    60% {
+        -webkit-transform: rotate(-4deg);
+        transform: rotate(-4deg);
+    }
+
+    30%,
+    50%,
+    70% {
+        -webkit-transform: rotate(4deg);
+        transform: rotate(4deg);
+    }
+
+    80% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    90% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+.result-box {
+    /* 	border: 2px solid #8DC340; */
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 75px 10px;
+
+    .icon-box-img {
+        max-width: 100px;
+    }
+
+    .icon-box-text {
+        text-align: center;
+    }
+}
+
+.result-box-success {
+    border: 2px solid var(--fs-color-secondary);
+    background: rgba(11, 76, 24, 0.5);
+}
+
+.result-box-warning {
+    border: 2px solid #FFD900;
+    background: rgba(75, 64, 4, 0.5);
+}
+
+.result-box-alert {
+    border: 2px solid var(--fs-color-alert);
+    background: rgba(94, 14, 15, 0.5);
+}
+
+@media (min-width: 768px) {
+    .result-box {
+        flex-direction: row;
+        justify-content: center;
+
+        .icon-box-img {
+            max-width: 140px;
+            margin-right: 40px;
+        }
+
+        .icon-box-text {
+            text-align: left;
+        }
+    }
+}
+
+.product-info-row {
+    text-align: center;
+}
+
+.product-field-value {
+    height: 50px;
+    border: 1.5px solid var(--primary-color);
+    border-radius: 10px;
+    background: var(--primary-color);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 50px;
+    color: var(--fs-color-secondary) !important;
+    /* 	font-family: 'Quicksand'; */
+    letter-spacing: 0.6em;
+    text-align: center;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .product-info-row {
+        text-align: left;
+    }
+
+    .product-field-value {
+        max-width: 400px;
+        font-size: 20px;
+        letter-spacing: 1em;
+    }
+}
+
+.text-warning {
+    color: #FFD900;
+}
+
+.verify-steps .img-inner {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn-back-home {
+    background-color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 600;
+    /*font-size: 15px;*/
+    font-size: 17px;
+    line-height: 28px !important;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--primary-color);
+    /* hoặc màu bạn muốn */
+    display: inline-block !important;
+    text-decoration: none;
+    /* nếu là <a> */
+    display: flex !important;
+    justify-content: space-between;
+
+    width: calc(100% - 20px);
+
+    span {
+        line-height: 28px !important;
+        width: calc(100% - 38px);
+    }
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.btn-back-home:hover {
+    background: #F2FAF3 !important;
+    color: var(--primary-color) !important;
+    /* hoặc màu bạn muốn */
+}
+
+@media (min-width: 768px) {
+    .btn-back-home {
+        max-width: 220px;
+    }
+}
+
+/* @media (min-width: 768px) { */
+.product-slide .slider-main .flickity-page-dots {
+    display: none !important;
+}
+
+/* } */
+
+
+.post-title-list {
+    .box-image {
+        /*display: none !important;*/
+        width: auto;
+        padding-right: 1em;
+        display: flex;
+        align-items: center;
+    }
+
+    .box-text {
+        padding: 0 !important;
+    }
+
+    .post-item:last-child {
+        padding-bottom: 0 !important;
+    }
+}
+
+/* 1. Khởi tạo bộ đếm cho danh sách */
+.post-title-list {
+    counter-reset: post-counter;
+}
+
+/* 2. Tăng bộ đếm cho mỗi post-item */
+.post-title-list .post-item {
+    counter-increment: post-counter;
+}
+
+.post-title-list .post-item .box-image .image-cover {
+    display: none;
+}
+
+/* 3. Ẩn hình ảnh và nội dung bên trong thẻ chứa link */
+.post-title-list .post-item .box-image a {
+    /* Màu nền tùy chọn */
+    /*display: none !important;*/
+    /*display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary-color); 
+    position: absolute;
+    top: 0;
+    left: 0;*/
+}
+
+.post-title-list .post-item .box-image img,
+.post-title-list .post-item .box-image noscript {
+    display: none !important;
+    /* Ẩn ảnh gốc */
+}
+
+/* 4. Hiển thị số thứ tự bằng pseudo-element ::before */
+.post-title-list .post-item .box-image::before {
+    content: counter(post-counter);
+    /* Lấy giá trị bộ đếm */
+    color: var(--primary-color);
+    /* Màu số */
+    font-size: 2.5rem;
+    /* Kích thước số */
+    font-weight: bold;
+    font-family: sans-serif;
+    line-height: 1;
+}
+
+.post-slider .post-item {
+    padding-bottom: 0.75rem !important;
+}
+
+.post-slider .col-inner {
+    border-radius: 0.75rem !important;
+    overflow: hidden;
+}
+
+.box-blog-post .is-divider {
+    display: none;
+}
+
+/* Đảm bảo khung bao luôn giữ tỷ lệ 16:9 của image-cover */
+.related-posts-section {
+    .post-title {
+        /* Bắt buộc để -webkit-line-clamp hoạt động */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+
+        /* Cắt sau 2 dòng */
+        -webkit-line-clamp: 2;
+
+        /* Ẩn phần tràn và hiện dấu chấm lửng */
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        /* ==== PHẦN QUAN TRỌNG ĐỂ ĐẢM BẢO CHIỀU CAO TỐI THIỂU ==== */
+        min-height: calc(2 * 1.5em);
+    }
+
+    .from_the_blog_excerpt {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+
+        /* Cắt sau 2 dòng */
+        -webkit-line-clamp: 3;
+
+        /* Ẩn phần tràn và hiện dấu chấm lửng */
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        /* ==== PHẦN QUAN TRỌNG ĐỂ ĐẢM BẢO CHIỀU CAO TỐI THIỂU ==== */
+        min-height: calc(3 * 1.5em);
+    }
+}
+
+.category {
+    #post-list {
+        .post-item .col-inner {
+            border-radius: 0.75rem !important;
+            overflow: hidden;
+        }
+
+        .post-title a {
+            /* Bắt buộc để -webkit-line-clamp hoạt động */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+
+            /* Cắt sau 2 dòng */
+            -webkit-line-clamp: 3;
+
+            /* Ẩn phần tràn và hiện dấu chấm lửng */
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            /* ==== PHẦN QUAN TRỌNG ĐỂ ĐẢM BẢO CHIỀU CAO TỐI THIỂU ==== */
+            min-height: calc(3 * 1.3em);
+        }
+
+        .from_the_blog_excerpt {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+
+            /* Cắt sau 2 dòng */
+            -webkit-line-clamp: 3;
+
+            /* Ẩn phần tràn và hiện dấu chấm lửng */
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            /* ==== PHẦN QUAN TRỌNG ĐỂ ĐẢM BẢO CHIỀU CAO TỐI THIỂU ==== */
+            min-height: calc(3 * 1.5em);
+        }
+
+        .from_the_blog_comments {
+            display: none;
+        }
+    }
+}
+
+
+/* Button V2 Styles */
+.button.is-gradient-v2 {
+    background: linear-gradient(90deg, #F0C777 71.15%, #EFD19D 97.12%);
+    box-shadow: 6px 6px 20px rgba(201, 169, 110, 0.3);
+    border-radius: 10px;
+    color: #0B1F3A !important;
+    border: none !important;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    font-size: 16px;
+    line-height: 1;
+    padding: 17px 20px;
+    .button-image-icon{
+        width: 12px;
+        vertical-align: middle;
+        margin-left: 24px;
+    }
+}
+
+.button.is-gradient-v2:hover {
+    opacity: 0.9;
+    box-shadow: 4px 4px 15px rgba(201, 169, 110, 0.5);
+}
+
+.button.is-glass-v2 {
+    background: rgba(11, 31, 58, 0.7) !important;
+    border: 1px solid #C9A96E !important;
+    box-shadow: 6px 6px 20px rgba(201, 169, 110, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 10px;
+    color: #FFFFFF !important;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    ont-size: 16px;
+    line-height: 1;
+    padding: 17px 20px;
+
+    .button-image-icon{
+        width: 12px;
+        vertical-align: middle;
+        margin-left: 24px;
+    }
+
+}
+
+.button.is-glass-v2:hover {
+    background: rgba(11, 31, 58, 0.9) !important;
+    box-shadow: 4px 4px 15px rgba(201, 169, 110, 0.5);
+}
+
+/* FontAwesome Icon spacing in Button V2 */
+.button.is-gradient-v2 i,
+.button.is-glass-v2 i {
+    margin: 0 5px;
+}

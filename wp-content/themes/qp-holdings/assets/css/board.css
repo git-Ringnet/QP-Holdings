@@ -1,0 +1,134 @@
+/* ══════════════════════════════════════════
+   BOARD OF DIRECTORS ("Hội đồng quản trị")
+   Figma: PC 2167:6260 · Mobile/Tablet 3023:7690
+   ══════════════════════════════════════════ */
+.board-section {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+/* The section heading/intro are unused on the About page (the two group
+   headings are the real titles), so the markup renders an empty header.
+   Collapse it so the first group title sits 80px below the capability CTA
+   on PC: 24px (.profile-cta bottom padding) + 56px (.board-section top). */
+.board-header:has(.board-title:empty):has(.board-intro:empty) {
+  display: none;
+}
+
+.board-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.board-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.board-title {
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.board-intro {
+  max-width: 856px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray, #6C757D);
+}
+
+/* Two stacked groups (Hội đồng quản trị / Ban điều hành), each with its own
+   heading above its own centered card row. */
+.board-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  padding: 48px 0;
+}
+
+.board-group__title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Cards wrap centered. Flexbox keeps every row centered automatically as the
+   viewport narrows. Extra row-gap + top padding give the popped-out portraits
+   clearance so they don't collide with the row above (the photos overflow
+   upward, not pushing layout height). */
+.board-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 96px 31px;
+  width: 100%;
+  max-width: 1162px;
+  padding-top: 45px;
+}
+
+.board-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  width: 207px;
+  max-width: 207px;
+}
+
+.board-card__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  background: linear-gradient(0deg, #0B1B2A 0%, #80B6E9 100%);
+  box-shadow: 3px 4px 10.3px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Portrait is a transparent cut-out: it sits on the gradient and rises above
+   the card's top edge. Anchored to the frame bottom, taller than the frame.
+   Absolute so the overflow doesn't add to the card's layout height. */
+.board-card__photo {
+  position: absolute;
+  left: 3.4%;
+  bottom: 0;
+  width: 93.2%;
+  height: 140%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0 0 14px 14px;
+}
+
+.board-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.board-card__name {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #212529;
+}
+
+.board-card__role {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray, #6C757D);
+}

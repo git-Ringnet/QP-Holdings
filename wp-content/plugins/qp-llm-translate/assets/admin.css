@@ -1,0 +1,61 @@
+.qp-llm-logo{float:left;margin:0 16px 16px 0;border-radius:12px}
+.qp-llm-settings h1{margin-top:18px}
+.qp-llm-job-list{margin:8px 0 0;padding-left:18px}
+.qp-llm-queue-status{margin-top:8px}
+.qp-llm-queue-status.is-ok{color:#0a7a28}
+.qp-llm-queue-status.is-err{color:#b32d2e}
+
+.qp-llm-toast{
+	position:fixed;
+	right:20px;
+	bottom:20px;
+	z-index:100000;
+	width:min(360px,calc(100vw - 32px));
+	background:#193660;
+	color:#fff;
+	border-radius:14px;
+	box-shadow:0 16px 40px rgba(25,54,96,.28);
+	overflow:hidden;
+	font:13px/1.45 "Noto Sans",system-ui,sans-serif;
+	animation:qp-llm-in .28s ease;
+}
+.qp-llm-toast[hidden]{display:none !important}
+.qp-llm-toast.is-out{animation:qp-llm-out .26s ease forwards}
+.qp-llm-toast__bar{height:3px;background:linear-gradient(90deg,#D3A049,#FFDDA4)}
+.qp-llm-toast.is-err .qp-llm-toast__bar{background:#d63638}
+.qp-llm-toast.is-done .qp-llm-toast__bar{background:#46b450}
+.qp-llm-toast__body{display:flex;gap:10px;align-items:flex-start;padding:12px 14px 14px}
+.qp-llm-toast__spin{
+	flex:0 0 16px;
+	width:16px;height:16px;margin-top:3px;
+	border:2px solid rgba(255,255,255,.28);
+	border-top-color:#FFDDA4;
+	border-radius:50%;
+}
+.qp-llm-toast.is-busy .qp-llm-toast__spin{animation:qp-llm-spin .7s linear infinite}
+.qp-llm-toast.is-done .qp-llm-toast__spin,
+.qp-llm-toast.is-err .qp-llm-toast__spin{display:none}
+.qp-llm-toast__copy{flex:1;min-width:0}
+.qp-llm-toast__title{display:block;font-size:14px;margin-bottom:4px}
+.qp-llm-toast__jobs{margin:0;padding:0;list-style:none;opacity:.92}
+.qp-llm-toast__jobs li{margin:2px 0}
+.qp-llm-toast__lang{
+	display:inline-block;
+	min-width:28px;
+	padding:0 6px;
+	border-radius:999px;
+	background:rgba(255,221,164,.18);
+	color:#FFDDA4;
+	font-size:11px;
+	font-weight:700;
+	letter-spacing:.04em;
+}
+.qp-llm-toast__post{opacity:.88}
+.qp-llm-toast__close{
+	appearance:none;border:0;background:transparent;color:#fff;
+	font-size:20px;line-height:1;padding:0 2px;cursor:pointer;opacity:.7
+}
+.qp-llm-toast__close:hover{opacity:1}
+@keyframes qp-llm-spin{to{transform:rotate(360deg)}}
+@keyframes qp-llm-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes qp-llm-out{to{opacity:0;transform:translateY(8px)}}

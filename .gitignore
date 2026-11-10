@@ -1,18 +1,51 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+# Repo chỉ theo dõi CODE TỰ VIẾT của QP Holdings.
+# Lõi WordPress, plugin bên thứ ba, uploads, database, wp-config.php KHÔNG nằm trong git.
+# Cách làm: bỏ qua tất cả, rồi "mở" (!) từng đường dẫn cần theo dõi.
 
-# Other files and folders
-.settings/
+/*
+!/.gitignore
+!/.gitattributes
+!/AGENTS.md
+!/CLAUDE.md
+!/GEMINI.md
+!/README.md
+!/LICENSE
+!/docs/
+!/tools/
+!/bin/
+!/.claude/
+!/.gemini/
+!/wp-content/
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+/wp-content/*
+!/wp-content/themes/
+!/wp-content/plugins/
+!/wp-content/mu-plugins/
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+/wp-content/themes/*
+!/wp-content/themes/qp-holdings/
+
+/wp-content/plugins/*
+!/wp-content/plugins/qp-llm-translate/
+
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins/qpholdings-admin-branding.php
+!/wp-content/mu-plugins/qpholdings-admin-branding/
+
+# Rác trong code tự viết
+.deploy-backups/
+.seo-deploy-backup-*/
+*.tmp-*
+*.bak
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Gói deploy sinh ra bởi tools/make-deploy-zip.ps1
+/dist/
+# WP-CLI tải về bởi tools/restore-plesk-backup.ps1
+/tools/.cache/
+
+# Cấu hình cá nhân của Claude Code
+/.claude/settings.local.json

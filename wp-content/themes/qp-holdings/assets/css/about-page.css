@@ -1,0 +1,953 @@
+/* ══════════════════════════════════════════
+   ABOUT PAGE — Decorative blobs
+   ══════════════════════════════════════════ */
+.about-page {
+  position: relative;
+  overflow-x: clip;
+}
+
+.page-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.page-blob {
+  position: absolute;
+  display: block;
+  background: rgba(246, 209, 145, 0.5);
+  filter: blur(250px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.page-blob-1 {
+  top: 800px;
+  right: -120px;
+  width: 864px;
+  height: 392px;
+}
+
+.page-blob-2 {
+  top: 1900px;
+  left: -120px;
+  width: 467px;
+  height: 269px;
+}
+
+.page-blob-3 {
+  bottom: 1100px;
+  right: -120px;
+  width: 442px;
+  height: 254px;
+}
+
+/* Ensure all sections sit above blobs */
+.about-page>section {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE HERO (inner pages — dark banner)
+   ══════════════════════════════════════════ */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  padding-top: 200px;
+  padding-bottom: 96px;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background: var(--navy-dark);
+  overflow: hidden;
+  /* Override the big --pad-x (288px) so the 64px title fits in 1 line.
+     Padding stays as ~288px only when viewport ≥ 1920 (Figma canvas size). */
+  --pad-x: max(24px, calc((100vw - 1344px) / 2));
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(134deg, rgba(11, 31, 58, 0.7) 0%, rgba(11, 31, 58, 0.2) 22%, rgba(11, 31, 58, 0) 31%),
+    linear-gradient(180deg, rgba(11, 31, 58, 0.95) 10%, rgba(11, 31, 58, 0.5) 60%, rgba(11, 31, 58, 0.85) 100%),
+    rgba(0, 0, 0, 0.2);
+}
+
+.page-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Eyebrow: gold parallelogram via clip-path (text stays upright, no skew artifact) */
+.page-hero-eyebrow {
+  --slant: 10px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 285px;
+  height: 40px;
+  padding: 8px 24px;
+  /* Darker gold so the white uppercase label clears 4.5:1 (the bright #D3A049
+   * pill rendered at ~3.3:1 with white once the hero overlay darkened it). */
+  background: #D3A049;
+  clip-path: polygon(var(--slant) 0,
+      100% 0,
+      calc(100% - var(--slant)) 100%,
+      0 100%);
+  margin-bottom: 0;
+}
+
+.page-hero-eyebrow-text {
+  display: inline-block;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.page-hero-title {
+  font-size: clamp(28px, 4.5vw, 64px);
+  font-weight: 700;
+  font-family: var(--font);
+  line-height: 1.4;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.28);
+}
+
+/* "Kiến tạo giá trị" — Figma ts1 override = navy gradient */
+.page-hero-title-navy {
+  display: inline;
+  background: linear-gradient(90deg, #0B1B2A 0%, #265D90 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.page-hero-desc {
+  max-width: 1013px;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #fff;
+}
+
+
+/* ══════════════════════════════════════════
+   INTRO SECTION (2-col on desktop, stacked on mobile)
+   ══════════════════════════════════════════ */
+.intro-section {
+  padding: 96px 0 64px;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 64px;
+  row-gap: 24px;
+  align-items: center;
+}
+
+.intro-title {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.intro-title .navy-gradient-text,
+.intro-title .gold-gradient-text {
+  display: inline;
+}
+
+.intro-body {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.intro-images {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.intro-grid .show-more-btn {
+  display: none;
+}
+
+.intro-body p {
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.6;
+  text-align: justify;
+  text-align-last: left;
+  margin-bottom: 14px;
+}
+
+.intro-body p:last-child {
+  margin-bottom: 0;
+}
+
+.intro-body strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.intro-images {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.intro-images .about-collage {
+  width: 100%;
+  max-width: 636px;
+  aspect-ratio: 636 / 482.45;
+}
+
+
+/* ══════════════════════════════════════════
+   STATS / 20-YEARS SECTION
+   ══════════════════════════════════════════ */
+.stats-section {
+  padding: 64px 0 96px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: center;
+}
+
+.stats-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  grid-column: 2;
+  grid-row: 1;
+  width: 660px;
+  max-width: 100%;
+}
+
+.stats-header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.stats-text {
+}
+
+.stats-images {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  width: 100%;
+}
+
+.stats-grid .show-more-btn {
+  display: none;
+}
+
+.stats-collage {
+  position: relative;
+  width: 100%;
+  max-width: 619px;
+  aspect-ratio: 619 / 611.84;
+  margin-inline: auto;
+}
+
+.stats-img {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(25, 54, 96, 0.10);
+}
+
+.stats-img-1 {
+  top: 0;
+  left: 0;
+  width: 71.73%;
+  height: 72.57%;
+  z-index: 1;
+}
+
+.stats-img-2 {
+  top: 29.07%;
+  left: 23.98%;
+  width: 70.11%;
+  height: 70.93%;
+  z-index: 2;
+  box-shadow:
+    -12px -12px 0 0 #ffffff,
+    0 8px 24px rgba(25, 54, 96, 0.10);
+}
+
+.stats-decor {
+  position: absolute;
+  top: 12%;
+  right: 0;
+  width: fit-content;
+  min-width: 200px;
+  aspect-ratio: 1 / 1;
+  padding-inline: 1vw;
+  z-index: 3;
+  border-radius: 60px;
+  background: #FFF;
+  box-shadow: 3px 0 4px 0 rgba(211, 211, 211, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-decor-number {
+  display: block;
+  font-family: var(--font);
+  /* Sized in vw so the value (and the square box wrapping it) shrinks on
+     smaller screens; clamp keeps sane min/max bounds. */
+  font-size: clamp(72px, 11vw, 150px);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.08em;
+  white-space: nowrap;
+  background: var(--grad-navy);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--navy-dark);
+}
+
+/* Right: text */
+.stats-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stats-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--gold-start);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.stats-eyebrow svg {
+  flex: 0 0 auto;
+}
+
+.stats-heading {
+  font-size: clamp(36px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.stats-subheading {
+  font-size: clamp(20px, 1.6vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #212529;
+  margin: 0;
+}
+
+.stats-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats-body p {
+  font-size: 18px;
+  color: var(--gray);
+  line-height: 1.4;
+  text-align: justify;
+  text-align-last: left;
+  margin: 0;
+}
+
+
+/* ══════════════════════════════════════════
+   HISTORY / TIMELINE
+   ══════════════════════════════════════════ */
+.history {
+  position: relative;
+  padding: 48px 0;
+  background: linear-gradient(0deg, rgba(252, 235, 206, 1) 0%, rgba(248, 249, 250, 1) 92%);
+  overflow: hidden;
+}
+
+.history-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.history-bg img {
+  position: absolute;
+  right: -26%;
+  bottom: 0;
+  z-index: 1;
+  /* Figma frame 1920: image left ≈ 747px (38.9%), width 1671px (87%),
+     bleeds ~26% off the right edge, kept at natural aspect ratio. */
+  width: 87%;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+.history-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.5;
+  background: linear-gradient(2deg, #FCEBCE -134.22%, #F8F9FA 90.74%);
+}
+
+.history-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Header: eyebrow row + title */
+.history-header {
+  margin-bottom: 0;
+  gap: 32px;
+}
+
+.history-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--gold-start);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.history-eyebrow img {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+}
+
+.history-eyebrow-spacer {
+  visibility: hidden;
+}
+
+.history-eyebrow span {
+  max-width: 760px;
+}
+
+.history-title {
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+/* Timeline area: rows of cards + curve decoration */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  min-height: 1146px;
+}
+
+/* Decorative gold wavy line behind cards (Figma: Union) */
+.timeline-curve {
+  position: absolute;
+  top: 100px;
+  left: -1%;
+  width: 102%;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* Rows of cards */
+.timeline-row {
+  display: flex;
+  gap: 75px;
+  position: relative;
+  z-index: 1;
+  justify-content: flex-start;
+  padding-left: 135px;
+}
+
+.timeline-row-end {
+  /* 3 cards aligned to left like row 1 & 2; stretch so 2024–2026 share
+     the same card height even when the latest milestone has more copy. */
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+/* Individual card */
+.timeline-card {
+  flex: 0 0 213px;
+  width: 213px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 7px 8px rgba(221, 221, 221, 0.55);
+  text-align: center;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.timeline-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 20px rgba(184, 184, 184, 0.6);
+}
+
+.timeline-year {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #212529;
+  letter-spacing: 0;
+}
+
+.timeline-card-gold .timeline-year {
+  color: var(--gold-start);
+}
+
+.timeline-icon {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  display: block;
+}
+
+.timeline-card p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #212529;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Active (latest milestone) card — 2026 — white card with gold-filled circle */
+.timeline-card-active {
+  background: #fff;
+  box-shadow: 0 7px 8px rgba(221, 221, 221, 0.25),
+    0 12px 28px rgba(211, 160, 73, 0.18);
+}
+
+.timeline-card-active .timeline-year {
+  color: #212529;
+}
+
+.timeline-card-active p {
+  font-size: 14px;
+  color: #212529;
+}
+
+/* The active 2026 milestone is emphasised with extra breathing room; the
+   parent row stretches 2024/2025 to the same total height. */
+.timeline-row-end .timeline-card-active {
+  padding-top: 16px;
+  padding-bottom: 28px;
+}
+
+
+/* ══════════════════════════════════════════
+   MISSION / VISION / CORE VALUES
+   ══════════════════════════════════════════ */
+.mvv {
+  padding: 48px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.mvv-header {
+  width: min(916px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 32px;
+  gap: 32px;
+}
+
+.mvv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--gold-start);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.mvv-eyebrow img {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+}
+
+.mvv-title {
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.mvv-title .navy-gradient-text,
+.mvv-title .gold-gradient-text {
+  display: inline;
+}
+
+.mvv-intro {
+  font-size: 18px;
+  color: var(--gray);
+  line-height: 1.4;
+}
+
+/* Layout: cards (left, staggered) + image collage (right, rotated diamond) */
+.mvv-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 883fr) minmax(0, 883fr);
+  gap: 32px;
+  align-items: center;
+  min-height: 625px;
+}
+
+.mvv-intro-wrapper {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* Cards stacked vertically with staggered horizontal offset */
+.mvv-cards {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 807px;
+}
+
+.mvv-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px;
+  width: 100%;
+  max-width: 691px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 4px 7px 20.1px rgba(213, 213, 213, 0);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+/* Staggered indent: 1st & 3rd card shift right by 116px (matches Figma layout) */
+.mvv-card-offset {
+  margin-left: 116px;
+}
+
+.mvv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 4px 7px 20.1px rgba(213, 213, 213, 1);
+}
+
+/* Icon already has gold-tinted bg baked into the SVG */
+.mvv-card-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  display: block;
+  border-radius: 24px;
+}
+
+.mvv-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mvv-card-body h3 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #212529;
+  margin: 0;
+}
+
+.mvv-card-body p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray);
+  margin: 0;
+}
+
+/* Image collage: rotated 45deg diamond tiles (Figma: Group 1597883035) */
+.mvv-images {
+  position: relative;
+  height: 625px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px
+}
+
+.mvv-collage {
+  position: relative;
+  width: 801px;
+  max-width: 100%;
+  aspect-ratio: 801 / 625;
+  height: auto;
+  flex-shrink: 0;
+  /* Scale to fit the column gracefully on narrower viewports */
+  transform-origin: center center;
+}
+
+/* Picture wrapper acts as the rotated diamond container.
+   The <img> inside counter-rotates so the photo content stays upright. */
+.mvv-collage>picture {
+  position: absolute;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  transform: rotate(45deg);
+  transform-origin: top left;
+  box-shadow: 5px 8px 20.1px rgba(164, 164, 164, 0.85);
+}
+
+.mvv-tile {
+  position: absolute;
+  display: block;
+  /* sqrt(2) ≈ 141.42% so the counter-rotated img fully covers the square.
+     A tiny +1% safety margin avoids subpixel gaps at the diamond edges. */
+  width: 142%;
+  height: 142%;
+  max-width: none;
+  /* override base img { max-width: 100% } */
+  max-height: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center center;
+  object-fit: cover;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Size + position per tile — placed on the picture wrapper.
+   Uses :has() to target picture by the img class it contains.
+   Values are % of the 801x625 coordinate space so the collage scales
+   fluidly with its container (aspect-ratio keeps tiles square). */
+.mvv-collage>picture:has(.mvv-tile-1) {
+  width: 46.692%;
+  height: 59.84%;
+  left: 61.923%;
+  top: 7.6304%;
+}
+
+.mvv-collage>picture:has(.mvv-tile-2) {
+  width: 23.346%;
+  height: 29.92%;
+  left: 27.177%;
+  top: 0;
+}
+
+.mvv-collage>picture:has(.mvv-tile-3) {
+  width: 23.346%;
+  height: 29.92%;
+  left: 11.300%;
+  top: 28.726%;
+}
+
+.mvv-collage>picture:has(.mvv-tile-4) {
+  width: 23.346%;
+  height: 29.92%;
+  left: 27.293%;
+  top: 57.754%;
+}
+
+
+/* ══════════════════════════════════════════
+   SHOW-MORE BUTTON (mobile collapse/expand)
+   ══════════════════════════════════════════ */
+.show-more-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 4px;
+  background: transparent;
+  border: 0;
+  color: #0059FF;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease);
+  align-self: flex-start;
+}
+
+.show-more-btn:hover {
+  opacity: 0.75;
+}
+
+.show-more-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: block;
+  transition: transform 0.3s var(--ease);
+}
+
+.show-more-btn.expanded .show-more-icon {
+  transform: rotate(180deg);
+}
+
+/* Collapsible body — limits height on mobile, expands when .expanded */
+.collapsible {
+  position: relative;
+}
+
+
+/* ══════════════════════════════════════════
+   CAPABILITY PROFILE CTA (Hồ sơ năng lực)
+   ══════════════════════════════════════════ */
+.profile-cta {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 24px;
+}
+
+.profile-cta .container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-capability {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #D3A049 0%, #FFDDA4 100%);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.btn-capability:hover,
+.btn-capability:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(211, 160, 73, 0.4);
+}
+
+.btn-capability:focus-visible {
+  outline: 2px solid var(--navy-mid);
+  outline-offset: 3px;
+}
+
+
+/* ══════════════════════════════════════════
+   ABOUT PARTNERS (uses .partners base — Swiper-based)
+   ══════════════════════════════════════════ */
+.about-partners {
+  background: transparent;
+  border: 0;
+  padding: 80px 0 96px;
+}
+
+.about-partners .section-header {
+  margin-bottom: 56px;
+}
+
+.about-partners .section-title {
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 700;
+}
+
+.about-partners .partners-swiper {
+  margin-top: 0;
+}
+
+.about-partners .partners-row {
+  gap: 32px;
+  margin-top: 0;
+}
+
+.about-partners .partner-item.swiper-slide {
+  min-width: 120px;
+  height: 64px;
+}
+
+.about-partners .partner-item img {
+  max-height: 48px;
+  max-width: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}

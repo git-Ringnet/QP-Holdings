@@ -1,0 +1,372 @@
+/* ══════════════════════════════════════════
+   FOOTER  (Figma: node 2190:5825)
+   ══════════════════════════════════════════ */
+.site-footer {
+  background: var(--navy);
+  color: #fff;
+  padding: 48px 0;
+  font-family: var(--font);
+}
+
+.site-footer .footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 32px;
+}
+
+/* Main content (logo+newsletter + 4 columns), gap 48px */
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Row 1: Logo + Newsletter ── */
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  /* Reserve space at the largest layout to keep CLS at 0 even before the
+   * SVG arrives. .footer-logo img CSS overrides set actual dimensions per
+   * breakpoint; aspect-ratio carries through so each variant lands at 0. */
+  aspect-ratio: 281 / 100;
+  min-width: 0;
+}
+
+.footer-logo picture {
+  display: block;
+  /* Same as parent — reserve space inside the implicit picture box. */
+  width: 100%;
+  height: 100%;
+}
+
+.footer-logo img {
+  width: 281px;
+  height: 100px;
+  /* Reserve aspect-ratio so responsive overrides like `height: auto` still
+   * keep CLS at 0 — the desktop and mobile SVGs share 281:100 ≈ 112:40. */
+  aspect-ratio: 281 / 100;
+  object-fit: contain;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+  height: 63px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #DEE2E6;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--navy);
+  outline: none;
+}
+
+.newsletter-input::placeholder {
+  color: #ADB5BD;
+}
+
+.newsletter-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 10px 12px;
+  background: var(--grad-gold);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: 8px;
+  transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.newsletter-btn:hover {
+  box-shadow: 0 4px 18px rgba(211, 160, 73, 0.45);
+  transform: translateY(-1px);
+}
+
+.footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.newsletter-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.newsletter-notice {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.newsletter-notice--success {
+  color: #6ee7a8;
+}
+
+.newsletter-notice--error {
+  color: #ff9b9b;
+}
+
+/* ── Row 2: 4 columns ── */
+.footer-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-col-company {
+  width: 430px;
+  flex-shrink: 0;
+}
+
+.footer-col-company+.footer-col {
+  width: 145px;
+  flex-shrink: 0;
+}
+
+.footer-col-company+.footer-col+.footer-col {
+  width: 162px;
+  flex-shrink: 0;
+}
+
+.footer-col-contact {
+  width: auto;
+}
+
+.footer-col-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #fff;
+}
+
+/* MST | Mã CK inline row */
+.footer-info-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.footer-info-row strong {
+  font-weight: 500;
+}
+
+.footer-info-sep {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: #fff;
+}
+
+/* Address blocks (with map-pin icon label) */
+.footer-address {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-address-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.footer-address-label .footer-icon {
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.footer-address address {
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ADB5BD;
+}
+
+.footer-address address strong {
+  font-weight: 500;
+  color: #ADB5BD;
+}
+
+/* Socials row */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.2s var(--ease), filter 0.2s var(--ease);
+}
+
+.footer-socials a:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.footer-socials svg,
+.footer-socials img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Nav lists (Về chúng tôi / Pháp lý) */
+.footer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-nav-list li {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ADB5BD;
+}
+
+.footer-nav-list li a {
+  color: #ADB5BD;
+  transition: color 0.2s var(--ease);
+}
+
+.footer-nav-list li a:hover {
+  color: var(--gold-end);
+}
+
+/* Contact column */
+.footer-col-contact {
+  gap: 16px;
+}
+
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-contact-label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.footer-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+  transition: color 0.2s var(--ease);
+}
+
+.footer-contact-item:hover {
+  color: var(--gold-end);
+}
+
+.footer-contact-item .footer-icon {
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.footer-contact-item:hover .footer-icon {
+  color: var(--gold-end);
+}
+
+.footer-contact-divider {
+  display: block;
+  width: 100%;
+  height: 0;
+  border-top: 0.5px solid #fff;
+}
+
+/* Divider above copyright */
+.footer-divider {
+  display: block;
+  width: 100%;
+  height: 0;
+  border-top: 0.5px solid #fff;
+}
+
+/* Copyright */
+.footer-bottom {
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ADB5BD;
+}
+
+

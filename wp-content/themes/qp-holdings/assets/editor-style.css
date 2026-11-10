@@ -1,0 +1,210 @@
+/* ===================================================================
+ * Editor preview styles for the enhanced editor (qp_project + qp_news),
+ * loaded via the mce_css filter. Mirrors the frontend rules in style.css
+ * so admins see the result inside the visual editor (Classic block /
+ * Classic Editor).
+ * =================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap");
+
+/* Base typography so the editor canvas matches the frontend article body. */
+body#tinymce {
+	font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	color: #6C757D;
+	margin: 16px;
+}
+
+body#tinymce :is(h1, h2, h3, h4, h5, h6) {
+	font-family: "Noto Sans", sans-serif;
+	color: #212529;
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+body#tinymce h2 { font-size: 24px; }
+body#tinymce h3 { font-size: 20px; }
+
+body#tinymce a {
+	color: #265D90;
+	text-underline-offset: 3px;
+}
+
+body#tinymce img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+/* Image alignment preview. */
+body#tinymce .alignleft  { float: left;  margin: 6px 24px 16px 0; max-width: 50%; }
+body#tinymce .alignright { float: right; margin: 6px 0 16px 24px; max-width: 50%; }
+body#tinymce .aligncenter { display: block; margin-left: auto; margin-right: auto; }
+
+body#tinymce .wp-caption-text,
+body#tinymce figcaption {
+	font-size: 13px;
+	color: #6C757D;
+	font-style: italic;
+	text-align: center;
+}
+
+body#tinymce figure,
+body#tinymce .qp-news-content-figure {
+	margin: 0 0 20px;
+	max-width: 100%;
+}
+
+body#tinymce figure img,
+body#tinymce .qp-news-content-figure img {
+	display: block;
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	margin-inline: auto;
+}
+
+/* Table preview. */
+body#tinymce table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 15px;
+}
+body#tinymce th,
+body#tinymce td {
+	padding: 10px 14px;
+	border: 1px solid #E5E7EB;
+	text-align: left;
+}
+body#tinymce thead th,
+body#tinymce tr:first-child th {
+	background: rgba(38, 93, 144, 0.08);
+	color: #0B1B2A;
+	font-weight: 500;
+}
+
+/* Lead paragraph */
+.qp-content-lead {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.6;
+	color: #193660;
+	margin: 16px 0;
+}
+
+/* Small text */
+.qp-content-small {
+	font-size: 13px;
+	color: #6C757D;
+}
+
+/* Gold highlight */
+.qp-content-highlight-gold {
+	background: #FFF4D6;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+
+/* Gold underline */
+.qp-content-underline-gold {
+	background-image: linear-gradient(to top, #C9A23A 0, #C9A23A 2px, transparent 2px);
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	padding-bottom: 2px;
+}
+
+/* Callout box */
+.qp-content-callout {
+	border-left: 4px solid #C9A23A;
+	background: #FFF9E8;
+	padding: 16px 20px;
+	margin: 20px 0;
+	border-radius: 4px;
+}
+
+/* Quote */
+.qp-content-quote {
+	font-style: italic;
+	color: #4A5560;
+	padding: 16px 20px;
+	border-left: 3px solid #C9A23A;
+	margin: 20px 0;
+	background: #F8F9FA;
+}
+
+/* Info box */
+.qp-content-info-box {
+	background: #F8F9FA;
+	border: 1px solid #E5E7EB;
+	padding: 20px;
+	border-radius: 8px;
+	margin: 20px 0;
+}
+
+/* Navy gradient block */
+.qp-content-navy-block {
+	background: linear-gradient(90deg, #0B1B2A, #122e47, #133f68);
+	color: #ffffff;
+	padding: 28px 32px;
+	margin: 24px 0;
+	border-radius: 12px;
+}
+.qp-content-navy-block :is(h1, h2, h3, h4, h5, h6) {
+	color: #ffffff;
+	-webkit-text-fill-color: #ffffff;
+	background: none;
+	margin-top: 0;
+}
+.qp-content-navy-block :is(p, li, span) {
+	color: rgba(255, 255, 255, 0.92);
+}
+.qp-content-navy-block a {
+	color: #FFDDA4;
+}
+.qp-content-navy-block strong {
+	color: #ffffff;
+}
+
+/* Check list */
+.qp-content-list-check {
+	list-style: none;
+	padding-left: 0;
+}
+.qp-content-list-check > li {
+	position: relative;
+	padding-left: 28px;
+	margin-bottom: 8px;
+}
+.qp-content-list-check > li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 6px;
+	width: 18px;
+	height: 18px;
+	background: #C9A23A;
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/></svg>") no-repeat center / contain;
+	        mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/></svg>") no-repeat center / contain;
+}
+
+/* Arrow list */
+.qp-content-list-arrow {
+	list-style: none;
+	padding-left: 0;
+}
+.qp-content-list-arrow > li {
+	position: relative;
+	padding-left: 24px;
+	margin-bottom: 8px;
+}
+.qp-content-list-arrow > li::before {
+	content: "›";
+	position: absolute;
+	left: 4px;
+	top: 0;
+	color: #C9A23A;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 1.4;
+}
