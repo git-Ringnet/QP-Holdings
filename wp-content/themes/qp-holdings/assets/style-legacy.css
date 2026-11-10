@@ -1,0 +1,249 @@
+/*
+Theme Name: QP Holdings
+Theme URI: https://qpholdings.vn/
+Author: QP Holdings
+Description: WordPress classic theme generated from the exported QP Holdings static site.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.9
+Requires PHP: 8.0
+Text Domain: qp-holdings
+*/
+
+/* Root stylesheet is intentionally lightweight. The exported page CSS is loaded by each template. */
+.qp-wp-fallback {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 20px;
+}
+
+#header .header-main,
+#header.transparent .header-main,
+#header.stuck .header-main,
+.stuck .header-main {
+  height: 88px !important;
+}
+
+#header .header-inner {
+  min-height: 88px;
+}
+
+#header #logo,
+#header #logo a {
+  display: flex;
+  align-items: center;
+}
+
+#header .header-logo {
+  height: 42px !important;
+  max-height: 42px !important;
+}
+
+#header .header-main .nav > li > a,
+#header.stuck .header-main .nav > li > a {
+  line-height: 42px !important;
+}
+
+@media (max-width: 849px) {
+  #header .header-main,
+  #header.transparent .header-main,
+  #header.stuck .header-main,
+  .stuck .header-main {
+    height: 64px !important;
+  }
+
+  #header .header-inner {
+    min-height: 64px;
+  }
+
+  #header .header-logo {
+    height: 36px !important;
+    max-height: 36px !important;
+  }
+}
+
+body.qp-mobile-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.qp-mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(5, 15, 32, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s cubic-bezier(.22, 1, .36, 1);
+  backdrop-filter: blur(3px);
+}
+
+.qp-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: min(86vw, 360px);
+  height: 100dvh;
+  padding: 22px 20px 24px;
+  background: #fff;
+  box-shadow: 18px 0 48px rgba(11, 31, 58, 0.22);
+  transform: translate3d(-104%, 0, 0);
+  transition: transform .34s cubic-bezier(.22, 1, .36, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.qp-mobile-menu-open .qp-mobile-menu-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.qp-mobile-menu-open .qp-mobile-menu {
+  transform: translate3d(0, 0, 0);
+}
+
+.qp-mobile-menu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eef0f5;
+}
+
+.qp-mobile-menu__brand {
+  color: #0b1f3a;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-decoration: none;
+}
+
+.qp-mobile-menu__brand span {
+  color: #c9a96e;
+}
+
+.qp-mobile-menu__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: #f7f8fb;
+  color: #0b1f3a;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.qp-mobile-menu__list,
+.qp-mobile-menu__submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.qp-mobile-menu__list > li > a,
+.qp-mobile-menu__submenu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 2px;
+  border: 0;
+  border-bottom: 1px solid #eef0f5;
+  background: transparent;
+  color: #0b1f3a;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: none;
+}
+
+.qp-mobile-menu__list > li.active > a,
+.qp-mobile-menu__list > li.current-menu-item > a,
+.qp-mobile-menu__list > li.active > .qp-mobile-menu__submenu-toggle,
+.qp-mobile-menu__list > li.current-menu-item > .qp-mobile-menu__submenu-toggle {
+  color: #c9a96e;
+}
+
+.qp-mobile-menu__submenu {
+  display: none;
+  padding: 8px 0 10px 14px;
+  border-bottom: 1px solid #eef0f5;
+}
+
+.qp-mobile-menu__submenu-toggle[aria-expanded="true"] + .qp-mobile-menu__submenu {
+  display: block;
+}
+
+.qp-mobile-menu__submenu-toggle[aria-expanded="true"] span:last-child {
+  transform: rotate(180deg);
+}
+
+.qp-mobile-menu__submenu a {
+  display: block;
+  padding: 9px 0;
+  color: #5b6678;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.qp-mobile-menu__stock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 22px;
+  border: 1px solid #c9a96e;
+  border-radius: 999px;
+  color: #0b1f3a;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.qp-mobile-menu-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0 !important;
+  border-radius: 999px;
+  color: #fff !important;
+}
+
+.qp-mobile-menu-toggle__bars {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+}
+
+.qp-mobile-menu-toggle__bars span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: center;
+}
+
+#header.stuck .qp-mobile-menu-toggle {
+  color: #0b1f3a !important;
+}
+
+@media (min-width: 850px) {
+  .qp-mobile-menu,
+  .qp-mobile-menu-overlay {
+    display: none;
+  }
+}

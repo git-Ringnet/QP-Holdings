@@ -1,0 +1,7 @@
+description = "Dựng môi trường local cho website QP Holdings sau khi clone"
+prompt = """
+Đọc toàn bộ @{docs/ai/setup-local.md} rồi làm theo tuần tự từng bước.
+Nếu người dùng có file backup Plesk (backup_qpholdings.vn_*.tar) thì dùng tools\\restore-plesk-backup.ps1 như hướng dẫn.
+Báo tiến độ sau mỗi bước. Thứ không có trong git (dump database, uploads, gói Duplicator, mật khẩu admin): hỏi người dùng, không tự bịa.
+Không commit wp-config.php hay file dữ liệu. Kết thúc bằng bước Kiểm tra và báo cáo URL local cùng những gì còn thiếu.
+"""

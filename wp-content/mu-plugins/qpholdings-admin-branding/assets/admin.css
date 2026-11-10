@@ -1,0 +1,65 @@
+/* QP Holdings — admin chrome (sidebar, admin bar) on every screen. */
+:root {
+	--qph-navy: #193660;
+	--qph-navy-2: #082d42;
+	--qph-gold: #d3a049;
+	--qph-gold-2: #ffdda4;
+	--qph-soft: #f6f3ec;
+}
+
+body.wp-admin {
+	background: #f6f7f9;
+}
+
+#adminmenu,
+#adminmenuback,
+#adminmenuwrap {
+	background: var(--qph-navy);
+}
+
+#adminmenu .wp-submenu,
+#adminmenu .wp-has-current-submenu .wp-submenu,
+#adminmenu .wp-has-current-submenu.opensub .wp-submenu,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu {
+	background: #061f30;
+}
+
+#adminmenu div.wp-menu-image:before,
+#adminmenu a,
+#collapse-button {
+	color: rgba(255, 255, 255, 0.86);
+}
+
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+	background: rgba(255, 255, 255, 0.08);
+	color: #fff;
+}
+
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+#adminmenu li.current a.menu-top,
+#adminmenu .wp-menu-open > a.menu-top {
+	background: linear-gradient(90deg, var(--qph-gold), #b9852e);
+	color: #fff;
+}
+
+#adminmenu li.wp-has-current-submenu div.wp-menu-image:before,
+#adminmenu li.current div.wp-menu-image:before,
+#adminmenu .wp-menu-open div.wp-menu-image:before {
+	color: #fff;
+}
+
+#adminmenu .wp-submenu a {
+	color: rgba(255, 255, 255, 0.78);
+}
+
+#adminmenu .wp-submenu a:hover,
+#adminmenu .wp-submenu a:focus,
+#adminmenu .wp-submenu li.current a {
+	color: var(--qph-gold-2);
+}
+
+#wpadminbar {
+	background: var(--qph-navy);
+}

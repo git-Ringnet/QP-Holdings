@@ -1,0 +1,102 @@
+/* ============================================ */
+/* Flatsome Dropdown Fix - Hover Menu           */
+/* Apply to all site pages for "Nhà đầu tư"    */
+/* ============================================ */
+.header-nav .has-dropdown {
+	position: relative;
+}
+
+/* Override Flatsome default: hide dropdown by default */
+.header-nav-main .has-dropdown > .nav-dropdown,
+.header-nav .has-dropdown > .nav-dropdown {
+	background-color: #fff !important;
+	color: #0b1f3a !important;
+	min-width: 260px !important;
+	padding: 15px 0 !important;
+	position: absolute !important;
+	top: 100% !important;
+	left: 0 !important;
+	z-index: 999 !important;
+	opacity: 0 !important;
+	visibility: hidden !important;
+	transform: translateY(6px);
+	transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease !important;
+	box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+	border-radius: 4px;
+	border: 1px solid #eee;
+	list-style: none !important;
+	display: block !important;
+	max-height: none !important;
+}
+
+/* Show dropdown on hover */
+.header-nav-main .has-dropdown:hover > .nav-dropdown,
+.header-nav .has-dropdown:hover > .nav-dropdown {
+	opacity: 1 !important;
+	visibility: visible !important;
+	transform: translateY(0);
+}
+
+.header-nav .nav-dropdown .menu-item,
+.header-nav-main .nav-dropdown .menu-item {
+	list-style: none;
+}
+
+.header-nav .nav-dropdown .menu-item a,
+.header-nav-main .nav-dropdown .menu-item a {
+	display: block !important;
+	padding: 8px 24px !important;
+	color: #333 !important;
+	text-decoration: none !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	white-space: nowrap;
+	transition: background-color 0.15s, color 0.15s;
+	line-height: 1.6;
+}
+
+.header-nav .nav-dropdown .menu-item a:hover,
+.header-nav-main .nav-dropdown .menu-item a:hover {
+	background-color: #f8f8f8 !important;
+	color: #c9a96e !important;
+}
+
+/* Dropdown arrow icon (chevron) on parent nav link */
+.header-nav-main .has-dropdown:not(.header-language-dropdown) > a.nav-top-link::after,
+.header-nav .has-dropdown:not(.header-language-dropdown) > a.nav-top-link::after {
+	content: '';
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(45deg);
+	margin-left: 6px;
+	margin-bottom: 2px;
+	transition: transform 0.25s ease;
+	vertical-align: middle;
+}
+
+.header-nav-main .has-dropdown:not(.header-language-dropdown):hover > a.nav-top-link::after,
+.header-nav .has-dropdown:not(.header-language-dropdown):hover > a.nav-top-link::after {
+	transform: rotate(-135deg);
+}
+
+/* Language dropdown - ultra compact */
+.header-language-dropdown > .nav-dropdown {
+	min-width: 0 !important;
+	width: auto !important;
+	padding: 2px 0 !important;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+	border-radius: 4px !important;
+	right: 0 !important;
+	left: auto !important;
+}
+.header-language-dropdown > .nav-dropdown .menu-item a,
+.header-language-dropdown > .nav-dropdown li a {
+	padding: 3px 10px !important;
+	font-size: 12px !important;
+	white-space: nowrap !important;
+	text-align: center !important;
+	line-height: 1.4 !important;
+}
