@@ -13,7 +13,7 @@ Repo đã có lõi WordPress, plugin, `wp-config.php` + `.htaccess` bản dev v�
 2. **Database** (hỏi người dùng trước nếu database `qpholdings` đã tồn tại — không tự xoá):
    ```powershell
    C:\xampp\mysql\bin\mysql.exe -u root -e "CREATE DATABASE qpholdings CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-   cmd /c ""C:\Program Files\Git\usr\bin\gzip.exe" -dc database\qpholdings.sql.gz | C:\xampp\mysql\bin\mysql.exe -u root --default-character-set=utf8mb4 qpholdings"
+   cmd /c """C:\Program Files\Git\usr\bin\gzip.exe"" -dc C:\xampp\htdocs\qpholdings\database\qpholdings.sql.gz | C:\xampp\mysql\bin\mysql.exe -u root --default-character-set=utf8mb4 qpholdings"
    ```
    MySQL có mật khẩu / tên database khác → tạo `wp-config-local.php` chỉ chứa các `define()` khác mặc định
    (`DB_PASSWORD`, `DB_NAME`...). Không sửa `wp-config.php` của repo.

@@ -33,7 +33,7 @@ Hoặc bằng lệnh (PowerShell):
 
 ```powershell
 C:\xampp\mysql\bin\mysql.exe -u root -e "CREATE DATABASE qpholdings CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-cmd /c ""C:\Program Files\Git\usr\bin\gzip.exe" -dc C:\xampp\htdocs\qpholdings\database\qpholdings.sql.gz | C:\xampp\mysql\bin\mysql.exe -u root --default-character-set=utf8mb4 qpholdings"
+cmd /c """C:\Program Files\Git\usr\bin\gzip.exe"" -dc C:\xampp\htdocs\qpholdings\database\qpholdings.sql.gz | C:\xampp\mysql\bin\mysql.exe -u root --default-character-set=utf8mb4 qpholdings"
 ```
 
 ## Bước 3. Mở website
