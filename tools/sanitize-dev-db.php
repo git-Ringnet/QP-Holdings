@@ -64,6 +64,7 @@ function say( string $msg ): void {
 }
 
 $dev_email = 'dev@example.test';
+const YEAR_IN_SECONDS_DEV = 31536000;
 
 // 1. Dữ liệu cá nhân từ form: xoá bài + meta + quan hệ.
 $pii_types = array( 'qp_contact_msg', 'qp_job_app', 'qp_consult_msg', 'qp_newsletter', 'flamingo_contact', 'flamingo_inbound', 'flamingo_outbound' );
@@ -134,6 +135,9 @@ if ( null !== $raw ) {
 foreach ( array( 'admin_email', 'new_admin_email' ) as $o ) {
 	set_option_raw( $m, $o, $dev_email );
 }
+// Không hiện màn hình "xác nhận email quản trị" sau khi đăng nhập trên máy dev.
+q( $m, "DELETE FROM {$p}options WHERE option_name = 'admin_email_lifespan'" );
+q( $m, "INSERT INTO {$p}options (option_name, option_value, autoload) VALUES ('admin_email_lifespan', '" . ( time() + 10 * YEAR_IN_SECONDS_DEV ) . "', 'yes')" );
 say( "Email nhận form/quản trị → $dev_email" );
 
 // 4. Plugin không cần ở local.
@@ -141,6 +145,10 @@ $off = array( 'wordfence/wordfence.php', 'litespeed-cache/litespeed-cache.php', 
 $ap  = @unserialize( (string) get_option_raw( $m, 'active_plugins' ) );
 if ( is_array( $ap ) ) {
 	$ap = array_values( array_diff( $ap, $off ) );
+	// Plugin dịch đang phát triển: bật sẵn trên máy dev.
+	if ( ! in_array( 'qp-auto-translate/qp-auto-translate.php', $ap, true ) ) {
+		$ap[] = 'qp-auto-translate/qp-auto-translate.php';
+	}
 	set_option_raw( $m, 'active_plugins', serialize( $ap ) );
 	say( 'Plugin bật: ' . implode( ', ', $ap ) );
 }
