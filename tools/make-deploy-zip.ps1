@@ -70,10 +70,20 @@ if (Test-Path $updDir) {
     }
 }
 
+# Chỉ đóng gói CODE TỰ VIẾT. Repo còn chứa lõi WordPress, plugin bên thứ ba, wp-config.php và
+# .htaccess bản DEV — những thứ đó tuyệt đối không được đưa lên hosting.
+$DeployPaths = @(
+    'wp-content/themes/qp-holdings',
+    'wp-content/plugins/qp-auto-translate',
+    'wp-content/plugins/qp-llm-translate',
+    'wp-content/mu-plugins/qpholdings-admin-branding.php',
+    'wp-content/mu-plugins/qpholdings-admin-branding'
+)
+
 # --- 2. Không cho chạy khi còn thay đổi chưa commit ---
-$dirty = Invoke-Git status --porcelain -- wp-content
+$dirty = Invoke-Git status --porcelain -- @DeployPaths
 if ($dirty) {
-    Write-Host 'DỪNG: còn thay đổi chưa commit trong wp-content/:' -ForegroundColor Red
+    Write-Host 'DỪNG: còn thay đổi chưa commit trong code sẽ deploy:' -ForegroundColor Red
     $dirty | ForEach-Object { Write-Host "  $_" }
     exit 1
 }
@@ -81,7 +91,7 @@ if ($dirty) {
 # --- 3. Xác định danh sách file ---
 $deleted = @()
 if ($Full) {
-    $files = Invoke-Git ls-files -- wp-content
+    $files = Invoke-Git ls-files -- @DeployPaths
     $label = 'TOÀN BỘ code'
 } else {
     if (-not $Since) {
@@ -90,8 +100,8 @@ if ($Full) {
             throw "Chưa có tag deploy-* nào. Lần đầu hãy chạy với -Full, hoặc chỉ định -Since <commit>."
         }
     }
-    $files   = Invoke-Git diff --name-only --no-renames --diff-filter=ACMT $Since HEAD -- wp-content
-    $deleted = Invoke-Git diff --name-only --no-renames --diff-filter=D $Since HEAD -- wp-content
+    $files   = Invoke-Git diff --name-only --no-renames --diff-filter=ACMT $Since HEAD -- @DeployPaths
+    $deleted = Invoke-Git diff --name-only --no-renames --diff-filter=D $Since HEAD -- @DeployPaths
     $label = "thay đổi từ $Since đến HEAD"
 }
 $files   = @($files | Where-Object { $_ })

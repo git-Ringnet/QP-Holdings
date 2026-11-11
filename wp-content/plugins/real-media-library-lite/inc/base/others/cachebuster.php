@@ -1,0 +1,32 @@
+<?php
+// Cachebusters generated on 2026-09-29 15:30:27
+return [
+	'src/public/dist/i18n-dependency-map-default-lite.json'=> '99914b932bd37a50b983c5e7c90ae93b',
+	'src/public/dist/i18n-dependency-map-default-pro.json'=> '99914b932bd37a50b983c5e7c90ae93b',
+	'src/public/dist/options.css'=> '71218f40965e729ed1d093364cc20632',
+	'src/public/dist/options.css.map'=> '31a4a4e7775abf8956fca61e7d846c0c',
+	'src/public/dist/options.lite.js'=> '5c281238947c8274f2a701b4a718cd29',
+	'src/public/dist/options.lite.js.LICENSE.txt'=> '41c4fb9e78cf50adce80139732c201cf',
+	'src/public/dist/options.lite.js.map'=> 'c20c4756595f752a3f016738f7538faf',
+	'src/public/dist/options.lite.js.pot'=> 'a6fa1a6615712f3f4b59d0cbaf62d004',
+	'src/public/dist/options.pro.js'=> '78cc0234b61e5f3d01b784b63388e35d',
+	'src/public/dist/options.pro.js.LICENSE.txt'=> '41c4fb9e78cf50adce80139732c201cf',
+	'src/public/dist/options.pro.js.map'=> '83732576edc3521b8aa02d886f999b7a',
+	'src/public/dist/options.pro.js.pot'=> 'f0a54d8746f161cd825db01a3ba2699a',
+	'src/public/dist/rml.css'=> '4b04b9fc2cb129ef1a76d8223e459d71',
+	'src/public/dist/rml.css.map'=> '8a634f2dd0201aca41e8f64c25ae2e21',
+	'src/public/dist/rml.lite.js'=> '1d6d93722f25cd45ec109ad7c6b3ad4a',
+	'src/public/dist/rml.lite.js.LICENSE.txt'=> '41c4fb9e78cf50adce80139732c201cf',
+	'src/public/dist/rml.lite.js.map'=> 'e7c82bb7336bc281f95e1a2de7a03907',
+	'src/public/dist/rml.lite.js.pot'=> '09e0871bf2e7935d8cae6944fdc70cd1',
+	'src/public/dist/rml.pro.js'=> 'd543d5a7254c33bfba8787fc15d01a8d',
+	'src/public/dist/rml.pro.js.LICENSE.txt'=> '41c4fb9e78cf50adce80139732c201cf',
+	'src/public/dist/rml.pro.js.map'=> '1638a2efd4bf4375582c7ee672b3bb72',
+	'src/public/dist/rml.pro.js.pot'=> 'abb48a667dad57323e3f18c9d223418a',
+	'src/public/dist/rml_gutenberg.lite.js'=> '339787b8800d68db9da4602604e04e26',
+	'src/public/dist/rml_gutenberg.lite.js.map'=> '36b6845030a7c960652f86e531ce23fe',
+	'src/public/dist/rml_gutenberg.lite.js.pot'=> '96959e378780a80f6379c9e54fac9042',
+	'src/public/dist/rml_gutenberg.pro.js'=> '9c3a77f94904c93d0939d10e8bb1d152',
+	'src/public/dist/rml_gutenberg.pro.js.map'=> 'e0f87f63afdc75ee680612d892ddc7f8',
+	'src/public/dist/rml_gutenberg.pro.js.pot'=> 'e8d47405e76d018ca7ca0a8966b29208'
+];

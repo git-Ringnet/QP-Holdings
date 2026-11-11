@@ -1,0 +1,324 @@
+# Translation of Plugins - Flamingo - Stable (latest release) in Chinese (China)
+# This file is distributed under the same license as the Plugins - Flamingo - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-05-24 08:56:51+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: zh_CN\n"
+"Project-Id-Version: Plugins - Flamingo - Stable (latest release)\n"
+
+#: includes/csv.php:238
+msgid "https://contactform7.com/heads-up-about-spreadsheet-vulnerabilities"
+msgstr "https://contactform7.com/heads-up-about-spreadsheet-vulnerabilities"
+
+#. translators: %s: URL
+#: includes/csv.php:230
+msgid "(Security Alert: Suspicious content is detected. See %s for details.)"
+msgstr "（安全警报：检测到可疑内容。有关详细信息，请参见%s。）"
+
+#: admin/admin.php:705
+msgid "reCAPTCHA"
+msgstr "reCAPTCHA"
+
+#: includes/class-inbound-message.php:383
+msgid "Unknown"
+msgstr "未知"
+
+#: admin/includes/class-inbound-messages-list-table.php:338
+msgid "View"
+msgstr "查看"
+
+#: admin/includes/meta-boxes.php:223
+msgid "Update"
+msgstr "更新"
+
+#: admin/includes/privacy.php:53
+msgid "Flamingo Address Book: You are not allowed to delete contact data."
+msgstr "Flamingo 通讯录：不允许删除联系人数据。"
+
+#: admin/admin.php:688
+msgid "Status"
+msgstr "状态"
+
+#. Description of the plugin
+#: flamingo.php
+msgid "A trustworthy message storage plugin for Contact Form 7."
+msgstr "Contact From 7值得信赖的消息存储插件。"
+
+#: admin/admin.php:711
+msgid "Meta"
+msgstr "元信息"
+
+#: admin/admin.php:22
+msgid "Address Book"
+msgstr "通讯录"
+
+#: admin/admin.php:37 admin/admin.php:748
+msgid "Inbound Messages"
+msgstr "收件箱信息"
+
+#: admin/admin.php:132
+msgid "Contact updated."
+msgstr "联系方式已更新。"
+
+#: admin/admin.php:134
+msgid "Contact deleted."
+msgstr "联系方式已删除。"
+
+#: admin/admin.php:138
+msgid "Messages trashed."
+msgstr "信息扔进了回收站。"
+
+#: admin/admin.php:140
+msgid "Messages restored."
+msgstr "恢复 了信息。"
+
+#: admin/admin.php:142
+msgid "Messages deleted."
+msgstr "删除了信息。"
+
+#: admin/admin.php:144
+msgid "Messages got marked as spam."
+msgstr "标记信息为垃圾。"
+
+#: admin/admin.php:146
+msgid "Messages got marked as not spam."
+msgstr "取消标记为垃圾。"
+
+#: admin/admin.php:170 admin/admin.php:273 admin/admin.php:386
+#: admin/admin.php:682
+msgid "You are not allowed to edit this item."
+msgstr "你不能编辑这个项目。"
+
+#: admin/admin.php:221 admin/admin.php:539
+msgid "You are not allowed to delete this item."
+msgstr "你不能删除这个项目。"
+
+#: admin/admin.php:227 admin/admin.php:545
+msgid "Error in deleting."
+msgstr "删除时发生错误。"
+
+#: admin/includes/class-contacts-list-table.php:12 includes/csv.php:37
+msgid "Email"
+msgstr "Email"
+
+#: admin/includes/meta-boxes.php:239 includes/csv.php:38
+msgid "Full name"
+msgstr "全名"
+
+#: admin/includes/meta-boxes.php:244 includes/csv.php:39
+msgid "First name"
+msgstr "名字"
+
+#: admin/includes/meta-boxes.php:249 includes/csv.php:40
+msgid "Last name"
+msgstr "姓"
+
+#: admin/admin.php:277
+msgid "Save"
+msgstr "保存"
+
+#: admin/admin.php:281 admin/includes/class-contacts-list-table.php:14
+msgid "Tags"
+msgstr "标签"
+
+#: admin/admin.php:285 admin/includes/class-contacts-list-table.php:13
+msgid "Name"
+msgstr "名字"
+
+#: admin/admin.php:434
+msgid "You are not allowed to move this item to the Trash."
+msgstr "你不能把这个项目扔进回收站。"
+
+#: admin/admin.php:440
+msgid "Error in moving to Trash."
+msgstr "仍进回收站发生错误。"
+
+#: admin/admin.php:482
+msgid "You are not allowed to restore this item from the Trash."
+msgstr "你不能从回收站里恢复这个项目。"
+
+#: admin/admin.php:488
+msgid "Error in restoring from Trash."
+msgstr "从回收站里恢复发生错误。"
+
+#: admin/admin.php:587
+msgid "You are not allowed to spam this item."
+msgstr "你不能标记这个项目为垃圾。"
+
+#: admin/admin.php:631
+msgid "You are not allowed to unspam this item."
+msgstr "你不能取消标记这个项目为垃圾。"
+
+#: admin/admin.php:693
+msgid "Fields"
+msgstr "字段"
+
+#: admin/edit-contact-form.php:17
+msgid "Edit Contact"
+msgstr "编辑联系方式"
+
+#: admin/edit-contact-form.php:37
+msgid "Enter email here"
+msgstr "在这里输入 email "
+
+#: admin/edit-inbound-form.php:17
+msgid "Inbound Message"
+msgstr "收件箱信息"
+
+#: admin/includes/class-inbound-messages-list-table.php:18 includes/csv.php:156
+msgid "Date"
+msgstr "日期"
+
+#: admin/edit-inbound-form.php:36
+#: admin/includes/class-inbound-messages-list-table.php:15
+msgid "Subject"
+msgstr "主题"
+
+#: admin/edit-inbound-form.php:41
+#: admin/includes/class-inbound-messages-list-table.php:16
+msgid "From"
+msgstr "发件人"
+
+#: admin/includes/class-contacts-list-table.php:15
+msgid "History"
+msgstr "历史"
+
+#: admin/includes/class-contacts-list-table.php:98
+#: admin/includes/meta-boxes.php:25
+msgid "Delete"
+msgstr "删除"
+
+#: admin/includes/class-contacts-list-table.php:126
+msgid "View all tags"
+msgstr "查看所有标签"
+
+#: admin/includes/class-contacts-list-table.php:134
+#: admin/includes/class-inbound-messages-list-table.php:257
+msgid "Filter"
+msgstr "过滤"
+
+#: admin/includes/class-contacts-list-table.php:139
+#: admin/includes/class-inbound-messages-list-table.php:262
+msgid "Export"
+msgstr "导出"
+
+#: admin/includes/class-contacts-list-table.php:201
+msgid "Edit"
+msgstr "编辑"
+
+#: admin/includes/class-contacts-list-table.php:255
+msgid "User"
+msgstr "用户"
+
+#. translators: %d: Number of comments.
+#: admin/includes/class-contacts-list-table.php:275
+msgid "Comment (%d)"
+msgstr "评论 (%d)"
+
+#. translators: date format, see https://www.php.net/date
+#: admin/includes/class-contacts-list-table.php:349
+#: admin/includes/class-inbound-messages-list-table.php:448
+msgid "Y/m/d"
+msgstr "Y/m/d"
+
+#: admin/includes/class-inbound-messages-list-table.php:17
+msgid "Channel"
+msgstr "频道"
+
+#. translators: %s: Number of items.
+#: admin/includes/class-inbound-messages-list-table.php:116
+msgctxt "posts"
+msgid "Inbox <span class=\"count\">(%s)</span>"
+msgid_plural "Inbox <span class=\"count\">(%s)</span>"
+msgstr[0] "收件箱 <span class=\"count\">(%s)</span>"
+
+#. translators: %s: Number of items.
+#: admin/includes/class-inbound-messages-list-table.php:163
+msgctxt "posts"
+msgid "Trash <span class=\"count\">(%s)</span>"
+msgid_plural "Trash <span class=\"count\">(%s)</span>"
+msgstr[0] "回收站 <span class=\"count\">(%s)</span>"
+
+#: admin/includes/class-inbound-messages-list-table.php:199
+msgid "Restore"
+msgstr "恢复"
+
+#: admin/includes/class-inbound-messages-list-table.php:248
+msgid "View all channels"
+msgstr "查看所有频道"
+
+#: admin/includes/class-inbound-messages-list-table.php:376
+#: admin/includes/meta-boxes.php:119 includes/class-inbound-message.php:39
+msgid "Spam"
+msgstr "垃圾"
+
+#: admin/includes/meta-boxes.php:84
+msgid "Separate tags with commas"
+msgstr "使用逗号分隔标签"
+
+#: admin/includes/meta-boxes.php:87
+msgid "Choose from the most used tags"
+msgstr "在常用标签里选择"
+
+#: includes/class-inbound-message.php:239
+msgid "(No Title)"
+msgstr "（无标题）"
+
+#. translators: %s: Number of items.
+#: admin/includes/class-inbound-messages-list-table.php:139
+msgctxt "posts"
+msgid "Spam <span class=\"count\">(%s)</span>"
+msgid_plural "Spam <span class=\"count\">(%s)</span>"
+msgstr[0] "垃圾消息 <span class=\"count\">(%s)</span>"
+
+#: admin/admin.php:136
+msgid "Messages updated."
+msgstr "消息已更新。"
+
+#: includes/class-inbound-message.php:49
+msgid "Flamingo Inbound Message Channel"
+msgstr "Flamingo 收件箱信息频道"
+
+#: includes/class-inbound-message.php:48
+msgid "Flamingo Inbound Message Channels"
+msgstr "Flamingo收件箱信息频道"
+
+#: includes/class-inbound-message.php:32
+msgid "Flamingo Inbound Message"
+msgstr "Flamingo收件箱信息"
+
+#: includes/class-contact.php:30
+msgid "Flamingo Contact Tag"
+msgstr "Flamingo联系方式标签"
+
+#: includes/class-contact.php:29
+msgid "Flamingo Contact Tags"
+msgstr "Flamingo联系方式标签"
+
+#: includes/class-contact.php:21
+msgid "Flamingo Contact"
+msgstr "Flamingo联系方式"
+
+#: includes/class-contact.php:20
+msgid "Flamingo Contacts"
+msgstr "Flamingo联系方式"
+
+#: admin/admin.php:36 admin/includes/privacy.php:24
+#: includes/class-inbound-message.php:31
+msgid "Flamingo Inbound Messages"
+msgstr "Flamingo收件箱"
+
+#. Plugin Name of the plugin
+#: flamingo.php admin/admin.php:11
+msgid "Flamingo"
+msgstr "Flamingo"
+
+#: admin/admin.php:10 admin/admin.php:21 admin/admin.php:322
+#: admin/includes/privacy.php:20
+msgid "Flamingo Address Book"
+msgstr "Flamingo通讯录"

@@ -1,0 +1,21 @@
+# .htaccess DÀNH CHO MÁY DEV (được đưa vào Git) — KHÔNG upload lên hosting.
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Ảnh/tệp trong uploads không có trên máy (thư mục uploads ~5,5 GB không nằm trong Git)
+# → lấy thẳng từ website thật.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^wp-content/uploads/(.*)$ https://qpholdings.vn/wp-content/uploads/$1 [R=302,L]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
+# END WordPress

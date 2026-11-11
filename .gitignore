@@ -1,5 +1,7 @@
-# Repo chỉ theo dõi CODE TỰ VIẾT của QP Holdings.
-# Lõi WordPress, plugin bên thứ ba, uploads, database, wp-config.php KHÔNG nằm trong git.
+# Repo chứa đủ để clone về là chạy được trên máy dev (XAMPP):
+#   lõi WordPress, plugin, theme, wp-config.php + .htaccess bản DEV, database đã làm sạch.
+# KHÔNG chứa: ảnh uploads (~5,5 GB — .htaccess dev tự lấy ảnh từ qpholdings.vn), cache, log, backup,
+#   wp-config-local.php (cấu hình riêng từng máy).
 # Cách làm: bỏ qua tất cả, rồi "mở" (!) từng đường dẫn cần theo dõi.
 
 /*
@@ -13,26 +15,40 @@
 !/docs/
 !/tools/
 !/bin/
+!/database/
 !/.claude/
 !/.gemini/
-!/wp-content/
 
+# Lõi WordPress + cấu hình dev
+!/wp-admin/
+!/wp-includes/
+!/index.php
+!/wp-*.php
+!/xmlrpc.php
+!/license.txt
+!/readme.html
+!/favicon.ico
+!/.htaccess
+# Cấu hình riêng từng máy (khớp mẫu wp-*.php ở trên nên phải chặn lại)
+/wp-config-local.php
+
+!/wp-content/
 /wp-content/*
+!/wp-content/index.php
 !/wp-content/themes/
 !/wp-content/plugins/
 !/wp-content/mu-plugins/
+!/wp-content/languages/
 
 /wp-content/themes/*
+!/wp-content/themes/index.php
 !/wp-content/themes/qp-holdings/
 
-/wp-content/plugins/*
-!/wp-content/plugins/qp-llm-translate/
+# Plugin: lấy tất cả, trừ bản trả phí không dùng và thư mục tắt cũ
+/wp-content/plugins/duplicator-pro/
+/wp-content/plugins/polylang_off/
 
-/wp-content/mu-plugins/*
-!/wp-content/mu-plugins/qpholdings-admin-branding.php
-!/wp-content/mu-plugins/qpholdings-admin-branding/
-
-# Rác trong code tự viết
+# Rác
 .deploy-backups/
 .seo-deploy-backup-*/
 *.tmp-*

@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: n/a\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: n/a\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#: Service.php:128
+msgid "No such plugin slug available."
+msgstr ""
+
+#: WelcomePage.php:62
+msgid "Learn more about this plugin"
+msgstr ""
+
+#: WelcomePage.php:69 WelcomePage.php:166
+msgid "Support"
+msgstr ""
+
+#: WelcomePage.php:74 WelcomePage.php:169
+msgid "Rate plugin"
+msgstr ""
+
+#: WelcomePage.php:158
+msgid "Version"
+msgstr ""
+
+#: WelcomePage.php:163
+msgid "Info"
+msgstr ""
+
+#: WelcomePage.php:177
+msgid "Key feature"
+msgid_plural "Key features"
+msgstr[0] ""
+msgstr[1] ""
+
+#: WelcomePage.php:253
+msgid "Additional plugins by devowl.io"
+msgstr ""
+
+#: WelcomePage.php:334
+msgid "Available in"
+msgstr ""

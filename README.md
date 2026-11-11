@@ -2,34 +2,43 @@
 
 Website WordPress của QP Holdings (https://qpholdings.vn).
 
-Repo chứa code tự viết: theme `qp-holdings`, plugin `qp-llm-translate`, mu-plugin branding admin.
-Lõi WordPress, plugin bên thứ ba, ảnh uploads, database và `wp-config.php` **không** nằm trong repo.
+## 👉 Chạy trên máy local (Windows + XAMPP)
+
+```powershell
+cd C:\xampp\htdocs
+git clone https://github.com/git-Ringnet/QP-Holdings.git qpholdings
+```
+
+1. phpMyAdmin → tạo database **`qpholdings`** (`utf8mb4_unicode_ci`) → **Import** file `database\qpholdings.sql.gz`.
+2. Mở <http://localhost/qpholdings> — quản trị: **`admin` / `admin123`**.
+
+Chi tiết, lỗi thường gặp: **[docs/CAI-DAT-LOCAL.md](docs/CAI-DAT-LOCAL.md)**.
+
+## Repo có gì
+
+| Đường dẫn | Nội dung |
+|---|---|
+| `wp-content/themes/qp-holdings/` | Theme tự viết |
+| `wp-content/plugins/qp-auto-translate/` | Plugin dịch tự động (Google Cloud Translation NMT) — đang phát triển |
+| `wp-content/plugins/qp-llm-translate/` | Plugin dịch cũ (đang chạy trên website thật) |
+| `wp-content/plugins/*` (còn lại), `wp-admin/`, `wp-includes/` | Lõi WordPress và plugin bên thứ ba — **không sửa** |
+| `wp-config.php`, `.htaccess` | Cấu hình **dành cho máy dev** — không upload lên hosting |
+| `database/qpholdings.sql.gz` | Database dev đã làm sạch (không có dữ liệu cá nhân, mật khẩu `admin123`) |
+| `tools/` | Đóng gói deploy, làm sạch database, khôi phục từ backup |
+
+Không có trong repo: ảnh uploads (~5,5 GB — bản dev tự lấy ảnh từ qpholdings.vn), cache, log, `wp-config-local.php`.
 
 ## Dùng với AI (Claude Code / Gemini CLI)
 
-Mở thư mục dự án bằng Claude Code hoặc Gemini CLI — AI tự đọc `AGENTS.md` (qua `CLAUDE.md` / `GEMINI.md`).
+Mở thư mục dự án bằng Claude Code hoặc Gemini CLI — AI tự đọc `AGENTS.md`.
 
-| Việc | Claude Code | Gemini CLI |
-|---|---|---|
-| Cài đặt chạy local sau khi clone | `/qp-setup-local` | `/qp-setup-local` |
-| Đưa bản sửa lên hosting Plesk | `/qp-deploy` | `/qp-deploy` |
-
-Hoặc nói thẳng: "setup dự án này chạy local", "deploy bản sửa lên hosting".
-
-## Làm thủ công
-
-- Cài đặt local: [docs/ai/setup-local.md](docs/ai/setup-local.md)
-- Deploy lên Plesk: [docs/ai/deploy-plesk.md](docs/ai/deploy-plesk.md)
-
-Trước khi bắt đầu, cần xin người quản lý **file backup Plesk** (`backup_qpholdings.vn_<số>.tar`), rồi chạy:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File tools\restore-plesk-backup.ps1 -Backup "<đường dẫn file .tar>"
-```
-
-Script dựng sẵn site local tại `http://localhost/qpholdings` (cần XAMPP đang bật Apache + MySQL, ~7 GB ổ trống).
+| Việc | Lệnh |
+|---|---|
+| Cài đặt chạy local | `/qp-setup-local` |
+| Đưa bản sửa lên hosting Plesk | `/qp-deploy` |
 
 ## Quy tắc quan trọng
 
-Website thật đăng bài + video hằng ngày → **chỉ deploy code**, không bao giờ đưa database hay `uploads/` từ local lên
-production. Chi tiết trong [AGENTS.md](AGENTS.md).
+Website thật đăng bài + video hằng ngày → **chỉ deploy code theme/plugin tự viết** (công cụ `tools/make-deploy-zip.ps1`).
+Không bao giờ đưa database, ảnh, `wp-config.php` hay `.htaccess` từ local lên hosting.
+Quy trình: [docs/ai/deploy-plesk.md](docs/ai/deploy-plesk.md).

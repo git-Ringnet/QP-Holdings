@@ -5,18 +5,27 @@ Trả lời người dùng bằng **tiếng Việt**.
 
 ## Dự án là gì
 
-Website WordPress của QP Holdings (qpholdings.vn). Repo này **chỉ chứa code tự viết**:
+Website WordPress của QP Holdings (qpholdings.vn). Repo chứa đủ để clone về là chạy trên máy dev
+(lõi WordPress, plugin, cấu hình dev, database đã làm sạch). **Code tự viết** — chỉ những thứ này được sửa và deploy:
 
 | Đường dẫn | Nội dung |
 |---|---|
 | `wp-content/themes/qp-holdings/` | Theme classic tự viết (toàn bộ giao diện, CPT, ACF fields, SEO, editor TinyMCE mở rộng) |
-| `wp-content/plugins/qp-llm-translate/` | Plugin tự viết: dịch bài Tin tức sang EN/ZH bằng DeepSeek / OpenAI / Gemini, chạy nền qua WP-Cron |
+| `wp-content/plugins/qp-auto-translate/` | **Plugin dịch theo hợp đồng (đang phát triển)**: Google Cloud Translation NMT, đếm ký tự theo tháng, giới hạn 500.000 ký tự + cảnh báo 80%. Cài đặt → Dịch tự động. API key có thể khai báo `QPAT_GOOGLE_API_KEY` trong wp-config.php |
+| `wp-content/plugins/qp-llm-translate/` | Plugin dịch cũ (Gemini/DeepSeek/OpenAI) đang chạy trên production — sẽ được thay bằng `qp-auto-translate`. Không bật cả hai cùng lúc khi plugin mới đã có tự dịch khi đăng bài |
 | `wp-content/mu-plugins/qpholdings-admin-branding*` | Must-use plugin: branding trang admin |
 | `bin/` | Script import dữ liệu một lần (tài liệu nhà đầu tư) |
 | `tools/` | Script hỗ trợ deploy |
 | `docs/ai/` | Quy trình chi tiết cho agent |
 
-**Không có trong git** (phải lấy riêng): lõi WordPress, plugin bên thứ ba, `wp-content/uploads/` (~5.5 GB), database, `wp-config.php` (chứa mật khẩu — tuyệt đối không commit).
+**Có trong git nhưng KHÔNG sửa, KHÔNG deploy:**
+- `wp-admin/`, `wp-includes/`, file `.php` gốc, plugin bên thứ ba trong `wp-content/plugins/` — giống hệt production.
+- `wp-config.php`, `.htaccess` — **bản dành cho máy dev** (DB `qpholdings`/root, ảnh thiếu tự lấy từ qpholdings.vn).
+  Cấu hình riêng từng máy để trong `wp-config-local.php` (không commit). Production có wp-config/.htaccess riêng.
+- `database/qpholdings.sql.gz` — database dev đã làm sạch bằng `tools/sanitize-dev-db.php` (xem `database/README.md`).
+  **Không bao giờ** commit dump production chưa làm sạch.
+
+**Không có trong git:** `wp-content/uploads/` (~5.5 GB), cache, log, `wp-config-local.php`.
 
 ## Môi trường
 
@@ -27,7 +36,8 @@ Website WordPress của QP Holdings (qpholdings.vn). Repo này **chỉ chứa co
 - Plugin đang **bật trên production**: ACF, Classic Editor, Polylang, Rank Math SEO, Safe SVG, Real Media Library Lite,
   FluentSMTP, LiteSpeed Cache, Wordfence, WP Security Audit Log, QP LLM Translate.
   Có cài nhưng tắt: Contact Form 7, Flamingo, Duplicator Pro (trả phí), Go Live Update URLs.
-- Dữ liệu gốc để dựng local: file backup Plesk `backup_qpholdings.vn_<số>.tar` → `tools/restore-plesk-backup.ps1`.
+- Dựng local: clone → tạo DB `qpholdings` → import `database/qpholdings.sql.gz` (xem `docs/CAI-DAT-LOCAL.md`).
+  Tài khoản dev: `admin` / `admin123`. Cần dữ liệu mới hơn: backup Plesk mới → làm lại theo `database/README.md`.
 
 ## Quy trình
 
