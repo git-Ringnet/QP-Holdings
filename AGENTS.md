@@ -13,6 +13,7 @@ Website WordPress của QP Holdings (qpholdings.vn). Repo chứa đủ để clo
 | `wp-content/themes/qp-holdings/` | Theme classic tự viết (toàn bộ giao diện, CPT, ACF fields, SEO, editor TinyMCE mở rộng) |
 | `wp-content/plugins/qp-auto-translate/` | **Plugin dịch theo hợp đồng (đang phát triển)**: Google Cloud Translation NMT, đếm ký tự theo tháng, giới hạn 500.000 ký tự + cảnh báo 80%. Cài đặt → Dịch tự động. API key có thể khai báo `QPAT_GOOGLE_API_KEY` trong wp-config.php |
 | `wp-content/plugins/qp-llm-translate/` | Plugin dịch cũ (Gemini/DeepSeek/OpenAI) đang chạy trên production — sẽ được thay bằng `qp-auto-translate`. Không bật cả hai cùng lúc khi plugin mới đã có tự dịch khi đăng bài |
+| `wp-content/plugins/qp-webp-convert/` | **Plugin chuyển ảnh sang WebP** (nghiệm thu tab "2. Ảnh WebP"): tự chuyển JPG/PNG khi tải lên, chuyển hàng loạt ảnh cũ, phát bằng `<picture>`, giữ ảnh gốc (file `anh.jpg.webp` nằm cạnh). Media → Chuyển WebP. Test: `php tests/unit/run.php` và Playwright ở `tests/e2e/` (xem `docs/NGHIEM-THU-WEBP.md`) |
 | `wp-content/mu-plugins/qpholdings-admin-branding*` | Must-use plugin: branding trang admin |
 | `bin/` | Script import dữ liệu một lần (tài liệu nhà đầu tư) |
 | `tools/` | Script hỗ trợ deploy |
