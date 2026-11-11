@@ -11,10 +11,10 @@
  * Máy bạn cấu hình khác? Tạo file wp-config-local.php (không đưa lên Git) và chỉ khai báo phần khác, ví dụ:
  *
  *   <?php
- *   define( 'DB_NAME', 'ten_database_khac' );
- *   define( 'DB_PASSWORD', 'mat-khau' );
- *   define( 'WP_HOME', 'http://localhost/ten-thu-muc-khac' );
- *   define( 'WP_SITEURL', 'http://localhost/ten-thu-muc-khac' );
+ *   define( 'DB_NAME', 'qph90680_db' );
+ *   define( 'DB_PASSWORD', '' );
+ *   define( 'WP_HOME', 'http://localhost/QP-Holdings' );
+ *   define( 'WP_SITEURL', 'http://localhost/QP-Holdings' );
  *
  * (wp-config-local.php cũng có thể là một wp-config.php đầy đủ — khi đó nó được dùng toàn bộ.)
  */
