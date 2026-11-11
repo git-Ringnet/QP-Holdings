@@ -76,6 +76,7 @@ $DeployPaths = @(
     'wp-content/themes/qp-holdings',
     'wp-content/plugins/qp-auto-translate',
     'wp-content/plugins/qp-llm-translate',
+    'wp-content/plugins/qp-webp-convert',
     'wp-content/mu-plugins/qpholdings-admin-branding.php',
     'wp-content/mu-plugins/qpholdings-admin-branding'
 )
