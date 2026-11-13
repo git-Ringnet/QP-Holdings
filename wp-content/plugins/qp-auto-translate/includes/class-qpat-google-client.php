@@ -28,6 +28,8 @@ final class QPAT_Google_Client {
 	/**
 	 * Translate a list of HTML/text segments. Keys are preserved.
 	 *
+	 * $format: 'html' (markup kept) or 'text' (plain text, line breaks kept).
+	 *
 	 * Characters are checked against the monthly limit BEFORE calling Google and
 	 * recorded AFTER a successful response.
 	 *
@@ -36,7 +38,8 @@ final class QPAT_Google_Client {
 	 * @throws QPAT_Quota_Exception When the monthly limit would be exceeded.
 	 * @throws RuntimeException     On configuration or API errors.
 	 */
-	public static function translate( array $segments, string $target, string $source = 'vi' ): array {
+	public static function translate( array $segments, string $target, string $source = 'vi', string $format = 'html' ): array {
+		$format = 'text' === $format ? 'text' : 'html';
 		$key = QPAT_Settings::api_key();
 		if ( '' === $key ) {
 			throw new RuntimeException( 'Chưa nhập Google Cloud API key.' );
@@ -75,7 +78,7 @@ final class QPAT_Google_Client {
 		}
 
 		foreach ( self::chunk( $pending ) as $batch ) {
-			$translated = self::request( array_values( $batch ), self::LANG_MAP[ $target ], self::LANG_MAP[ $source ], $key );
+			$translated = self::request( array_values( $batch ), self::LANG_MAP[ $target ], self::LANG_MAP[ $source ], $key, $format );
 			$chars      = 0;
 			$i          = 0;
 			foreach ( $batch as $k => $text ) {
@@ -126,7 +129,7 @@ final class QPAT_Google_Client {
 	 * @param string[] $texts
 	 * @return string[]
 	 */
-	private static function request( array $texts, string $target, string $source, string $key ): array {
+	private static function request( array $texts, string $target, string $source, string $key, string $format = 'html' ): array {
 		$response = wp_remote_post(
 			add_query_arg( 'key', rawurlencode( $key ), self::ENDPOINT ),
 			array(
@@ -137,7 +140,7 @@ final class QPAT_Google_Client {
 						'q'      => $texts,
 						'source' => $source,
 						'target' => $target,
-						'format' => 'html',
+						'format' => $format,
 						'model'  => 'nmt',
 					)
 				),

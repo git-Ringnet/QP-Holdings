@@ -1,0 +1,47 @@
+/* QP Auto Translate – edit screen box and progress toast. */
+.qpat-family{margin:0 0 10px;padding:0;list-style:none}
+.qpat-family li{margin:4px 0;line-height:1.5}
+.qpat-lang{display:inline-block;min-width:26px;padding:0 5px;border-radius:3px;background:#193660;color:#fff;font-size:11px;font-weight:600;text-align:center}
+.qpat-muted{color:#757575}
+.qpat-jobs{margin:8px 0 0;padding-left:16px;list-style:disc}
+.qpat-jobs li{margin:3px 0}
+.qpat-queue-status{margin-top:6px}
+.qpat-queue-status.is-ok{color:#0a7a28}
+.qpat-queue-status.is-err{color:#b32d2e}
+.qpat-actions .button{margin:0 4px 4px 0}
+.qpat-meta{margin:6px 0;line-height:1.6}
+.qpat-warn{color:#b26200}
+.qpat-state{display:inline-block;padding:0 6px;border-radius:999px;font-size:11px;line-height:18px;background:#f0f0f1;color:#50575e;white-space:nowrap}
+.qpat-state--auto,.qpat-state--approved{background:#e7f5ea;color:#0a7a28}
+.qpat-state--edited{background:#e8f0fb;color:#1d4f91}
+.qpat-state--review,.qpat-state--outdated{background:#fcf0e0;color:#8a4b00}
+.qpat-state--error,.qpat-state--paused{background:#fbe9e9;color:#b32d2e}
+.qpat-state--queued,.qpat-state--running{background:#fff8e1;color:#7a5b00}
+.qpat-review{margin:8px 0;padding:8px;border-left:3px solid #dba617;background:#fffbf0}
+.qpat-review__item{margin:8px 0;padding-top:8px;border-top:1px solid #f0e2c0}
+.qpat-review__item:first-of-type{border-top:0;padding-top:0}
+.qpat-review__item p{margin:4px 0;overflow-wrap:anywhere}
+.qpat-review__lbl{display:block;font-size:11px;font-weight:600;color:#757575;text-transform:uppercase;letter-spacing:.03em}
+
+.qpat-toast{position:fixed;right:20px;bottom:20px;z-index:100000;width:min(360px,calc(100vw - 32px));background:#193660;color:#fff;border-radius:14px;box-shadow:0 16px 40px rgba(25,54,96,.28);overflow:hidden;font:13px/1.45 system-ui,sans-serif;animation:qpat-in .28s ease}
+.qpat-toast[hidden]{display:none!important}
+.qpat-toast.is-out{animation:qpat-out .26s ease forwards}
+.qpat-toast__bar{height:3px;background:linear-gradient(90deg,#d3a049,#ffdda4)}
+.qpat-toast.is-err .qpat-toast__bar{background:#d63638}
+.qpat-toast.is-done .qpat-toast__bar{background:#46b450}
+.qpat-toast__body{display:flex;gap:10px;align-items:flex-start;padding:12px 14px 14px}
+.qpat-toast__spin{flex:0 0 16px;width:16px;height:16px;margin-top:3px;border:2px solid rgba(255,255,255,.28);border-top-color:#ffdda4;border-radius:50%}
+.qpat-toast.is-busy .qpat-toast__spin{animation:qpat-spin .7s linear infinite}
+.qpat-toast.is-done .qpat-toast__spin,.qpat-toast.is-err .qpat-toast__spin{display:none}
+.qpat-toast__copy{flex:1;min-width:0}
+.qpat-toast__title{display:block;font-size:14px;margin-bottom:4px}
+.qpat-toast__jobs{margin:0;padding:0;list-style:none;opacity:.92}
+.qpat-toast__jobs li{margin:2px 0;overflow-wrap:anywhere}
+.qpat-toast__lang{display:inline-block;min-width:28px;padding:0 6px;border-radius:999px;background:rgba(255,221,164,.18);color:#ffdda4;font-size:11px;font-weight:700;letter-spacing:.04em;text-align:center}
+.qpat-toast__post{opacity:.88}
+.qpat-toast__close{appearance:none;border:0;background:transparent;color:#fff;font-size:20px;line-height:1;padding:0 2px;cursor:pointer;opacity:.7}
+.qpat-toast__close:hover,.qpat-toast__close:focus{opacity:1}
+@keyframes qpat-spin{to{transform:rotate(360deg)}}
+@keyframes qpat-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes qpat-out{to{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.qpat-toast,.qpat-toast.is-out,.qpat-toast.is-busy .qpat-toast__spin{animation:none}}
