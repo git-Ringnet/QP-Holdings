@@ -41,6 +41,79 @@ final class QPAT_Admin {
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 		add_action( 'update_option_' . QPAT_Settings::OPTION, array( $this, 'settings_changed' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( QPAT_FILE ), array( $this, 'action_links' ) );
+		add_action( 'admin_init', array( $this, 'register_list_columns' ) );
+	}
+
+	// ------------------------------------------------------------------ Cột "Bản dịch" ở danh sách bài
+
+	/** Show, in Tin tức / Trang / … lists, which VI / EN / ZH posts belong together. */
+	public function register_list_columns(): void {
+		foreach ( QPAT_Settings::get()['post_types'] as $type ) {
+			add_filter( "manage_{$type}_posts_columns", array( $this, 'add_list_column' ) );
+			add_action( "manage_{$type}_posts_custom_column", array( $this, 'render_list_column' ), 10, 2 );
+		}
+	}
+
+	public function add_list_column( array $columns ): array {
+		$out = array();
+		foreach ( $columns as $key => $label ) {
+			$out[ $key ] = $label;
+			if ( 'title' === $key ) {
+				$out['qpat_family'] = 'Bản dịch';
+			}
+		}
+		if ( ! isset( $out['qpat_family'] ) ) {
+			$out['qpat_family'] = 'Bản dịch';
+		}
+		return $out;
+	}
+
+	public function render_list_column( string $column, int $post_id ): void {
+		if ( 'qpat_family' !== $column ) {
+			return;
+		}
+		$family  = QPAT_Sync::family( $post_id );
+		$source  = isset( $family['vi'] ) ? get_post( (int) $family['vi'] ) : null;
+		$is_copy = QPAT_Sync::is_translation_copy( $post_id ) || ( $source && (int) $source->ID !== $post_id );
+		$labels  = array(
+			'vi' => 'VI',
+			'en' => 'EN',
+			'zh' => 'ZH',
+		);
+
+		echo '<ul class="qpat-family qpat-family--list">';
+		foreach ( $labels as $lang => $label ) {
+			$id = (int) ( $family[ $lang ] ?? 0 );
+			if ( $id === $post_id ) {
+				continue;
+			}
+			if ( 'vi' === $lang && ! $is_copy ) {
+				continue;
+			}
+			echo '<li><span class="qpat-lang">' . esc_html( $label ) . '</span> ';
+			if ( $id ) {
+				$p = get_post( $id );
+				printf(
+					'<a href="%s" title="%s">%s</a>%s',
+					esc_url( (string) get_edit_post_link( $id ) ),
+					esc_attr( get_the_title( $id ) ),
+					esc_html( wp_html_excerpt( get_the_title( $id ) ?: '(không tiêu đề)', 60, '…' ) ),
+					$p && 'publish' !== $p->post_status ? ' <span class="qpat-muted">(' . esc_html( (string) get_post_status_object( $p->post_status )->label ) . ')</span>' : ''
+				);
+			} else {
+				echo '<span class="qpat-muted">chưa có</span>';
+			}
+			if ( 'vi' === $lang ) {
+				echo ' <span class="qpat-muted">— bài gốc</span>';
+			} elseif ( ! $is_copy && $source ) {
+				$st = QPAT_Status::lang_state( $source, $lang );
+				if ( $id || 'none' !== $st['state'] ) {
+					echo ' <span class="qpat-state qpat-state--' . esc_attr( $st['state'] ) . '">' . esc_html( QPAT_Status::label( $st['state'] ) ) . '</span>';
+				}
+			}
+			echo '</li>';
+		}
+		echo '</ul>';
 	}
 
 	public static function url( string $page = self::PAGE, array $args = array() ): string {
@@ -330,6 +403,12 @@ final class QPAT_Admin {
 		$badge = '<span class="qpat-state qpat-state--' . esc_attr( $st['state'] ) . '">' . esc_html( QPAT_Status::label( $st['state'] ) ) . '</span>';
 		if ( $st['copy_id'] ) {
 			echo '<a href="' . esc_url( (string) get_edit_post_link( $st['copy_id'] ) ) . '">' . $badge . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput
+			printf(
+				'<br><a href="%s" class="qpat-copy-title" title="%s">%s</a>',
+				esc_url( (string) get_edit_post_link( $st['copy_id'] ) ),
+				esc_attr( get_the_title( $st['copy_id'] ) ),
+				esc_html( wp_html_excerpt( get_the_title( $st['copy_id'] ) ?: '(không tiêu đề)', 70, '…' ) )
+			);
 		} else {
 			echo $badge; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
