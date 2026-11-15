@@ -210,7 +210,12 @@ function qp_holdings_gallery_reorder_ajax(): void {
 			continue;
 		}
 		$position += 10;
-		wp_update_post( array( 'ID' => $post_id, 'menu_order' => $position ) );
+		if ( function_exists( 'qp_holdings_set_menu_order' ) ) {
+			// Order only: no save hooks, no change to "last modified" (inc/admin-order.php).
+			qp_holdings_set_menu_order( (int) $post_id, $position );
+		} else {
+			wp_update_post( array( 'ID' => $post_id, 'menu_order' => $position ) );
+		}
 	}
 
 	wp_send_json_success( array( 'message' => 'Đã lưu thứ tự mới.' ) );

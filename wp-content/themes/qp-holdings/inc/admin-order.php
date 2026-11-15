@@ -21,6 +21,23 @@ function qp_holdings_ordered_post_types(): array {
 	);
 }
 
+/**
+ * Save only the display order of a post.
+ *
+ * Not wp_update_post(): that fires the save hooks, so the translation plugin
+ * treated every reordered post as edited (queued it again, showed a long
+ * "Bỏ qua…" toast) and post_modified changed, which marked the EN / ZH copies
+ * "Cần cập nhật" although no text changed.
+ */
+function qp_holdings_set_menu_order( int $post_id, int $order ): void {
+	global $wpdb;
+	if ( (int) get_post_field( 'menu_order', $post_id ) === $order ) {
+		return;
+	}
+	$wpdb->update( $wpdb->posts, array( 'menu_order' => $order ), array( 'ID' => $post_id ), array( '%d' ), array( '%d' ) );
+	clean_post_cache( $post_id );
+}
+
 /** Vietnamese original of a translated copy (the post itself otherwise). */
 function qp_holdings_order_source_post( WP_Post $post ): WP_Post {
 	$source_id = (int) get_post_meta( $post->ID, '_qp_llm_source_id', true );
@@ -110,12 +127,16 @@ function qp_holdings_order_admin_notice(): void {
 	$toggle = $all
 		? remove_query_arg( 'qp_all_langs' )
 		: add_query_arg( 'qp_all_langs', 1 );
+	$groups = 'qp_project' === $screen->post_type
+		? '<br>Trang Dự án chia <strong>2 nhóm</strong>: “Đang triển khai” ở trên, “Hợp tác đầu tư &amp; phát triển” ở dưới (xem cột “Nhóm trên trang Dự án”). Thứ tự áp dụng <strong>trong từng nhóm</strong>; muốn chuyển dự án sang nhóm khác, sửa <strong>Trạng thái dự án</strong> trong bài (“Đang triển khai” = nhóm trên).'
+		: '';
 	printf(
-		'<div class="notice notice-info"><p><strong>Sắp xếp thứ tự %1$s:</strong> giữ chuột vào một dòng rồi <strong>kéo lên / xuống</strong>, thả ra là thứ tự được lưu ngay và áp dụng cho website (cả tiếng Anh, tiếng Trung). %2$s <a href="%3$s">%4$s</a></p></div>',
+		'<div class="notice notice-info"><p><strong>Sắp xếp thứ tự %1$s:</strong> giữ chuột vào một dòng rồi <strong>kéo lên / xuống</strong>, thả ra là thứ tự được lưu ngay và áp dụng cho website (cả tiếng Anh, tiếng Trung). %2$s <a href="%3$s">%4$s</a>%5$s</p></div>',
 		esc_html( $label ),
 		$all ? 'Đang hiện cả bản tiếng Anh, tiếng Trung.' : 'Danh sách đang hiện bài tiếng Việt.',
 		esc_url( $toggle ),
-		$all ? 'Chỉ hiện bài tiếng Việt' : 'Hiện cả bản tiếng Anh, tiếng Trung'
+		$all ? 'Chỉ hiện bài tiếng Việt' : 'Hiện cả bản tiếng Anh, tiếng Trung',
+		$groups // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static HTML above.
 	);
 }
 add_action( 'admin_notices', 'qp_holdings_order_admin_notice' );
@@ -148,7 +169,15 @@ function qp_holdings_order_list_columns( array $columns ): array {
 		unset( $columns['cb'] );
 	}
 	$out[ $order_key ] = $label;
-	return $out + $columns;
+	$group             = $columns['qp_project_group'] ?? null;
+	unset( $columns['qp_project_group'] );
+	foreach ( $columns as $key => $col_label ) {
+		$out[ $key ] = $col_label;
+		if ( 'title' === $key && null !== $group ) {
+			$out['qp_project_group'] = $group;
+		}
+	}
+	return $out;
 }
 
 function qp_holdings_order_register_list_columns(): void {
@@ -169,6 +198,10 @@ function qp_holdings_order_list_styles( string $hook ): void {
 		. '.column-qp_project_order .dashicons,.column-qp_gallery_order .dashicons{font-size:26px;width:26px;height:26px;color:#D3A049!important;cursor:grab!important}'
 		. '#the-list tr:hover .column-qp_project_order .dashicons,#the-list tr:hover .column-qp_gallery_order .dashicons{color:#193660!important}'
 		. '.column-qp_project_order>span:last-child,.column-qp_gallery_order>span:last-child{display:block;font-size:11px}'
+		. '.column-qp_project_group{width:170px}'
+		. '.qp-project-group{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;line-height:18px;white-space:nowrap}'
+		. '.qp-project-group--in_progress{background:#e7f5ea;color:#0a7a28}'
+		. '.qp-project-group--investment_development{background:#e8f0fb;color:#1d4f91}'
 	);
 }
 add_action( 'admin_enqueue_scripts', 'qp_holdings_order_list_styles' );
@@ -177,8 +210,17 @@ add_action( 'admin_enqueue_scripts', 'qp_holdings_order_list_styles' );
  * Dự án: order column + drag-and-drop (gallery has its own in dynamic-gallery.php)
  * ---------------------------------------------------------------------- */
 
+/** The two groups of the Dự án page (qp_holdings_project_archive_section()). */
+function qp_holdings_project_group_labels(): array {
+	return array(
+		'in_progress'            => 'Đang triển khai',
+		'investment_development' => 'Hợp tác đầu tư & phát triển',
+	);
+}
+
 function qp_holdings_project_order_column( array $columns ): array {
 	$columns['qp_project_order'] = 'Thứ tự';
+	$columns['qp_project_group'] = 'Nhóm trên trang Dự án';
 	return $columns;
 }
 add_filter( 'manage_qp_project_posts_columns', 'qp_holdings_project_order_column' );
@@ -186,6 +228,18 @@ add_filter( 'manage_qp_project_posts_columns', 'qp_holdings_project_order_column
 function qp_holdings_project_order_column_content( string $column, int $post_id ): void {
 	if ( 'qp_project_order' === $column ) {
 		echo '<span class="dashicons dashicons-menu" style="color:#8c8f94;cursor:move" aria-hidden="true"></span> <span style="color:#8c8f94">' . (int) get_post_field( 'menu_order', $post_id ) . '</span>';
+	}
+	if ( 'qp_project_group' === $column ) {
+		$post    = get_post( $post_id );
+		$section = ( $post && function_exists( 'qp_holdings_project_archive_section' ) ) ? qp_holdings_project_archive_section( $post ) : '';
+		$labels  = qp_holdings_project_group_labels();
+		if ( isset( $labels[ $section ] ) ) {
+			printf(
+				'<span class="qp-project-group qp-project-group--%1$s">%2$s</span>',
+				esc_attr( $section ),
+				esc_html( $labels[ $section ] )
+			);
+		}
 	}
 }
 add_action( 'manage_qp_project_posts_custom_column', 'qp_holdings_project_order_column_content', 10, 2 );
@@ -263,12 +317,7 @@ function qp_holdings_project_reorder_ajax(): void {
 			continue;
 		}
 		$position += 10;
-		wp_update_post(
-			array(
-				'ID'         => $post_id,
-				'menu_order' => $position,
-			)
-		);
+		qp_holdings_set_menu_order( (int) $post_id, $position );
 	}
 	wp_send_json_success( array( 'message' => 'Đã lưu thứ tự mới.' ) );
 }
@@ -347,12 +396,7 @@ function qp_holdings_project_order_seed(): void {
 	$n = 0;
 	foreach ( array_keys( $weights ) as $id ) {
 		$n += 10;
-		wp_update_post(
-			array(
-				'ID'         => $id,
-				'menu_order' => $n,
-			)
-		);
+		qp_holdings_set_menu_order( (int) $id, $n );
 	}
 }
 add_action( 'admin_init', 'qp_holdings_project_order_seed' );
