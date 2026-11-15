@@ -879,6 +879,111 @@ html {
 	}
 }
 
+/* ── Cookie popup, compact (yêu cầu #9): small card in the bottom-left corner
+   instead of a full-width banner, so it no longer covers the page on first
+   visit. Buttons stay in one row (Từ chối / Tùy chỉnh / Chấp nhận). ── */
+.cookie-consent {
+	left: 24px;
+	right: auto;
+	bottom: max(24px, env(safe-area-inset-bottom));
+	align-items: stretch;
+	gap: 10px;
+	width: min(420px, calc(100vw - 48px));
+	max-height: calc(100vh - 48px);
+	max-height: calc(100dvh - 48px);
+	padding: 16px 18px;
+	border: 1px solid #F1E4CB;
+	border-radius: 12px;
+	box-shadow: 0 10px 32px rgba(25, 54, 96, 0.16);
+	overflow-y: auto;
+	transform: translate(0, 12px);
+}
+
+.cookie-consent.is-visible {
+	animation-name: qp-cookie-compact-in;
+}
+
+.cookie-consent.is-dismissing {
+	animation-name: qp-cookie-compact-out;
+}
+
+@keyframes qp-cookie-compact-in {
+	from { opacity: 0; transform: translate(0, 12px); }
+	to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes qp-cookie-compact-out {
+	from { opacity: 1; transform: translate(0, 0); }
+	to { opacity: 0; transform: translate(0, 8px); }
+}
+
+.cookie-consent__copy,
+.cookie-consent__link {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.cookie-consent__copy p {
+	display: inline;
+	margin: 0 4px 0 0;
+}
+
+.cookie-consent__settings {
+	grid-template-columns: 1fr;
+	gap: 8px;
+	padding: 8px;
+	border-radius: 10px;
+}
+
+.cookie-consent__option {
+	padding: 8px 10px;
+}
+
+.cookie-consent__actions,
+.cookie-consent__actions[class] {
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: nowrap;
+	gap: 6px;
+}
+
+.cookie-consent__button,
+.cookie-consent__button[class] {
+	width: auto;
+	min-height: 36px;
+	padding: 7px 12px;
+	font-size: 14px;
+	order: 0;
+}
+
+@media (max-width: 640px) {
+	.cookie-consent {
+		left: 12px;
+		right: 12px;
+		bottom: max(12px, env(safe-area-inset-bottom));
+		width: auto;
+		padding: 12px 14px;
+	}
+
+	.cookie-consent__copy,
+	.cookie-consent__link {
+		font-size: 13px;
+	}
+
+	.cookie-consent__button,
+	.cookie-consent__button[class] {
+		flex: 1 1 auto;
+		padding: 7px 8px;
+		font-size: 13px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cookie-consent.is-visible {
+		transform: none;
+	}
+}
+
 /* ══════════════════════════════════════════
    HEADER NAV — Investor dropdown submenu
    ══════════════════════════════════════════ */

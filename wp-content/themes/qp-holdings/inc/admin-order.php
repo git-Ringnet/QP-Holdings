@@ -120,6 +120,59 @@ function qp_holdings_order_admin_notice(): void {
 }
 add_action( 'admin_notices', 'qp_holdings_order_admin_notice' );
 
+/**
+ * Make the drag handle easy to find: "Thứ tự" becomes the first column, and
+ * the Rank Math SEO columns are dropped on these two lists (their keyword
+ * list made every project row about one screen tall, so rows could not be
+ * dragged). SEO details stay available in the edit screen.
+ * Runs on manage_edit-{type}_columns, after every plugin added its columns.
+ */
+function qp_holdings_order_list_columns( array $columns ): array {
+	$order_key = '';
+	foreach ( array( 'qp_project_order', 'qp_gallery_order' ) as $key ) {
+		if ( isset( $columns[ $key ] ) ) {
+			$order_key = $key;
+		}
+	}
+	foreach ( array( 'rank_math_seo_details', 'rank_math_title', 'rank_math_description' ) as $seo ) {
+		unset( $columns[ $seo ] );
+	}
+	if ( '' === $order_key ) {
+		return $columns;
+	}
+	$label = 'Kéo để sắp xếp';
+	unset( $columns[ $order_key ] );
+	$out = array();
+	if ( isset( $columns['cb'] ) ) {
+		$out['cb'] = $columns['cb'];
+		unset( $columns['cb'] );
+	}
+	$out[ $order_key ] = $label;
+	return $out + $columns;
+}
+
+function qp_holdings_order_register_list_columns(): void {
+	foreach ( array_keys( qp_holdings_ordered_post_types() ) as $type ) {
+		add_filter( "manage_edit-{$type}_columns", 'qp_holdings_order_list_columns', 999 );
+	}
+}
+add_action( 'admin_init', 'qp_holdings_order_register_list_columns' );
+
+/** Shared look of the drag handle column on both lists. */
+function qp_holdings_order_list_styles( string $hook ): void {
+	if ( 'edit.php' !== $hook || ! qp_holdings_order_is_list_screen() ) {
+		return;
+	}
+	wp_add_inline_style(
+		'wp-admin',
+		'.column-qp_project_order,.column-qp_gallery_order{width:96px;text-align:center}'
+		. '.column-qp_project_order .dashicons,.column-qp_gallery_order .dashicons{font-size:26px;width:26px;height:26px;color:#D3A049!important;cursor:grab!important}'
+		. '#the-list tr:hover .column-qp_project_order .dashicons,#the-list tr:hover .column-qp_gallery_order .dashicons{color:#193660!important}'
+		. '.column-qp_project_order>span:last-child,.column-qp_gallery_order>span:last-child{display:block;font-size:11px}'
+	);
+}
+add_action( 'admin_enqueue_scripts', 'qp_holdings_order_list_styles' );
+
 /* -------------------------------------------------------------------------
  * Dự án: order column + drag-and-drop (gallery has its own in dynamic-gallery.php)
  * ---------------------------------------------------------------------- */
