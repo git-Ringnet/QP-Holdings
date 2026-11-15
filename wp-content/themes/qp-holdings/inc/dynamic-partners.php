@@ -203,6 +203,71 @@ function qp_holdings_partner_logo_url( int $post_id ): string {
 	return qp_holdings_image_url( $logo, $post_id, 'large' );
 }
 
+/** Logos are shown ~160 px wide (120 px on phones): the 240 px variants cover 1.5× screens. */
+const QP_HOLDINGS_PARTNER_LOGO_SIZES = '(max-width: 640px) 120px, 160px';
+
+/**
+ * Small, light partner logo markup.
+ *
+ *   - Logo from the theme (seeded partners, e.g. assets/site/partner-7.png):
+ *     the responsive WebP / AVIF variants in assets/site/responsive/ instead
+ *     of the original PNG (some are 600 KB).
+ *   - Logo uploaded in the Media Library: a small WordPress size with srcset.
+ *   - Anything else: plain <img> with the stored URL.
+ */
+function qp_holdings_partner_logo_html( int $post_id, string $alt ): string {
+	$raw  = qp_holdings_acf_or_meta( $post_id, 'partner_logo', 'partner_logo' );
+	$args = array(
+		'alt'      => $alt,
+		'loading'  => 'lazy',
+		'decoding' => 'async',
+	);
+
+	// Theme asset (relative path or absolute URL inside the theme folder).
+	$relative = '';
+	if ( is_string( $raw ) && '' !== $raw ) {
+		$theme_uri = trailingslashit( get_template_directory_uri() );
+		if ( 0 === strpos( $raw, 'assets/' ) ) {
+			$relative = $raw;
+		} elseif ( 0 === strpos( $raw, $theme_uri ) ) {
+			$relative = substr( $raw, strlen( $theme_uri ) );
+		}
+	}
+	if ( '' !== $relative && function_exists( 'qp_holdings_theme_image_sources' ) && qp_holdings_theme_image_sources( $relative, 'webp' ) ) {
+		$pic = qp_holdings_theme_picture( $relative, $args, QP_HOLDINGS_PARTNER_LOGO_SIZES );
+		if ( '' !== $pic ) {
+			return $pic;
+		}
+	}
+
+	// Media Library image (ACF image array or attachment ID).
+	$attachment_id = 0;
+	if ( is_array( $raw ) && ! empty( $raw['ID'] ) ) {
+		$attachment_id = (int) $raw['ID'];
+	} elseif ( is_numeric( $raw ) ) {
+		$attachment_id = (int) $raw;
+	} elseif ( ! $raw ) {
+		$attachment_id = (int) get_post_thumbnail_id( $post_id );
+	}
+	if ( $attachment_id && ! qp_holdings_seed_media_attachment_url( $attachment_id ) && wp_attachment_is_image( $attachment_id ) ) {
+		$html = wp_get_attachment_image(
+			$attachment_id,
+			'medium',
+			false,
+			$args + array( 'sizes' => QP_HOLDINGS_PARTNER_LOGO_SIZES )
+		);
+		if ( '' !== $html ) {
+			return $html;
+		}
+	}
+
+	$url = qp_holdings_partner_logo_url( $post_id );
+	if ( '' === $url ) {
+		return '';
+	}
+	return sprintf( '<img src="%s" alt="%s" loading="lazy" decoding="async">', esc_url( $url ), esc_attr( $alt ) );
+}
+
 /**
  * Fetch published partners ordered by menu_order.
  *
@@ -231,17 +296,12 @@ function qp_holdings_render_partners_slides(): string {
 	if ( ! empty( $partners ) ) {
 		$slides = '';
 		foreach ( $partners as $partner ) {
-			$logo = qp_holdings_partner_logo_url( (int) $partner->ID );
-			if ( '' === $logo ) {
+			$name = get_the_title( $partner );
+			$img  = qp_holdings_partner_logo_html( (int) $partner->ID, $name );
+			if ( '' === $img ) {
 				continue;
 			}
-			$name = get_the_title( $partner );
-			$url  = (string) qp_holdings_acf_or_meta( (int) $partner->ID, 'partner_url', 'partner_url' );
-			$img  = sprintf(
-				'<img src="%s" alt="%s" loading="lazy" decoding="async">',
-				esc_url( $logo ),
-				esc_attr( $name )
-			);
+			$url = (string) qp_holdings_acf_or_meta( (int) $partner->ID, 'partner_url', 'partner_url' );
 			$inner = ( '' !== $url )
 				? sprintf(
 					'<a href="%s" target="_blank" rel="noopener noreferrer" aria-label="%s">%s</a>',

@@ -245,9 +245,36 @@ final class QPAT_Updater {
 			'sent'      => $sent,
 			'engine'    => $engine,
 			'message'   => $send
-				? sprintf( 'Đã dịch %d phần (%s ký tự)%s.', count( $send ), number_format_i18n( $sent ), $all ? '; ' . count( $all ) . ' phần cần duyệt' : '' )
+				? sprintf( 'Đã dịch: %s (%s ký tự)%s.', self::describe( array_keys( $send ) ), number_format_i18n( $sent ), $all ? '; ' . count( $all ) . ' phần cần duyệt' : '' )
 				: 'Không có phần nào thay đổi, không gửi dịch.' . ( $all ? ' ' . count( $all ) . ' phần cần duyệt.' : '' ),
 		);
+	}
+
+	/**
+	 * "tiêu đề, mô tả ngắn, 3 đoạn nội dung, 2 trường khác"
+	 *
+	 * @param string[] $keys
+	 */
+	private static function describe( array $keys ): string {
+		$segs   = count( preg_grep( '/^seg_\d+$/', $keys ) );
+		$parts  = array();
+		$others = 0;
+		foreach ( $keys as $k ) {
+			if ( 'title' === $k ) {
+				$parts[] = 'tiêu đề';
+			} elseif ( 'excerpt' === $k ) {
+				$parts[] = 'mô tả ngắn';
+			} elseif ( 0 !== strpos( $k, 'seg_' ) ) {
+				++$others;
+			}
+		}
+		if ( $segs ) {
+			$parts[] = $segs . ' đoạn nội dung';
+		}
+		if ( $others ) {
+			$parts[] = $others . ' trường khác';
+		}
+		return implode( ', ', $parts );
 	}
 
 	/**

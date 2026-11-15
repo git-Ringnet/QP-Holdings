@@ -353,6 +353,14 @@ function qp_holdings_news_card_html(WP_Post $post, bool $feature, string $varian
  */
 function qp_holdings_news_fallback_image_url(): string
 {
+	// Ảnh đại diện mặc định chọn trong Cài đặt → Phương tiện (inc/default-thumbnail.php).
+	$default = function_exists('qp_holdings_default_thumbnail_id') ? qp_holdings_default_thumbnail_id() : 0;
+	if ($default) {
+		$url = wp_get_attachment_image_url($default, 'large');
+		if ($url) {
+			return $url;
+		}
+	}
 	return get_template_directory_uri() . '/assets/site/news-fallback-logo.png';
 }
 
@@ -1508,6 +1516,11 @@ function qp_holdings_render_news_by_category(): void
 			)
 		);
 		wp_reset_postdata();
+
+		// Large card of the first group: the post ticked "Tin nổi bật" (inc/news-featured.php), else the newest.
+		if ($section_index === 0 && function_exists('qp_holdings_news_featured_first')) {
+			$posts = qp_holdings_news_featured_first($posts);
+		}
 
 		$posts = array_slice($posts, 0, $posts_per_page);
 		if (!$posts) {

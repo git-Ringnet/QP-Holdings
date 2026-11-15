@@ -1224,3 +1224,92 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
+/* ── Partners: continuous CSS marquee (replaces Swiper autoplay, which
+   eased each step and made the logos stutter). Track built by
+   setupPartnersSwiper() in site-script.js. ── */
+.partners-swiper.is-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.partners-swiper.is-marquee > .partners-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: max-content;
+  min-width: 0;
+  transform: translate3d(0, 0, 0);
+  animation: qp-partners-marquee var(--qp-marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+.partners-swiper.is-marquee:hover > .partners-row,
+.partners-swiper.is-marquee:focus-within > .partners-row {
+  animation-play-state: paused;
+}
+
+/* Fixed slot per logo: even spacing, and no jump when a logo finishes loading */
+.partners-swiper.is-marquee .partner-item {
+  flex: 0 0 auto;
+  width: 160px;
+  min-width: 0;
+  height: 80px;
+}
+
+.partners-swiper.is-marquee .partner-item picture,
+.partners-swiper.is-marquee .partner-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.partners-swiper.is-marquee .partner-item img {
+  max-width: 100%;
+  max-height: 64px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.about-partners .partners-swiper.is-marquee .partner-item {
+  width: 150px;
+  height: 64px;
+}
+
+.about-partners .partners-swiper.is-marquee .partner-item img {
+  max-height: 48px;
+}
+
+@keyframes qp-partners-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-1 * var(--qp-marquee-distance, 50%)), 0, 0); }
+}
+
+@media (max-width: 640px) {
+  .partners-swiper.is-marquee .partner-item {
+    width: 120px;
+    height: 64px;
+  }
+
+  .partners-swiper.is-marquee .partner-item img {
+    max-height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-swiper.is-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .partners-swiper.is-marquee > .partners-row {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+  }
+}

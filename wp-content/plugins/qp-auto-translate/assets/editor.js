@@ -94,11 +94,24 @@
 	}
 
 	function fetchStatus() {
-		$.get(cfg.ajaxUrl, { action: 'qpat_job_status', nonce: cfg.nonce }).done(function (res) {
+		$.get(cfg.ajaxUrl, { action: 'qpat_job_status', nonce: cfg.nonce, post_id: cfg.postId || 0 }).done(function (res) {
 			if (res && res.success) {
 				render(res.data.jobs);
 			}
 		});
+	}
+
+	// Classic editor: WordPress tracks unsaved edits (title, content, excerpt) for its own "leave page?" warning.
+	function hasUnsavedChanges() {
+		try {
+			if (window.tinymce && window.tinymce.activeEditor && !window.tinymce.activeEditor.isHidden() && window.tinymce.activeEditor.isDirty()) {
+				return true;
+			}
+			if (window.wp && wp.autosave && wp.autosave.server && typeof wp.autosave.server.postChanged === 'function') {
+				return wp.autosave.server.postChanged();
+			}
+		} catch (e) {}
+		return false;
 	}
 
 	// After translations finish, reload the box so the new EN/ZH links appear.
@@ -119,6 +132,11 @@
 		e.preventDefault();
 		var $btn = $(this);
 		var overwrite = String($btn.data('overwrite')) === '1';
+		// The plugin translates what is saved: refuse while the editor has unsaved changes.
+		if (hasUnsavedChanges()) {
+			window.alert(i18n.unsaved);
+			return;
+		}
 		if (overwrite && !window.confirm(i18n.confirmOverwrite)) {
 			return;
 		}

@@ -22,8 +22,9 @@ function qp_holdings_render_project_cards( array $args = array() ): bool {
 		'posts_per_page' => (int) $args['posts_per_page'],
 		'post_status'    => 'publish',
 		'no_found_rows'  => true,
+		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 	);
-	
+
 	$tax = array();
 	if ( $args['type'] ) {
 		$tax[] = array( 'taxonomy' => 'qp_project_type', 'field' => 'slug', 'terms' => $args['type'] );
@@ -375,6 +376,12 @@ function qp_holdings_strip_project_info_grid_from_html( string $html ): string {
 function qp_holdings_sort_project_section_posts( array $posts, string $section ): array {
 	if ( count( $posts ) <= 1 ) {
 		return $posts;
+	}
+
+	// Order set by the admin (drag-and-drop in Dự án, inc/admin-order.php).
+	// The hard-coded order below is only kept for sites where it was never set.
+	if ( function_exists( 'qp_holdings_sort_by_admin_order' ) && get_option( 'qp_project_order_seeded' ) ) {
+		return qp_holdings_sort_by_admin_order( $posts );
 	}
 
 	$order_maps = array(

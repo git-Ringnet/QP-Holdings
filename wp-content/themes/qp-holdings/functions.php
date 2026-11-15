@@ -105,6 +105,21 @@ if ( file_exists( $qp_holdings_custom_menu ) ) {
     require_once $qp_holdings_custom_menu;
 }
 
+$qp_holdings_default_thumbnail = get_template_directory() . '/inc/default-thumbnail.php';
+if ( file_exists( $qp_holdings_default_thumbnail ) ) {
+    require_once $qp_holdings_default_thumbnail;
+}
+
+$qp_holdings_news_featured = get_template_directory() . '/inc/news-featured.php';
+if ( file_exists( $qp_holdings_news_featured ) ) {
+    require_once $qp_holdings_news_featured;
+}
+
+$qp_holdings_admin_order = get_template_directory() . '/inc/admin-order.php';
+if ( file_exists( $qp_holdings_admin_order ) ) {
+    require_once $qp_holdings_admin_order;
+}
+
 function qp_holdings_setup(): void {
     load_theme_textdomain( 'qp-holdings', get_template_directory() . '/languages' );
     add_theme_support( 'title-tag' );

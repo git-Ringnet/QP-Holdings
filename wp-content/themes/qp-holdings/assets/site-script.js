@@ -569,47 +569,58 @@
     });
   }
 
-  /* ── Partners Swiper — continuous marquee (always on, all viewports) ───
-     Swiper needs ≥ slidesPerView*2 slides to loop. With only ~6 partner logos
-     visible at once we duplicate slides until we have enough copies. */
+  /* ── Partners — continuous CSS marquee (all viewports) ─────────────────
+     Swiper autoplay (delay 0) eased every slide step, so logos sped up and
+     slowed down ("giật"). Instead: one CSS animation at a constant speed.
+     The logo set is repeated until it is wider than the strip, then the
+     whole set is duplicated once and the track slides by exactly one set
+     width, so the loop is seamless. Slides have a fixed width (CSS), so the
+     maths does not depend on images having loaded. */
   function setupPartnersSwiper() {
-    if (typeof window.Swiper === 'undefined') return;
-    const el = document.querySelector('.partners-swiper');
-    if (!el || swiperInstances['.partners-swiper']) return;
+    document.querySelectorAll('.partners-swiper').forEach((el) => {
+      const track = el.querySelector('.partners-row');
+      if (!track || el.dataset.marquee) return;
+      const originals = Array.from(track.children);
+      if (!originals.length) return;
+      el.dataset.marquee = '1';
+      el.classList.add('is-marquee');
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const wrapper = el.querySelector('.swiper-wrapper');
-    if (wrapper) {
-      const originals = Array.from(wrapper.children);
-      // Aim for at least 18 slides so loop works even at very wide viewports.
-      const minSlides = 18;
-      while (wrapper.children.length < minSlides && originals.length > 0) {
-        originals.forEach((node) => {
-          const clone = node.cloneNode(true);
-          clone.setAttribute('aria-hidden', 'true');
-          wrapper.appendChild(clone);
-        });
-      }
-    }
-
-    swiperInstances['.partners-swiper'] = new window.Swiper(el, {
-      slidesPerView: 'auto',
-      spaceBetween: 24,
-      grabCursor: true,
-      loop: true,
-      loopAdditionalSlides: 4,
-      // delay: 0 + slow speed = smooth continuous marquee instead of step-pause.
-      speed: 4000,
-      allowTouchMove: true,
-      autoplay: {
-        delay: 0,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      breakpoints: {
-        640: { spaceBetween: 32 },
-        900: { spaceBetween: 40 },
-        1200: { spaceBetween: 48 },
-      },
+      const cloneOf = (node) => {
+        const c = node.cloneNode(true);
+        c.dataset.clone = '1';
+        c.setAttribute('aria-hidden', 'true');
+        c.querySelectorAll('a').forEach((a) => a.setAttribute('tabindex', '-1'));
+        return c;
+      };
+      let lastWidth = 0;
+      const build = () => {
+        const stripWidth = el.clientWidth;
+        if (!stripWidth || stripWidth === lastWidth) return;
+        lastWidth = stripWidth;
+        track.querySelectorAll('[data-clone]').forEach((n) => n.remove());
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        const oneSet = originals.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0);
+        if (!oneSet) return;
+        // Repeat the logos until one "set" is at least as wide as the strip.
+        let copies = 1;
+        while (oneSet * copies < stripWidth && copies < 20) {
+          originals.forEach((n) => track.appendChild(cloneOf(n)));
+          copies++;
+        }
+        // Then duplicate that set once for the seamless loop.
+        Array.from(track.children).slice(0, originals.length * copies).forEach((n) => track.appendChild(cloneOf(n)));
+        const distance = oneSet * copies;
+        track.style.setProperty('--qp-marquee-distance', distance + 'px');
+        // Constant speed (~45 px/s) whatever the number of logos.
+        track.style.setProperty('--qp-marquee-duration', Math.max(12, distance / 45).toFixed(1) + 's');
+      };
+      build();
+      let timer = 0;
+      window.addEventListener('resize', () => {
+        clearTimeout(timer);
+        timer = setTimeout(build, 200);
+      });
     });
   }
 

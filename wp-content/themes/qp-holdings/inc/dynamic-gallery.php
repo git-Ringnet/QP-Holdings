@@ -288,7 +288,9 @@ function qp_holdings_get_gallery_items(): array {
 		: new WP_Query( $q_args );
 	$items = $q->have_posts() ? $q->posts : array();
 	wp_reset_postdata();
-	return is_array( $items ) ? $items : array();
+	$items = is_array( $items ) ? $items : array();
+	// EN / ZH pages follow the order of the Vietnamese items (inc/admin-order.php).
+	return function_exists( 'qp_holdings_sort_by_admin_order' ) ? qp_holdings_sort_by_admin_order( $items ) : $items;
 }
 
 /**

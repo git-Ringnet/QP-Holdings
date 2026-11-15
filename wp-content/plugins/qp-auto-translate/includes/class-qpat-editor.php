@@ -137,6 +137,10 @@ final class QPAT_Editor {
 
 		$has_any = isset( $family['en'] ) || isset( $family['zh'] );
 		$s       = QPAT_Settings::get();
+		if ( ! QPAT_Queue::translatable_status( $post ) ) {
+			echo '<p class="description">Bấm <strong>Lưu nháp</strong> hoặc <strong>Đăng</strong> trước. Plugin dịch nội dung bài đã được lưu.</p>';
+			return;
+		}
 		echo '<p class="qpat-actions">';
 		printf(
 			'<button type="button" class="button button-primary qpat-queue-now" data-post="%1$d" data-overwrite="0">%2$s</button> ',
@@ -235,10 +239,12 @@ final class QPAT_Editor {
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( self::NONCE ),
+				'postId'  => 'post.php' === $hook && isset( $_GET['post'] ) ? (int) $_GET['post'] : 0, // phpcs:ignore WordPress.Security.NonceVerification
 				'i18n'    => array(
 					'confirmOverwrite' => 'Dịch lại toàn bộ sẽ GHI ĐÈ nội dung bản tiếng Anh / tiếng Trung hiện có, kể cả phần đã sửa tay và ảnh đã thay. Tiếp tục?',
 					'queued'           => 'Đã đưa vào hàng đợi, đang dịch ở nền. Có thể tiếp tục làm việc khác.',
 					'nothing'          => 'Không có gì cần dịch: bản dịch đã khớp với bài tiếng Việt.',
+					'unsaved'          => 'Bài đang có thay đổi chưa lưu. Plugin dịch nội dung đã lưu, nên hãy bấm "Lưu nháp" hoặc "Cập nhật" trước rồi mới bấm dịch.',
 					'error'            => 'Không thể thực hiện.',
 					'busy'             => 'Đang dịch',
 					'done'             => 'Đã dịch xong',
@@ -264,7 +270,7 @@ final class QPAT_Editor {
 		wp_send_json_success(
 			array(
 				'queued' => $queued,
-				'jobs'   => QPAT_Queue::instance()->status_jobs(),
+				'jobs'   => QPAT_Queue::instance()->status_jobs( $post_id ),
 			)
 		);
 	}
@@ -274,7 +280,8 @@ final class QPAT_Editor {
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_send_json_error( array( 'message' => 'Không có quyền.' ), 403 );
 		}
-		wp_send_json_success( array( 'jobs' => QPAT_Queue::instance()->status_jobs() ) );
+		$post_id = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
+		wp_send_json_success( array( 'jobs' => QPAT_Queue::instance()->status_jobs( $post_id ) ) );
 	}
 
 	public function ajax_review(): void {

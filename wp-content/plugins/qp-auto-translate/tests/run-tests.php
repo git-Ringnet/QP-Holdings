@@ -612,6 +612,32 @@ if ( $admins ) {
 	wp_set_current_user( 0 );
 }
 
+// ================================================================ 8. Bài chưa lưu ("Thêm mới" → Auto Draft)
+$ad = wp_insert_post( array( 'post_type' => 'qp_news', 'post_status' => 'auto-draft', 'post_title' => 'Auto Draft' ) );
+$created[] = $ad;
+qpat_check( 'auto-draft: "Dịch ngay" queues nothing', 0 === QPAT_Queue::instance()->enqueue_post( $ad, false ) );
+qpat_check( 'auto-draft: no EN/ZH copy created', array( 'vi' => $ad ) == QPAT_Sync::family( $ad ) );
+if ( $admins ) {
+	wp_set_current_user( (int) $admins[0] );
+	ob_start();
+	QPAT_Editor::instance()->render_metabox( get_post( $ad ) );
+	$box = (string) ob_get_clean();
+	qpat_check( 'auto-draft: box asks to save first, no translate button', false !== strpos( $box, 'Lưu nháp' ) && false === strpos( $box, 'qpat-queue-now' ) );
+	wp_set_current_user( 0 );
+}
+$cfg['engine'] = 'gemini';
+$m8 = wp_insert_post( array( 'post_type' => 'qp_news', 'post_status' => 'draft', 'post_title' => 'QPAT NT thông báo', 'post_content' => "Đoạn một.\n\nĐoạn hai." ) );
+$created[] = $m8;
+QPAT_Queue::instance()->enqueue_post( $m8, false );
+$run_jobs( $m8 );
+$msg = (string) $wpdb->get_var( $wpdb->prepare( "SELECT message FROM {$jobs_table} WHERE source_post_id = %d ORDER BY id DESC LIMIT 1", $m8 ) );
+qpat_check( 'message says what was translated (title + 2 paragraphs)', false !== strpos( $msg, 'tiêu đề' ) && false !== strpos( $msg, '2 đoạn nội dung' ) );
+$f_m8 = QPAT_Sync::family( $m8 );
+$created[] = $f_m8['en'] ?? 0;
+$created[] = $f_m8['zh'] ?? 0;
+$other = QPAT_Queue::instance()->status_jobs( $m8 );
+qpat_check( 'toast on an edit screen lists only that post', $other && array( $m8 ) === array_values( array_unique( array_column( $other, 'post_id' ) ) ) );
+
 // ---------------------------------------------------------------- dọn dẹp
 foreach ( array_filter( $created ) as $pid ) {
 	$wpdb->delete( $jobs_table, array( 'source_post_id' => $pid ) );

@@ -136,7 +136,7 @@ final class QPAT_Queue {
 	 */
 	public function enqueue_post( int $post_id, bool $overwrite, ?array $only_langs = null ): int {
 		$post = get_post( $post_id );
-		if ( ! $post || ! QPAT_Sync::is_source_post( $post ) ) {
+		if ( ! $post || ! QPAT_Sync::is_source_post( $post ) || ! self::translatable_status( $post ) ) {
 			return 0;
 		}
 		$queued = 0;
@@ -164,6 +164,14 @@ final class QPAT_Queue {
 			$this->maybe_schedule();
 		}
 		return $queued;
+	}
+
+	/**
+	 * A post never saved yet ("Thêm mới" screen, title "Auto Draft") or in the
+	 * trash has nothing real to translate.
+	 */
+	public static function translatable_status( WP_Post $post ): bool {
+		return ! in_array( $post->post_status, array( 'auto-draft', 'trash', 'inherit' ), true );
 	}
 
 	private function has_status( int $post_id, string $lang, array $statuses ): bool {
@@ -326,6 +334,10 @@ final class QPAT_Queue {
 
 		if ( ! $post || 'trash' === $post->post_status ) {
 			$this->finish( $id, 'skipped', 'Bài gốc không còn tồn tại.' );
+			return;
+		}
+		if ( ! self::translatable_status( $post ) ) {
+			$this->finish( $id, 'skipped', 'Bài chưa được lưu lần nào, không có nội dung để dịch.' );
 			return;
 		}
 		if ( ! QPAT_Sync::is_source_post( $post ) ) {
@@ -542,15 +554,26 @@ final class QPAT_Queue {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function status_jobs(): array {
+	public function status_jobs( int $only_post = 0 ): array {
 		global $wpdb;
-		$rows = $wpdb->get_results(
-			$wpdb->prepare(
-				'SELECT * FROM ' . self::table() . " WHERE status IN ('queued','running') OR updated_at >= %s ORDER BY id ASC LIMIT 30", // phpcs:ignore WordPress.DB.PreparedSQL
-				gmdate( 'Y-m-d H:i:s', time() - 3 * MINUTE_IN_SECONDS )
-			),
-			ARRAY_A
-		);
+		$since = gmdate( 'Y-m-d H:i:s', time() - 3 * MINUTE_IN_SECONDS );
+		// On an edit screen: only the jobs of the post being edited.
+		$rows = $only_post
+			? $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT * FROM ' . self::table() . " WHERE source_post_id = %d AND ( status IN ('queued','running') OR updated_at >= %s ) ORDER BY id ASC LIMIT 30", // phpcs:ignore WordPress.DB.PreparedSQL
+					$only_post,
+					$since
+				),
+				ARRAY_A
+			)
+			: $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT * FROM ' . self::table() . " WHERE status IN ('queued','running') OR updated_at >= %s ORDER BY id ASC LIMIT 30", // phpcs:ignore WordPress.DB.PreparedSQL
+					$since
+				),
+				ARRAY_A
+			);
 		$out = array();
 		foreach ( (array) $rows as $row ) {
 			$pid   = (int) $row['source_post_id'];
