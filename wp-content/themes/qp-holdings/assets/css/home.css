@@ -490,7 +490,7 @@
   overflow: visible;
 }
 
-.swiper:not(.swiper-initialized)>.swiper-wrapper {
+.swiper:not(.swiper-initialized):not(.is-marquee)>.swiper-wrapper {
   display: grid;
   transform: none !important;
   transition: none !important;

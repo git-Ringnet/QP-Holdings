@@ -1003,7 +1003,7 @@ address {
   overflow: visible;
 }
 
-.swiper:not(.swiper-initialized)>.swiper-wrapper {
+.swiper:not(.swiper-initialized):not(.is-marquee)>.swiper-wrapper {
   display: grid;
   transform: none !important;
   transition: none !important;
@@ -9409,6 +9409,28 @@ body.admin-bar .qp-lightbox__close {
 .partners-swiper.is-marquee:hover > .partners-row,
 .partners-swiper.is-marquee:focus-within > .partners-row {
   animation-play-state: paused;
+}
+
+/* Drag / swipe (site-script.js): horizontal moves go to the strip, vertical
+   swipes still scroll the page. */
+.partners-swiper.is-marquee {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.partners-swiper.is-marquee.is-dragging {
+  cursor: grabbing;
+}
+
+.partners-swiper.is-marquee.is-dragging > .partners-row {
+  animation-play-state: paused;
+}
+
+.partners-swiper.is-marquee img {
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 /* Fixed slot per logo: even spacing, and no jump when a logo finishes loading */

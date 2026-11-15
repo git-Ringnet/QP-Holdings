@@ -621,7 +621,69 @@
         clearTimeout(timer);
         timer = setTimeout(build, 200);
       });
+      enablePartnersDrag(el, track);
     });
+  }
+
+  /* Drag (mouse) / swipe (touch) the partners marquee: while the pointer is
+     down the CSS animation is paused and its clock is moved with the finger,
+     so the strip follows the drag and carries on from there when released. */
+  function enablePartnersDrag(el, track) {
+    if (typeof track.getAnimations !== 'function') return;
+    const anim = () => track.getAnimations().find((a) => a.animationName === 'qp-partners-marquee');
+    let startX = 0;
+    let startTime = 0;
+    let moved = false;
+    let active = null;
+
+    el.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      const a = anim();
+      if (!a || !a.effect) return;
+      active = a;
+      startX = e.clientX;
+      startTime = Number(a.currentTime) || 0;
+      moved = false;
+      // Paused by CSS (.is-dragging), not a.pause(): calling pause()/play()
+      // would stop animation-play-state (pause on hover) from working later.
+      el.classList.add('is-dragging');
+    });
+
+    el.addEventListener('pointermove', (e) => {
+      if (!active) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 5) {
+        moved = true;
+        try { el.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      }
+      if (!moved) return;
+      const distance = parseFloat(track.style.getPropertyValue('--qp-marquee-distance')) || track.scrollWidth / 2;
+      const duration = Number(active.effect.getTiming().duration) || 0;
+      if (!distance || !duration) return;
+      // Dragging right moves the strip right = going back in time.
+      let t = (startTime - (dx / distance) * duration) % duration;
+      if (t < 0) t += duration;
+      active.currentTime = t;
+    });
+
+    const release = (e) => {
+      if (!active) return;
+      try { el.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      active = null;
+      el.classList.remove('is-dragging');
+    };
+    el.addEventListener('pointerup', release);
+    el.addEventListener('pointercancel', release);
+
+    // A drag must not also open the partner's link.
+    el.addEventListener('click', (e) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    }, true);
+    el.addEventListener('dragstart', (e) => e.preventDefault());
   }
 
   // Run after Swiper script loads (defer ensures DOM is ready)
