@@ -247,9 +247,13 @@ function qp_holdings_register_taxonomies(): void {
 		'qp_project_type'     => array( 'Loại dự án', array( 'qp_project' ) ),
 		'qp_project_location' => array( 'Vị trí dự án', array( 'qp_project' ) ),
 		'qp_project_status'   => array( 'Trạng thái dự án', array( 'qp_project' ) ),
-		'qp_job_department'   => array( 'Phòng ban', array( 'qp_job' ) ),
-		'qp_job_location'     => array( 'Địa điểm làm việc', array( 'qp_job' ) ),
-		'qp_job_level'        => array( 'Cấp bậc', array( 'qp_job' ) ),
+		// Job lists match the labels of the "Thông tin tuyển dụng" form
+		// (the free-text "Phòng ban" field there is a separate thing).
+		'qp_job_department'   => array( 'Khối', array( 'qp_job' ) ),
+		'qp_job_location'     => array( 'Tỉnh / thành phố', array( 'qp_job' ) ),
+		// No longer used by the form or the website (level is free text):
+		// hidden from the menu, existing data kept.
+		'qp_job_level'        => array( 'Cấp bậc', array( 'qp_job' ), false ),
 		'qp_investor_section' => array( 'Mục nhà đầu tư', array( 'qp_investor_doc' ) ),
 		'qp_doc_year'         => array( 'Năm tài liệu', array( 'qp_investor_doc' ) ),
 		'qp_doc_type'         => array( 'Loại tài liệu', array( 'qp_investor_doc' ) ),
@@ -262,6 +266,7 @@ function qp_holdings_register_taxonomies(): void {
 				'label'        => $data[0],
 				'public'       => true,
 				'show_ui'      => true,
+				'show_in_menu' => $data[2] ?? true,
 				'show_in_rest' => true,
 				'hierarchical' => true,
 				'rewrite'      => array( 'slug' => str_replace( '_', '-', $taxonomy ) ),
@@ -354,7 +359,21 @@ function qp_holdings_ensure_default_terms(): void {
 			continue;
 		}
 		foreach ( $terms as $slug => $name ) {
-			$existing = get_term_by( 'slug', $slug, $taxonomy );
+			// Look the slug up in every language: with Polylang on, a plain
+			// get_term_by() on an EN/ZH request misses the Vietnamese term and
+			// a duplicate gets inserted (see qp_holdings_dedupe_terms()).
+			$found    = get_terms(
+				array(
+					'taxonomy'   => $taxonomy,
+					'slug'       => $slug,
+					'hide_empty' => false,
+					'number'     => 1,
+					'orderby'    => 'term_id',
+					'order'      => 'ASC',
+					'lang'       => '',
+				)
+			);
+			$existing = ( is_array( $found ) && $found ) ? $found[0] : null;
 
 			if ( ! $existing instanceof WP_Term ) {
 				wp_insert_term( $name, $taxonomy, array( 'slug' => $slug ) );
@@ -373,6 +392,56 @@ function qp_holdings_ensure_default_terms(): void {
 	}
 }
 add_action( 'init', 'qp_holdings_ensure_default_terms', 20 );
+
+/**
+ * One-time cleanup of duplicate terms (same taxonomy + same slug) left by the
+ * old default-term seeding while Polylang was active. They made every name
+ * show 2–3 times in admin selects and in the front-end filters.
+ *
+ * Per duplicate group the term with the most posts (then the oldest) is kept;
+ * the others are deleted only when no post is attached to them.
+ */
+function qp_holdings_dedupe_terms(): void {
+	if ( get_option( 'qp_terms_deduped_v1' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	global $wpdb;
+
+	$taxonomies = array( 'qp_news_category', 'qp_project_type', 'qp_project_location', 'qp_project_status', 'qp_job_department', 'qp_job_location', 'qp_job_level', 'qp_investor_section', 'qp_doc_year', 'qp_doc_type' );
+	$in         = implode( ',', array_fill( 0, count( $taxonomies ), '%s' ) );
+	// Real attachment count from term_relationships (the cached count column can be stale).
+	$rows = $wpdb->get_results(
+		$wpdb->prepare(
+			"SELECT t.term_id, t.slug, tt.taxonomy,
+				(SELECT COUNT(*) FROM {$wpdb->term_relationships} r WHERE r.term_taxonomy_id = tt.term_taxonomy_id) AS used
+			FROM {$wpdb->terms} t
+			JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
+			WHERE tt.taxonomy IN ($in)
+			ORDER BY tt.taxonomy, t.slug, used DESC, t.term_id ASC", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+			$taxonomies
+		)
+	);
+
+	$seen    = array();
+	$deleted = 0;
+	foreach ( (array) $rows as $row ) {
+		$group = $row->taxonomy . '|' . $row->slug;
+		if ( ! isset( $seen[ $group ] ) ) {
+			$seen[ $group ] = true; // First row of the group is the keeper.
+			continue;
+		}
+		if ( (int) $row->used > 0 ) {
+			continue;
+		}
+		$result = wp_delete_term( (int) $row->term_id, $row->taxonomy );
+		if ( true === $result ) {
+			++$deleted;
+		}
+	}
+
+	update_option( 'qp_terms_deduped_v1', gmdate( 'Y-m-d H:i:s' ) . ' deleted=' . $deleted, false );
+}
+add_action( 'admin_init', 'qp_holdings_dedupe_terms' );
 
 /**
  * Theme-switch hook: flush rewrites & run all seed functions.

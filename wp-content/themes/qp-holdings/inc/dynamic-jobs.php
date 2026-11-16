@@ -920,3 +920,177 @@ function qp_holdings_seed_jobs( bool $force = false ): void {
 		qp_holdings_seed_assign_terms( (int) $post_id, $item['tax'] );
 	}
 }
+
+/* ===================================================================
+ * Admin: gọn form đăng tin tuyển dụng (#8).
+ * Fields are grouped into tabs in dynamic-acf.php; the hooks below hide
+ * the duplicate boxes WordPress adds around them.
+ * =================================================================== */
+
+/**
+ * Is this job an EN/ZH copy made by the translation plugins?
+ */
+function qp_holdings_job_is_translation_copy( int $post_id ): bool {
+	if ( class_exists( 'QPAT_Sync' ) && method_exists( 'QPAT_Sync', 'is_translation_copy' ) ) {
+		return QPAT_Sync::is_translation_copy( $post_id );
+	}
+	return '' !== (string) get_post_meta( $post_id, '_qp_translation_lang', true );
+}
+
+/**
+ * Hide boxes that duplicate the ACF form: the post editor and excerpt (the
+ * page is built from the ACF sections), raw "Custom Fields", and the three
+ * taxonomy boxes (Khối / Tỉnh-thành are now selects inside the form; Cấp bậc
+ * taxonomy is not used on the website). Data already stored is left untouched.
+ */
+function qp_holdings_job_admin_simplify_screen(): void {
+	remove_post_type_support( 'qp_job', 'editor' );
+	remove_post_type_support( 'qp_job', 'excerpt' );
+	remove_post_type_support( 'qp_job', 'custom-fields' );
+}
+add_action( 'load-post.php', 'qp_holdings_job_admin_simplify_screen_maybe' );
+add_action( 'load-post-new.php', 'qp_holdings_job_admin_simplify_screen_maybe' );
+
+function qp_holdings_job_admin_simplify_screen_maybe(): void {
+	$post_type = '';
+	if ( isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$post_type = (string) get_post_type( absint( $_GET['post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	} elseif ( isset( $_GET['post_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$post_type = sanitize_key( wp_unslash( $_GET['post_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+	if ( 'qp_job' === $post_type ) {
+		qp_holdings_job_admin_simplify_screen();
+	}
+}
+
+function qp_holdings_job_admin_remove_boxes(): void {
+	foreach ( array( 'qp_job_departmentdiv', 'qp_job_locationdiv', 'qp_job_leveldiv', 'postexcerpt', 'postcustom' ) as $box ) {
+		remove_meta_box( $box, 'qp_job', 'side' );
+		remove_meta_box( $box, 'qp_job', 'normal' );
+	}
+}
+add_action( 'add_meta_boxes_qp_job', 'qp_holdings_job_admin_remove_boxes', 99 );
+
+/**
+ * Free-text "location" is filled from the "Tỉnh / thành phố" select on save.
+ */
+add_filter( 'acf/prepare_field/key=field_qp_job_location', '__return_false' );
+
+/**
+ * Legacy sections (responsibilities / requirements / benefits): only show on
+ * the old posts that still have text in them.
+ *
+ * @param array|false $field
+ * @return array|false
+ */
+function qp_holdings_job_admin_prepare_legacy_field( $field ) {
+	if ( ! is_array( $field ) ) {
+		return $field;
+	}
+	return '' === trim( (string) ( $field['value'] ?? '' ) ) ? false : $field;
+}
+add_filter( 'acf/prepare_field/key=field_qp_job_responsibilities', 'qp_holdings_job_admin_prepare_legacy_field' );
+add_filter( 'acf/prepare_field/key=field_qp_job_requirements', 'qp_holdings_job_admin_prepare_legacy_field' );
+add_filter( 'acf/prepare_field/key=field_qp_job_benefits', 'qp_holdings_job_admin_prepare_legacy_field' );
+
+/**
+ * Sections 3 and 4 are required for new posts, but not for old posts whose
+ * text still lives in the legacy fields, nor for EN/ZH copies.
+ *
+ * @param array|false $field
+ * @return array|false
+ */
+function qp_holdings_job_admin_prepare_required_section( $field ) {
+	if ( ! is_array( $field ) ) {
+		return $field;
+	}
+	$post_id = (int) ( $GLOBALS['post']->ID ?? 0 );
+	if ( ! $post_id ) {
+		return $field;
+	}
+	$legacy = array(
+		'field_qp_job_main_responsibilities' => 'responsibilities',
+		'field_qp_job_requirements_detail'   => 'requirements',
+	);
+	$legacy_key = $legacy[ $field['key'] ] ?? '';
+	if ( qp_holdings_job_is_translation_copy( $post_id ) || ( $legacy_key && '' !== trim( (string) get_post_meta( $post_id, $legacy_key, true ) ) ) ) {
+		$field['required'] = 0;
+	}
+	return $field;
+}
+add_filter( 'acf/prepare_field/key=field_qp_job_main_responsibilities', 'qp_holdings_job_admin_prepare_required_section' );
+add_filter( 'acf/prepare_field/key=field_qp_job_requirements_detail', 'qp_holdings_job_admin_prepare_required_section' );
+
+/**
+ * Required check also runs on save; mirror the relaxations above there.
+ *
+ * @param bool|string $valid
+ * @param mixed       $value
+ * @param array       $field
+ * @return bool|string
+ */
+function qp_holdings_job_admin_validate_section( $valid, $value, $field ) {
+	if ( true === $valid || ! empty( $value ) ) {
+		return $valid;
+	}
+	$post_id = isset( $_POST['post_ID'] ) ? absint( $_POST['post_ID'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	if ( ! $post_id ) {
+		return $valid;
+	}
+	$legacy     = array(
+		'field_qp_job_main_responsibilities' => 'responsibilities',
+		'field_qp_job_requirements_detail'   => 'requirements',
+	);
+	$legacy_key = $legacy[ $field['key'] ?? '' ] ?? '';
+	if ( qp_holdings_job_is_translation_copy( $post_id ) || ( $legacy_key && '' !== trim( (string) get_post_meta( $post_id, $legacy_key, true ) ) ) ) {
+		return true;
+	}
+	return $valid;
+}
+add_filter( 'acf/validate_value/key=field_qp_job_main_responsibilities', 'qp_holdings_job_admin_validate_section', 20, 3 );
+add_filter( 'acf/validate_value/key=field_qp_job_requirements_detail', 'qp_holdings_job_admin_validate_section', 20, 3 );
+
+/**
+ * Keep the text "location" (shown on cards, translated to EN/ZH) in step with
+ * the "Tỉnh / thành phố" select. Vietnamese originals only — copies keep
+ * their translated text.
+ *
+ * @param int|string $post_id
+ */
+function qp_holdings_job_admin_sync_location( $post_id ): void {
+	$post_id = is_numeric( $post_id ) ? (int) $post_id : 0;
+	if ( ! $post_id || 'qp_job' !== get_post_type( $post_id ) || qp_holdings_job_is_translation_copy( $post_id ) ) {
+		return;
+	}
+	$terms = get_the_terms( $post_id, 'qp_job_location' );
+	if ( ! is_array( $terms ) || ! $terms ) {
+		return;
+	}
+	$name = qp_holdings_job_decode_escaped_utf8( (string) $terms[0]->name );
+	if ( $name && $name !== (string) get_post_meta( $post_id, 'location', true ) ) {
+		update_post_meta( $post_id, 'location', $name );
+	}
+}
+add_action( 'acf/save_post', 'qp_holdings_job_admin_sync_location', 15 );
+
+/**
+ * The editor/excerpt boxes are hidden, so WordPress no longer blocks a job
+ * saved without a title — and the EN/ZH copy then fails ("Content, title,
+ * and excerpt are empty"). Require the title (position name) on publish.
+ */
+function qp_holdings_job_admin_require_title(): void {
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- ACF verified its nonce before this hook.
+	if ( 'qp_job' !== ( $_POST['post_type'] ?? '' ) ) {
+		return;
+	}
+	// Saving a draft is allowed without a title.
+	if ( isset( $_POST['save'] ) && ! isset( $_POST['publish'] ) && 'publish' !== ( $_POST['original_post_status'] ?? '' ) ) {
+		return;
+	}
+	$title = trim( wp_strip_all_tags( wp_unslash( (string) ( $_POST['post_title'] ?? '' ) ) ) );
+	// phpcs:enable
+	if ( '' === $title ) {
+		acf_add_validation_error( '', 'Chưa nhập tên vị trí tuyển dụng (ô tiêu đề trên cùng).' );
+	}
+}
+add_action( 'acf/validate_save_post', 'qp_holdings_job_admin_require_title', 5 );

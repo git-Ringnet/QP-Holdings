@@ -297,32 +297,100 @@ function qp_holdings_register_acf_groups(): void {
 	acf_add_local_field_group(
 		array(
 			'key'      => 'group_qp_job',
-			'title'    => 'Thông tin vị trí tuyển dụng',
+			'title'    => 'Thông tin tin tuyển dụng',
+			'position' => 'acf_after_title',
+			'style'    => 'default',
+			/*
+			 * Field names (meta keys) are unchanged — only labels, order and
+			 * grouping changed — so the 38 existing posts and their EN/ZH copies
+			 * keep working. Form layout: see qp_holdings_job_admin_* in dynamic-jobs.php.
+			 */
 			'fields'   => array(
-				array( 'key' => 'field_qp_job_display_title', 'label' => 'Tiêu đề hiển thị', 'name' => 'job_display_title', 'type' => 'text', 'instructions' => 'Dùng cho hero/trang chi tiết nếu cần khác tiêu đề quản trị.' ),
-				array( 'key' => 'field_qp_job_summary', 'label' => 'Mô tả ngắn', 'name' => 'job_summary', 'type' => 'textarea', 'rows' => 2, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_hero_image', 'label' => 'Ảnh hero', 'name' => 'job_hero_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
-				array( 'key' => 'field_qp_job_quantity', 'label' => 'Số lượng', 'name' => 'quantity', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_department', 'label' => 'Phòng ban', 'name' => 'department', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_location', 'label' => 'Địa điểm', 'name' => 'location', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_workplace', 'label' => 'Địa điểm làm việc chi tiết', 'name' => 'workplace', 'type' => 'textarea', 'rows' => 2, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_level', 'label' => 'Cấp bậc', 'name' => 'level', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_reports_to', 'label' => 'Quản lý trực tiếp', 'name' => 'reports_to', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_employment_type', 'label' => 'Loại hợp đồng', 'name' => 'employment_type', 'type' => 'select', 'choices' => array( 'full-time' => 'Toàn thời gian', 'part-time' => 'Bán thời gian', 'internship' => 'Thực tập', 'contract' => 'Hợp đồng' ), 'default_value' => 'full-time' ),
-				array( 'key' => 'field_qp_job_deadline', 'label' => 'Hạn nộp hồ sơ', 'name' => 'deadline', 'type' => 'date_picker', 'return_format' => 'Y-m-d', 'display_format' => 'd/m/Y' ),
-				array( 'key' => 'field_qp_job_salary', 'label' => 'Mức lương', 'name' => 'salary', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_experience', 'label' => 'Kinh nghiệm yêu cầu', 'name' => 'experience', 'type' => 'text' ),
-				array( 'key' => 'field_qp_job_general_info', 'label' => '1. Thông tin chung', 'name' => 'job_general_info', 'type' => 'textarea', 'rows' => 5, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_goal', 'label' => '2. Mục tiêu công việc', 'name' => 'job_goal', 'type' => 'textarea', 'rows' => 4, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_main_responsibilities', 'label' => '3. Nhiệm vụ và Trách nhiệm chính', 'name' => 'job_main_responsibilities', 'type' => 'textarea', 'rows' => 12, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_requirements_detail', 'label' => '4. Yêu cầu công việc', 'name' => 'job_requirements_detail', 'type' => 'textarea', 'rows' => 8, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_benefits_detail', 'label' => '5. Quyền lợi được hưởng', 'name' => 'job_benefits_detail', 'type' => 'textarea', 'rows' => 6, 'new_lines' => '' ),
-				array( 'key' => 'field_qp_job_responsibilities', 'label' => 'Trách nhiệm chính', 'name' => 'responsibilities', 'type' => 'textarea', 'instructions' => 'Mỗi dòng = 1 trách nhiệm.' ),
-				array( 'key' => 'field_qp_job_requirements', 'label' => 'Yêu cầu', 'name' => 'requirements', 'type' => 'textarea', 'instructions' => 'Mỗi dòng = 1 yêu cầu.' ),
-				array( 'key' => 'field_qp_job_benefits', 'label' => 'Quyền lợi', 'name' => 'benefits', 'type' => 'textarea', 'instructions' => 'Mỗi dòng = 1 quyền lợi.' ),
-				array( 'key' => 'field_qp_job_related_jobs', 'label' => 'Vị trí liên quan', 'name' => 'related_jobs', 'type' => 'relationship', 'post_type' => array( 'qp_job' ), 'filters' => array( 'search' ), 'return_format' => 'object', 'min' => 0, 'max' => 2 ),
-				array( 'key' => 'field_qp_job_apply_url', 'label' => 'URL ứng tuyển', 'name' => 'apply_url', 'type' => 'url' ),
-				array( 'key' => 'field_qp_job_apply_email', 'label' => 'Email ứng tuyển', 'name' => 'apply_email', 'type' => 'email' ),
+				array(
+					'key'     => 'field_qp_job_help',
+					'label'   => '',
+					'name'    => '',
+					'type'    => 'message',
+					'message' => '<strong>Đăng tin nhanh:</strong> (1) Gõ tên vị trí ở ô tiêu đề phía trên. (2) Điền tab <em>Thông tin tuyển dụng</em>. (3) Dán nội dung vào tab <em>Mô tả công việc</em>. (4) Bấm <em>Đăng</em>.<br>Ô có dấu <span class="acf-required">*</span> là bắt buộc, các ô khác để trống cũng được — ô trống sẽ không hiện trên web.',
+					'new_lines' => '',
+				),
+
+				/* ---- Tab 1: thông tin tóm tắt (giống khung bên phải của TopCV / VietnamWorks) ---- */
+				array( 'key' => 'field_qp_job_tab_info', 'label' => 'Thông tin tuyển dụng', 'name' => '', 'type' => 'tab', 'placement' => 'top' ),
+				array( 'key' => 'field_qp_job_quantity', 'label' => 'Số lượng cần tuyển', 'name' => 'quantity', 'type' => 'text', 'placeholder' => 'VD: 2', 'wrapper' => array( 'width' => '25' ) ),
+				array( 'key' => 'field_qp_job_deadline', 'label' => 'Hạn nộp hồ sơ', 'name' => 'deadline', 'type' => 'date_picker', 'return_format' => 'Y-m-d', 'display_format' => 'd/m/Y', 'first_day' => 1, 'required' => 1, 'instructions' => 'Hết hạn thì tin tự ẩn khỏi trang Tuyển dụng.', 'wrapper' => array( 'width' => '25' ) ),
+				array( 'key' => 'field_qp_job_employment_type', 'label' => 'Hình thức làm việc', 'name' => 'employment_type', 'type' => 'select', 'choices' => array( 'full-time' => 'Toàn thời gian', 'part-time' => 'Bán thời gian', 'internship' => 'Thực tập', 'contract' => 'Hợp đồng / thời vụ' ), 'default_value' => 'full-time', 'wrapper' => array( 'width' => '25' ) ),
+				array( 'key' => 'field_qp_job_salary', 'label' => 'Mức lương', 'name' => 'salary', 'type' => 'text', 'default_value' => 'Thỏa thuận', 'placeholder' => 'VD: Thỏa thuận / 15 – 20 triệu', 'wrapper' => array( 'width' => '25' ) ),
+				array( 'key' => 'field_qp_job_level', 'label' => 'Cấp bậc', 'name' => 'level', 'type' => 'text', 'placeholder' => 'VD: Chuyên viên, Trưởng phòng', 'wrapper' => array( 'width' => '33' ) ),
+				array( 'key' => 'field_qp_job_experience', 'label' => 'Kinh nghiệm', 'name' => 'experience', 'type' => 'text', 'placeholder' => 'VD: Từ 3 năm ở vị trí tương đương', 'wrapper' => array( 'width' => '67' ) ),
+				array( 'key' => 'field_qp_job_department', 'label' => 'Phòng ban', 'name' => 'department', 'type' => 'text', 'placeholder' => 'VD: Tài chính - Kế toán', 'wrapper' => array( 'width' => '33' ) ),
+				array( 'key' => 'field_qp_job_reports_to', 'label' => 'Báo cáo cho (quản lý trực tiếp)', 'name' => 'reports_to', 'type' => 'text', 'placeholder' => 'VD: Giám đốc Tài chính', 'wrapper' => array( 'width' => '33' ) ),
+				array(
+					'key'           => 'field_qp_job_block_term',
+					'label'         => 'Khối (bộ lọc)',
+					'name'          => 'job_block_term',
+					'type'          => 'taxonomy',
+					'taxonomy'      => 'qp_job_department',
+					'field_type'    => 'select',
+					'allow_null'    => 1,
+					'add_term'      => 1,
+					'save_terms'    => 1,
+					'load_terms'    => 1,
+					'return_format' => 'id',
+					'multiple'      => 0,
+					'instructions'  => 'Dùng cho ô lọc "Khối" trên trang Tuyển dụng.',
+					'wrapper'       => array( 'width' => '34' ),
+				),
+				array(
+					'key'           => 'field_qp_job_location_term',
+					'label'         => 'Tỉnh / thành phố',
+					'name'          => 'job_location_term',
+					'type'          => 'taxonomy',
+					'taxonomy'      => 'qp_job_location',
+					'field_type'    => 'select',
+					'allow_null'    => 1,
+					'add_term'      => 1,
+					'save_terms'    => 1,
+					'load_terms'    => 1,
+					'return_format' => 'id',
+					'multiple'      => 0,
+					'instructions'  => 'Hiện trên thẻ tin và dùng cho ô lọc "Địa điểm".',
+					'wrapper'       => array( 'width' => '33' ),
+				),
+				array( 'key' => 'field_qp_job_workplace', 'label' => 'Địa chỉ làm việc', 'name' => 'workplace', 'type' => 'text', 'placeholder' => 'VD: Vietcombank Tower, Số 5 Công Trường Mê Linh, Phường Sài Gòn, TP. Hồ Chí Minh', 'wrapper' => array( 'width' => '67' ) ),
+				/* Old free-text location: filled automatically from "Tỉnh / thành phố" on save. */
+				array( 'key' => 'field_qp_job_location', 'label' => 'Địa điểm (chữ)', 'name' => 'location', 'type' => 'text' ),
+
+				/* ---- Tab 2: nội dung chi tiết (5 mục như trang chi tiết đang hiển thị) ---- */
+				array( 'key' => 'field_qp_job_tab_desc', 'label' => 'Mô tả công việc', 'name' => '', 'type' => 'tab', 'placement' => 'top' ),
+				array(
+					'key'       => 'field_qp_job_desc_help',
+					'label'     => '',
+					'name'      => '',
+					'type'      => 'message',
+					'message'   => 'Mỗi ý một dòng, có thể bắt đầu bằng dấu "-" hoặc "•". Dán thẳng từ Word được. Muốn in đậm thì bọc chữ bằng hai dấu sao: **chữ đậm**.',
+					'new_lines' => '',
+				),
+				array( 'key' => 'field_qp_job_general_info', 'label' => '1. Thông tin chung', 'name' => 'job_general_info', 'type' => 'textarea', 'rows' => 4, 'new_lines' => '', 'instructions' => 'Không bắt buộc. Để trống thì web tự ghi: tên vị trí, phòng ban, quản lý trực tiếp, địa chỉ làm việc (lấy từ tab Thông tin tuyển dụng).' ),
+				array( 'key' => 'field_qp_job_goal', 'label' => '2. Mục tiêu công việc', 'name' => 'job_goal', 'type' => 'textarea', 'rows' => 3, 'new_lines' => '', 'instructions' => 'Không bắt buộc.' ),
+				array( 'key' => 'field_qp_job_main_responsibilities', 'label' => '3. Nhiệm vụ và trách nhiệm chính', 'name' => 'job_main_responsibilities', 'type' => 'textarea', 'rows' => 10, 'new_lines' => '', 'required' => 1 ),
+				array( 'key' => 'field_qp_job_requirements_detail', 'label' => '4. Yêu cầu công việc', 'name' => 'job_requirements_detail', 'type' => 'textarea', 'rows' => 8, 'new_lines' => '', 'required' => 1, 'instructions' => 'Trình độ, kinh nghiệm, kỹ năng, ngoại ngữ…' ),
+				array( 'key' => 'field_qp_job_benefits_detail', 'label' => '5. Quyền lợi được hưởng', 'name' => 'job_benefits_detail', 'type' => 'textarea', 'rows' => 6, 'new_lines' => '', 'instructions' => 'Lương thưởng, bảo hiểm, đào tạo, môi trường làm việc…' ),
+				/* Legacy sections used by the first demo posts; only shown when they hold text (see qp_holdings_job_admin_prepare_legacy_field). */
+				array( 'key' => 'field_qp_job_responsibilities', 'label' => 'Trách nhiệm chính (bản cũ)', 'name' => 'responsibilities', 'type' => 'textarea', 'rows' => 4, 'instructions' => 'Nội dung của tin cũ. Web chỉ dùng ô này khi mục 3 ở trên để trống — nên chép sang mục 3 rồi xóa ô này.' ),
+				array( 'key' => 'field_qp_job_requirements', 'label' => 'Yêu cầu (bản cũ)', 'name' => 'requirements', 'type' => 'textarea', 'rows' => 4, 'instructions' => 'Nội dung của tin cũ. Web chỉ dùng ô này khi mục 4 ở trên để trống — nên chép sang mục 4 rồi xóa ô này.' ),
+				array( 'key' => 'field_qp_job_benefits', 'label' => 'Quyền lợi (bản cũ)', 'name' => 'benefits', 'type' => 'textarea', 'rows' => 4, 'instructions' => 'Nội dung của tin cũ. Web chỉ dùng ô này khi mục 5 ở trên để trống — nên chép sang mục 5 rồi xóa ô này.' ),
+
+				/* ---- Tab 3: nhận hồ sơ ---- */
+				array( 'key' => 'field_qp_job_tab_apply', 'label' => 'Nhận hồ sơ', 'name' => '', 'type' => 'tab', 'placement' => 'top' ),
+				array( 'key' => 'field_qp_job_apply_email', 'label' => 'Email nhận hồ sơ', 'name' => 'apply_email', 'type' => 'email', 'placeholder' => 'VD: tuyendung@qpholdings.vn', 'instructions' => 'CV ứng viên gửi qua form ở trang chi tiết sẽ về email này (để trống thì về email quản trị website). Mọi hồ sơ cũng được lưu ở Tuyển dụng → Hồ sơ ứng tuyển.' ),
+
+				/* ---- Tab 4: tùy chọn hiển thị (không bắt buộc) ---- */
+				array( 'key' => 'field_qp_job_tab_display', 'label' => 'Tùy chọn hiển thị', 'name' => '', 'type' => 'tab', 'placement' => 'top' ),
+				array( 'key' => 'field_qp_job_display_title', 'label' => 'Tên vị trí hiển thị trên web', 'name' => 'job_display_title', 'type' => 'text', 'instructions' => 'Không bắt buộc. Chỉ điền khi muốn tên trên web khác với ô tiêu đề.' ),
+				array( 'key' => 'field_qp_job_summary', 'label' => 'Mô tả ngắn', 'name' => 'job_summary', 'type' => 'textarea', 'rows' => 2, 'new_lines' => '', 'instructions' => 'Không bắt buộc. 1–2 câu hiện ở khung "Vị trí liên quan".' ),
+				array( 'key' => 'field_qp_job_hero_image', 'label' => 'Ảnh nền đầu trang', 'name' => 'job_hero_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium', 'instructions' => 'Không bắt buộc. Để trống thì dùng ảnh mặc định của trang Tuyển dụng.' ),
+				array( 'key' => 'field_qp_job_related_jobs', 'label' => 'Vị trí liên quan', 'name' => 'related_jobs', 'type' => 'relationship', 'post_type' => array( 'qp_job' ), 'filters' => array( 'search' ), 'return_format' => 'object', 'min' => 0, 'max' => 2, 'instructions' => 'Không bắt buộc. Để trống thì web tự lấy 2 tin mới nhất.' ),
 			),
 			'location' => array(
 				array(
