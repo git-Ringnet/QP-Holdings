@@ -290,6 +290,7 @@ test.describe('chẩn đoán hosting (WP-01…06)', () => {
     expect(text).toMatch(/Ghi được file \.webp vào uploads\s+Có/);
     expect(text).toMatch(/Chuyển thử 1 ảnh PNG\s+OK/);
     expect(text).toMatch(/Content-Type của file \.webp.*image\/webp/);
+    expect(text, 'không dòng nào bị đánh giá Lỗi').not.toContain('Lỗi');
     const note = await page.locator('#qpwc-diag-text').inputValue();
     expect(note).toContain('[WP-01]');
     // Không để lại file thử
