@@ -44,7 +44,8 @@ final class QPWC_Diagnostics {
 
 		// Chuyển thử thật một ảnh PNG trong suốt.
 		if ( 'none' !== $engine ) {
-			$add( 'WP-01', 'Chuyển thử 1 ảnh PNG', self::selftest(), 'ok' === substr( self::selftest(), 0, 2 ) ? 'ok' : 'fail' );
+			$self = self::selftest();
+			$add( 'WP-01', 'Chuyển thử 1 ảnh PNG', $self, 0 === strpos( $self, 'OK' ) ? 'ok' : 'fail' );
 		}
 
 		// WP-02
