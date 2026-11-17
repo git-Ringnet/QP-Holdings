@@ -44,6 +44,20 @@ function qp_holdings_news_featured_first( array $posts ): array {
 	return array_values( $posts );
 }
 
+/**
+ * The featured post among a list of news posts (any category), or null.
+ *
+ * @param WP_Post[] $posts
+ */
+function qp_holdings_news_featured_pick( array $posts ): ?WP_Post {
+	foreach ( $posts as $post ) {
+		if ( $post instanceof WP_Post && qp_holdings_news_is_featured( (int) $post->ID ) ) {
+			return $post;
+		}
+	}
+	return null;
+}
+
 /* -------------------------------------------------------------------------
  * Admin: checkbox in the publish box, star column in the list
  * ---------------------------------------------------------------------- */

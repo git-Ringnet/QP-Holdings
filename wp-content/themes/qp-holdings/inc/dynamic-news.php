@@ -1481,6 +1481,7 @@ function qp_holdings_render_news_by_category(): void
 	}
 
 	$section_index = 0;
+	$news_featured_id = 0;
 	foreach ($categories as $cat_group) {
 		$posts_per_page = ($section_index === 0) ? 7 : 9;
 
@@ -1515,11 +1516,20 @@ function qp_holdings_render_news_by_category(): void
 				}
 			)
 		);
+		$all_news_posts = $q->posts;
 		wp_reset_postdata();
 
-		// Large card of the first group: the post ticked "Tin nổi bật" (inc/news-featured.php), else the newest.
-		if ($section_index === 0 && function_exists('qp_holdings_news_featured_first')) {
-			$posts = qp_holdings_news_featured_first($posts);
+		// Large card of the first group: the post ticked "Tin nổi bật" (inc/news-featured.php),
+		// whatever its category, else the newest. It is then left out of its own group.
+		if ($section_index === 0) {
+			$news_featured_post = function_exists('qp_holdings_news_featured_pick') ? qp_holdings_news_featured_pick($all_news_posts) : null;
+			$news_featured_id = $news_featured_post instanceof WP_Post ? (int) $news_featured_post->ID : 0;
+			if ($news_featured_id) {
+				$posts = array_values(array_filter($posts, static fn($p) => (int) $p->ID !== $news_featured_id));
+				array_unshift($posts, $news_featured_post);
+			}
+		} elseif (!empty($news_featured_id)) {
+			$posts = array_values(array_filter($posts, static fn($p) => (int) $p->ID !== $news_featured_id));
 		}
 
 		$posts = array_slice($posts, 0, $posts_per_page);
