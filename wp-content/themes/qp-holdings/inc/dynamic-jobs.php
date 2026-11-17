@@ -141,6 +141,107 @@ function qp_holdings_job_employment_type_label( string $employment_type ): strin
 }
 
 /**
+ * Education level label from the ACF select value.
+ */
+function qp_holdings_job_education_label( string $education ): string {
+	$lang = function_exists( 'qp_holdings_current_language' ) ? qp_holdings_current_language() : 'vi';
+	$labels = array(
+		'khong-yeu-cau' => array( 'vi' => 'Không yêu cầu', 'en' => 'Not required', 'zh' => '不限学历' ),
+		'thpt'          => array( 'vi' => 'THPT', 'en' => 'High school', 'zh' => '高中' ),
+		'trung-cap'     => array( 'vi' => 'Trung cấp', 'en' => 'Vocational', 'zh' => '中专' ),
+		'cao-dang'      => array( 'vi' => 'Cao đẳng', 'en' => 'College', 'zh' => '大专' ),
+		'dai-hoc'       => array( 'vi' => 'Đại học', 'en' => 'Bachelor\'s degree', 'zh' => '本科' ),
+		'sau-dai-hoc'   => array( 'vi' => 'Sau đại học', 'en' => 'Postgraduate', 'zh' => '研究生及以上' ),
+	);
+
+	return $labels[ $education ][ $lang ] ?? $labels[ $education ]['vi'] ?? $education;
+}
+
+/**
+ * Format a job deadline (Y-m-d or d/m/Y) and compute remaining days.
+ *
+ * @return array{formatted:string,remaining:string,is_expired:bool}
+ */
+function qp_holdings_job_deadline_info( string $raw_deadline ): array {
+	$raw_deadline = trim( $raw_deadline );
+	if ( '' === $raw_deadline ) {
+		return array( 'formatted' => '', 'remaining' => '', 'is_expired' => false );
+	}
+
+	$tz  = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( 'Asia/Ho_Chi_Minh' );
+	$dt  = DateTimeImmutable::createFromFormat( '!Y-m-d', $raw_deadline, $tz );
+	if ( ! $dt ) {
+		$dt = DateTimeImmutable::createFromFormat( '!d/m/Y', $raw_deadline, $tz );
+	}
+	if ( ! $dt ) {
+		return array( 'formatted' => $raw_deadline, 'remaining' => '', 'is_expired' => false );
+	}
+
+	$today = new DateTimeImmutable( 'today', $tz );
+	$diff  = (int) $today->diff( $dt )->format( '%r%a' );
+
+	$remaining = '';
+	if ( $diff > 0 ) {
+		$fmt       = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'job_days_left' ) : 'Còn %d ngày';
+		$remaining = sprintf( $fmt, $diff );
+	} elseif ( 0 === $diff ) {
+		$remaining = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'job_expires_today' ) : 'Hết hạn hôm nay';
+	} else {
+		$remaining = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'job_expired' ) : 'Đã hết hạn';
+	}
+
+	return array(
+		'formatted'  => $dt->format( 'd/m/Y' ),
+		'remaining'  => $remaining,
+		'is_expired' => $diff < 0,
+	);
+}
+
+/**
+ * Summary items for the job detail overview card.
+ *
+ * @return array<int, array{key:string,label:string,value:string,badge?:string,is_expired?:bool,highlight?:bool}>
+ */
+function qp_holdings_job_summary_items( int $post_id ): array {
+	$t = static function ( string $key, string $fallback ): string {
+		return function_exists( 'qp_holdings_t' ) ? (string) qp_holdings_t( $key ) : $fallback;
+	};
+
+	$salary     = qp_holdings_job_text_field( $post_id, 'salary' );
+	$deadline   = qp_holdings_job_deadline_info( qp_holdings_job_text_field( $post_id, 'deadline' ) );
+	$industry   = qp_holdings_job_text_field( $post_id, 'job_industry' );
+	$edu_raw    = qp_holdings_job_text_field( $post_id, 'job_education' );
+	$education  = $edu_raw ? qp_holdings_job_education_label( $edu_raw ) : '';
+	$level      = qp_holdings_job_text_field( $post_id, 'level' );
+	$experience = qp_holdings_job_text_field( $post_id, 'experience' );
+	$emp_raw    = qp_holdings_job_text_field( $post_id, 'employment_type' );
+	$emp_type   = $emp_raw ? qp_holdings_job_employment_type_label( $emp_raw ) : '';
+	$quantity   = qp_holdings_job_text_field( $post_id, 'quantity' );
+	$location   = qp_holdings_job_text_field( $post_id, 'location' );
+
+	$candidates = array(
+		array( 'key' => 'salary',     'label' => $t( 'job_label_salary', 'Mức lương' ),            'value' => $salary, 'highlight' => true ),
+		array( 'key' => 'deadline',   'label' => $t( 'job_label_deadline', 'Hạn nộp hồ sơ' ),      'value' => $deadline['formatted'], 'badge' => $deadline['remaining'], 'is_expired' => $deadline['is_expired'] ),
+		array( 'key' => 'industry',   'label' => $t( 'job_label_industry', 'Ngành nghề' ),         'value' => $industry ),
+		array( 'key' => 'education',  'label' => $t( 'job_label_education', 'Trình độ' ),          'value' => $education ),
+		array( 'key' => 'level',      'label' => $t( 'job_label_level', 'Cấp bậc' ),               'value' => $level ),
+		array( 'key' => 'experience', 'label' => $t( 'job_label_experience', 'Kinh nghiệm' ),      'value' => $experience ),
+		array( 'key' => 'emp_type',   'label' => $t( 'job_label_emp_type', 'Hình thức làm việc' ), 'value' => $emp_type ),
+		array( 'key' => 'quantity',   'label' => $t( 'job_label_quantity', 'Số lượng tuyển' ),     'value' => $quantity ),
+		array( 'key' => 'location',   'label' => $t( 'job_label_location', 'Địa điểm làm việc' ),  'value' => $location ),
+	);
+
+	return array_values(
+		array_filter(
+			$candidates,
+			static function ( array $item ): bool {
+				return '' !== trim( (string) ( $item['value'] ?? '' ) );
+			}
+		)
+	);
+}
+
+/**
  * Job apply target from ACF URL/email, falling back to the contact page.
  */
 function qp_holdings_job_apply_link( int $post_id, string $title ): string {

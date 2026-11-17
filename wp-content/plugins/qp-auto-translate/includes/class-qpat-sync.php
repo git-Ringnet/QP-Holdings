@@ -52,6 +52,7 @@ final class QPAT_Sync {
 			'location',
 			'workplace',
 			'level',
+			'job_industry',
 			'experience',
 			'salary',
 			'reports_to',

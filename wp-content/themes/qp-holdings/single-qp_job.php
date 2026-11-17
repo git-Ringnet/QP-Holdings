@@ -16,6 +16,7 @@ while ( have_posts() ) :
 	$hero_title    = $post_obj instanceof WP_Post && function_exists( 'qp_holdings_job_title_with_quantity' ) ? qp_holdings_job_title_with_quantity( $post_obj ) : $display_title;
 	$hero_image    = function_exists( 'qp_holdings_job_hero_image_url' ) ? qp_holdings_job_hero_image_url( $post_id ) : get_template_directory_uri() . '/assets/site/careers-hero-team-5fdb60.png';
 	$sections      = function_exists( 'qp_holdings_job_detail_sections' ) ? qp_holdings_job_detail_sections( $post_id ) : array();
+	$summary_items = function_exists( 'qp_holdings_job_summary_items' ) ? qp_holdings_job_summary_items( $post_id ) : array();
 	$related_jobs  = function_exists( 'qp_holdings_related_jobs' ) ? qp_holdings_related_jobs( $post_id, 2 ) : array();
 	$application_status = isset( $_GET['application'] ) ? sanitize_key( wp_unslash( $_GET['application'] ) ) : '';
 	$application_messages = array(
@@ -65,7 +66,26 @@ while ( have_posts() ) :
 				<button type="button" class="job-detail-apply" data-job-application-open><?php echo esc_html( qp_holdings_t( 'apply_now' ) ); ?></button>
 			</article>
 
-			<aside class="job-detail-related" aria-label="<?php echo esc_attr( qp_holdings_t( 'related_jobs' ) ); ?>">
+			<aside class="job-detail-related" aria-label="<?php echo esc_attr( qp_holdings_t( 'job_summary_title' ) ); ?>">
+				<?php if ( ! empty( $summary_items ) ) : ?>
+					<section class="job-detail-summary-card" aria-label="<?php echo esc_attr( qp_holdings_t( 'job_summary_title' ) ); ?>">
+						<h2 class="job-detail-summary-card__title"><?php echo esc_html( qp_holdings_t( 'job_summary_title' ) ); ?></h2>
+						<dl class="job-detail-summary-list">
+							<?php foreach ( $summary_items as $item ) : ?>
+								<div class="job-detail-summary-item<?php echo ! empty( $item['highlight'] ) ? ' is-highlight' : ''; ?>">
+									<dt class="job-detail-summary-item__label"><?php echo esc_html( $item['label'] ); ?></dt>
+									<dd class="job-detail-summary-item__value">
+										<span><?php echo esc_html( $item['value'] ); ?></span>
+										<?php if ( ! empty( $item['badge'] ) ) : ?>
+											<span class="job-detail-summary-badge<?php echo ! empty( $item['is_expired'] ) ? ' is-expired' : ''; ?>"><?php echo esc_html( $item['badge'] ); ?></span>
+										<?php endif; ?>
+									</dd>
+								</div>
+							<?php endforeach; ?>
+						</dl>
+						<button type="button" class="job-detail-summary-card__apply" data-job-application-open><?php echo esc_html( qp_holdings_t( 'job_apply_now' ) ); ?></button>
+					</section>
+				<?php endif; ?>
 				<?php foreach ( $related_jobs as $rel_post ) : ?>
 					<?php
 					$rel_id       = (int) $rel_post->ID;

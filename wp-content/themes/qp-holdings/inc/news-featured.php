@@ -61,7 +61,7 @@ function qp_holdings_news_featured_checkbox( WP_Post $post ): void {
 	} else {
 		wp_nonce_field( QP_HOLDINGS_NEWS_FEATURED_NONCE, QP_HOLDINGS_NEWS_FEATURED_NONCE );
 		printf(
-			'<label><input type="checkbox" name="%1$s" value="1" %2$s> <strong>Tin nổi bật</strong></label><br><span class="description">Hiện ở ô lớn trang Tin tức. Chỉ một tin nổi bật: tích tin này sẽ bỏ tích tin cũ.</span>',
+			'<label><input type="checkbox" name="%1$s" value="1" %2$s> <strong>Tin nổi bật</strong></label><br><span class="description">Hiện ở ô lớn mục Tin dự án trên trang Tin tức. Chỉ một tin nổi bật: tích tin này sẽ bỏ tích tin cũ.</span>',
 			esc_attr( QP_HOLDINGS_NEWS_FEATURED_META ),
 			checked( (bool) get_post_meta( $post->ID, QP_HOLDINGS_NEWS_FEATURED_META, true ), true, false )
 		);
@@ -70,14 +70,7 @@ function qp_holdings_news_featured_checkbox( WP_Post $post ): void {
 }
 add_action( 'post_submitbox_misc_actions', 'qp_holdings_news_featured_checkbox' );
 
-function qp_holdings_news_featured_save( int $post_id, WP_Post $post ): void {
-	if ( ! isset( $_POST[ QP_HOLDINGS_NEWS_FEATURED_NONCE ] ) || ! wp_verify_nonce( sanitize_key( (string) wp_unslash( $_POST[ QP_HOLDINGS_NEWS_FEATURED_NONCE ] ) ), QP_HOLDINGS_NEWS_FEATURED_NONCE ) ) {
-		return;
-	}
-	if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-	$on = ! empty( $_POST[ QP_HOLDINGS_NEWS_FEATURED_META ] );
+function qp_holdings_news_set_featured( int $post_id, bool $on ): void {
 	if ( ! $on ) {
 		delete_post_meta( $post_id, QP_HOLDINGS_NEWS_FEATURED_META );
 		return;
@@ -100,7 +93,37 @@ function qp_holdings_news_featured_save( int $post_id, WP_Post $post ): void {
 	}
 	update_post_meta( $post_id, QP_HOLDINGS_NEWS_FEATURED_META, 1 );
 }
+
+function qp_holdings_news_featured_save( int $post_id, WP_Post $post ): void {
+	if ( ! isset( $_POST[ QP_HOLDINGS_NEWS_FEATURED_NONCE ] ) || ! wp_verify_nonce( sanitize_key( (string) wp_unslash( $_POST[ QP_HOLDINGS_NEWS_FEATURED_NONCE ] ) ), QP_HOLDINGS_NEWS_FEATURED_NONCE ) ) {
+		return;
+	}
+	if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+	qp_holdings_news_set_featured( $post_id, ! empty( $_POST[ QP_HOLDINGS_NEWS_FEATURED_META ] ) );
+}
 add_action( 'save_post_qp_news', 'qp_holdings_news_featured_save', 10, 2 );
+
+function qp_holdings_news_featured_toggle_action(): void {
+	$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
+	if ( ! $post_id || 'qp_news' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'Bạn không có quyền thực hiện thao tác này.', 'qp-holdings' ) );
+	}
+	check_admin_referer( 'qp_toggle_news_featured_' . $post_id );
+
+	$source_id = qp_holdings_news_featured_source_id( $post_id );
+	$currently = (bool) get_post_meta( $source_id, QP_HOLDINGS_NEWS_FEATURED_META, true );
+	qp_holdings_news_set_featured( $source_id, ! $currently );
+
+	$redirect = wp_get_referer();
+	if ( ! $redirect ) {
+		$redirect = admin_url( 'edit.php?post_type=qp_news' );
+	}
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_qp_toggle_news_featured', 'qp_holdings_news_featured_toggle_action' );
 
 function qp_holdings_news_featured_column( array $columns ): array {
 	$out = array();
@@ -115,16 +138,38 @@ function qp_holdings_news_featured_column( array $columns ): array {
 add_filter( 'manage_qp_news_posts_columns', 'qp_holdings_news_featured_column' );
 
 function qp_holdings_news_featured_column_content( string $column, int $post_id ): void {
-	if ( 'qp_featured' === $column && qp_holdings_news_is_featured( $post_id ) ) {
-		echo '<span class="dashicons dashicons-star-filled" style="color:#d3a049" title="Tin nổi bật"></span>';
+	if ( 'qp_featured' !== $column ) {
+		return;
 	}
+	$is_copy     = (int) get_post_meta( $post_id, '_qp_llm_source_id', true ) > 0;
+	$is_featured = qp_holdings_news_is_featured( $post_id );
+	if ( $is_copy ) {
+		if ( $is_featured ) {
+			echo '<span class="dashicons dashicons-star-filled" style="color:#d3a049" title="Tin nổi bật (theo bài tiếng Việt)"></span>';
+		}
+		return;
+	}
+	$url   = wp_nonce_url(
+		admin_url( 'admin-post.php?action=qp_toggle_news_featured&post_id=' . $post_id ),
+		'qp_toggle_news_featured_' . $post_id
+	);
+	$icon  = $is_featured ? 'dashicons-star-filled' : 'dashicons-star-empty';
+	$title = $is_featured ? 'Đang là tin nổi bật — bấm để bỏ' : 'Đặt làm tin nổi bật';
+	$cls   = $is_featured ? 'qp-featured-toggle is-active' : 'qp-featured-toggle';
+	printf(
+		'<a href="%1$s" class="%2$s" title="%3$s" aria-label="%3$s"><span class="dashicons %4$s"></span></a>',
+		esc_url( $url ),
+		esc_attr( $cls ),
+		esc_attr( $title ),
+		esc_attr( $icon )
+	);
 }
 add_action( 'manage_qp_news_posts_custom_column', 'qp_holdings_news_featured_column_content', 10, 2 );
 
 function qp_holdings_news_featured_column_width(): void {
 	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 	if ( $screen && 'edit-qp_news' === $screen->id ) {
-		echo '<style>.column-qp_featured{width:32px;text-align:center}</style>';
+		echo '<style>.column-qp_featured{width:36px;text-align:center}.qp-featured-toggle{color:#c3c4c7;text-decoration:none;display:inline-block}.qp-featured-toggle:hover,.qp-featured-toggle.is-active{color:#d3a049}</style>';
 	}
 }
 add_action( 'admin_head', 'qp_holdings_news_featured_column_width' );

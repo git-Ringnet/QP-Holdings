@@ -25,6 +25,7 @@ final class QP_LLM_Sync {
 			'location',
 			'workplace',
 			'level',
+			'job_industry',
 			'experience',
 			'salary',
 			'reports_to',
