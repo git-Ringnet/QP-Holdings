@@ -9,7 +9,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <?php
-$qp_current_path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+$qp_current_path = function_exists( 'qp_holdings_request_path' ) ? qp_holdings_request_path() : trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
 $qp_nav_pages = function_exists( 'qp_holdings_page_definitions' ) ? qp_holdings_page_definitions() : array();
 
 $qp_nav_label = static function ( string $key ) use ( $qp_nav_pages ): string {

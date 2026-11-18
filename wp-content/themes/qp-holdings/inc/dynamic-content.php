@@ -595,7 +595,7 @@ add_filter(
 		}
 
 		// Prevent 404 on investor newsletter multilingual routes
-		$request_path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+		$request_path = function_exists( 'qp_holdings_request_path' ) ? qp_holdings_request_path() : trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
 		if ( '' === $request_path ) {
 			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
 			$request_path = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
