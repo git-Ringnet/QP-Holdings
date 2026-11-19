@@ -266,6 +266,28 @@ function qp_holdings_custom_menu_render_page(): void {
  * @param string $position Vị trí hiện tại cần render (after_home, after_about, ...).
  * @param string $context  Ngữ cảnh giao diện: 'modern' (header.php), 'legacy-desktop' hoặc 'legacy-mobile' (header-legacy.php).
  */
+/**
+ * Link do quản trị nhập dạng đầy đủ (vd. https://qpholdings.vn/ho-so-doanh-nghiep/) sẽ đưa khách
+ * từ web test / máy dev sang web thật. Nếu domain khác domain đang chạy nhưng đường dẫn là một trang
+ * có trên chính website này thì đổi sang domain hiện tại. Trên production domain trùng → giữ nguyên;
+ * link ra ngoài (trang không tồn tại ở đây) → giữ nguyên.
+ */
+function qp_holdings_localize_site_url( string $url ): string {
+	$host = (string) wp_parse_url( $url, PHP_URL_HOST );
+	$home = (string) wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+	if ( '' === $host || '' === $home || 0 === strcasecmp( $host, $home ) ) {
+		return $url;
+	}
+	$path   = (string) wp_parse_url( $url, PHP_URL_PATH );
+	$lookup = preg_replace( '#^(?:en|zh)(?:/|$)#', '', trim( rawurldecode( $path ), '/' ) );
+	if ( '' !== $lookup && ! get_page_by_path( $lookup ) ) {
+		return $url;
+	}
+	$query    = (string) wp_parse_url( $url, PHP_URL_QUERY );
+	$fragment = (string) wp_parse_url( $url, PHP_URL_FRAGMENT );
+	return home_url( '' === $path ? '/' : $path ) . ( '' !== $query ? '?' . $query : '' ) . ( '' !== $fragment ? '#' . $fragment : '' );
+}
+
 function qp_holdings_render_custom_menu_item( string $position, string $context = 'modern' ): void {
 	$config = qp_holdings_custom_menu_get();
 
@@ -298,6 +320,7 @@ function qp_holdings_render_custom_menu_item( string $position, string $context 
 	} elseif ( 'zh' === $lang && ! empty( $config['url_zh'] ) ) {
 		$url = $config['url_zh'];
 	}
+	$url = qp_holdings_localize_site_url( $url );
 
 	$target    = $config['new_tab'] ? ' target="_blank" rel="noopener noreferrer"' : '';
 	$is_active = false;

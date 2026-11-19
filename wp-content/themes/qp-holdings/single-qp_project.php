@@ -100,7 +100,7 @@ while ( have_posts() ) :
 	<section class="page-hero qp-project-detail-hero" aria-label="<?php echo esc_attr( $title ); ?>">
 		<div class="page-hero-bg" aria-hidden="true">
 			<?php if ( $banner_url ) : ?>
-				<img src="<?php echo esc_url( $banner_url ); ?>" alt="" loading="eager" fetchpriority="high" decoding="async">
+				<?php echo qp_holdings_url_image_html( $banner_url, '100vw', array( 'loading' => 'eager', 'fetchpriority' => 'high' ), '1536x1536' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php else : ?>
 				<?php echo qp_holdings_theme_picture( 'assets/site/project-hero-bg.png', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high', 'decoding' => 'async' ), '100vw' ); ?>
 			<?php endif; ?>
@@ -136,7 +136,7 @@ while ( have_posts() ) :
 			<div class="qp-project-hero-block__inner">
 				<?php if ( $hero_image_url ) : ?>
 					<div class="qp-project-hero-block__media reveal">
-						<img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy" decoding="async">
+						<?php echo qp_holdings_url_image_html( $hero_image_url, '(max-width: 640px) 60vw, (max-width: 900px) 100vw, 660px', array( 'alt' => $title ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 				<?php endif; ?>
 				<div class="qp-project-hero-block__content">
@@ -254,7 +254,9 @@ while ( have_posts() ) :
 						<?php foreach ( $gallery_urls as $gi => $gurl ) : ?>
 							<div class="swiper-slide">
 								<a class="qp-project-gallery__item" href="<?php echo esc_url( $gurl ); ?>" data-gallery-lightbox data-index="<?php echo esc_attr( $gi ); ?>">
-									<img src="<?php echo esc_url( $gurl ); ?>" alt="<?php echo esc_attr( $title . ' - ' . ( $gi + 1 ) ); ?>" loading="lazy" decoding="async">
+									<?php // Ảnh hiển thị dùng bản thu nhỏ có srcset; link phóng to vẫn là ảnh gốc.
+									echo qp_holdings_url_image_html( $gurl, '(max-width: 640px) 60vw, 880px', array( 'alt' => $title . ' - ' . ( $gi + 1 ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									?>
 								</a>
 							</div>
 						<?php endforeach; ?>

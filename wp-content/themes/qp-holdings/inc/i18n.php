@@ -1068,6 +1068,10 @@ function qp_holdings_language_switch_url( string $lang ): string {
 				'en' => ! empty( $custom_menu['url_en'] ) ? (string) $custom_menu['url_en'] : (string) $custom_menu['url'],
 				'zh' => ! empty( $custom_menu['url_zh'] ) ? (string) $custom_menu['url_zh'] : (string) $custom_menu['url'],
 			);
+			// Link nhập dạng https://qpholdings.vn/... → domain đang chạy (web test, máy dev); production giữ nguyên.
+			if ( function_exists( 'qp_holdings_localize_site_url' ) ) {
+				$custom_urls = array_map( 'qp_holdings_localize_site_url', $custom_urls );
+			}
 
 			if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
 				$current_request_url = ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

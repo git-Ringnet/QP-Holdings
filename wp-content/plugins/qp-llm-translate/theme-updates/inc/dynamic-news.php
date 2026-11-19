@@ -529,7 +529,9 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$attrs['sizes'] = $sizes_attr;
 		$html = wp_get_attachment_image($attachment_id, $size, false, $attrs);
 		if (is_string($html) && '' !== trim($html)) {
-			return $html;
+			// Core tự thêm "auto," cho ảnh lazy → trình duyệt bỏ qua $sizes_attr và lấy ảnh theo bề rộng thật × DPR
+			// (điện thoại DPR 3 tải bản 1024px ~1 MB cho thẻ 242px). Bỏ "auto" để khai báo $sizes_attr có hiệu lực.
+			return str_replace('sizes="auto, ', 'sizes="', $html);
 		}
 	}
 

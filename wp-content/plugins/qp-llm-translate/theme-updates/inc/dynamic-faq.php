@@ -162,9 +162,12 @@ function qp_holdings_render_faq_image(): void {
 		return;
 	}
 
+	// Ảnh mặc định: PNG gốc 2200px nặng 12 MB nhưng chỉ hiển thị khung ~660px → dùng WebP thu nhỏ.
+	$base = get_template_directory_uri() . '/assets/site/faq-illustration-3257-17281-fdc866';
 	printf(
-		'<img src="%1$s" alt="%2$s" width="2200" height="2160" loading="lazy" decoding="async">',
-		esc_url( get_template_directory_uri() . '/assets/site/faq-illustration-3257-17281-fdc866.png' ),
+		'<img src="%1$s" srcset="%1$s 700w, %2$s 1320w" sizes="(max-width: 900px) 100vw, 660px" alt="%3$s" width="1320" height="1296" loading="lazy" decoding="async">',
+		esc_url( $base . '-700.webp' ),
+		esc_url( $base . '-1320.webp' ),
 		esc_attr( $alt )
 	);
 }
@@ -225,7 +228,7 @@ function qp_holdings_faq_admin_image_settings(): void {
 	}
 
 	$image_id  = qp_holdings_get_faq_image_id();
-	$default_url = get_template_directory_uri() . '/assets/site/faq-illustration-3257-17281-fdc866.png';
+	$default_url = get_template_directory_uri() . '/assets/site/faq-illustration-3257-17281-fdc866-700.webp';
 	$image_url   = $image_id ? wp_get_attachment_image_url( $image_id, 'medium_large' ) : $default_url;
 	?>
 	<?php if ( isset( $_GET['qp_faq_image_updated'] ) ) : ?>

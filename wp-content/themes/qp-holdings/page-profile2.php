@@ -619,7 +619,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 left: 0;
                 transform-style: preserve-3d;
                 transform-origin: left center;
-                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.8s;
+                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* không chuyển dần z-index: gây chớp trang + vẽ lại cả chồng giấy */
             }
 
             .flipbook-wrapper .front, 
@@ -1001,6 +1001,30 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
             }
 
+            // Đặt tờ đang lật lên trên cùng; sau khi lật xong (0,8s) trả về z-index đích.
+            function setTurning(sheet, finalZ) {
+                clearTimeout(sheet._qpTurn);
+                sheet.style.visibility = '';
+                sheet.style.zIndex = totalPages + 2;
+                sheet._qpTurn = setTimeout(() => {
+                    sheet.style.zIndex = finalZ;
+                    sheet._qpTurn = null;
+                    cullPages();
+                }, 820);
+            }
+
+            // Máy tính: chỉ dựng 2 tờ mỗi bên trang đang xem (các tờ khác nằm khuất bên dưới) → lật mượt hơn.
+            function cullPages() {
+                if (isMobile()) {
+                    pages.forEach((pg) => { pg.style.visibility = ''; });
+                    return;
+                }
+                pages.forEach((pg, i) => {
+                    const near = i >= currentPageIndex - 2 && i <= currentPageIndex + 1;
+                    pg.style.visibility = near || pg._qpTurn ? '' : 'hidden';
+                });
+            }
+
             // Chỉ tải ảnh của tờ đang xem và các tờ kế bên (ảnh khác chờ trong data-src).
             function loadSheetImages(index) {
                 const sheet = pages[index];
@@ -1027,6 +1051,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 originalUpdateMobilePage();
                 updateNavigationButtons();
                 loadNearbyPages();
+                cullPages();
             };
 
             const originalUpdateBookPosition = updateBookPosition;
@@ -1034,6 +1059,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 originalUpdateBookPosition();
                 updateNavigationButtons();
                 loadNearbyPages();
+                cullPages();
             };
 
             document.getElementById('nextBtn').addEventListener('click', () => {
@@ -1048,11 +1074,9 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 if (currentPageIndex < totalPages) {
                     const pageToFlip = pages[currentPageIndex];
                     if (pageToFlip) {
+                        // Tờ đang lật nằm trên cùng suốt lúc lật, lật xong mới về đúng vị trí trong chồng bên trái.
+                        setTurning(pageToFlip, currentPageIndex + 1);
                         pageToFlip.classList.add('flipped');
-                        const currentIndexClone = currentPageIndex;
-                        setTimeout(() => {
-                            pageToFlip.style.zIndex = currentIndexClone + 1;
-                        }, 300);
                     }
                     currentPageIndex++;
                     updateBookPosition();
@@ -1072,8 +1096,8 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     currentPageIndex--;
                     const pageToUnflip = pages[currentPageIndex];
                     if (pageToUnflip) {
+                        setTurning(pageToUnflip, totalPages - currentPageIndex);
                         pageToUnflip.classList.remove('flipped');
-                        pageToUnflip.style.zIndex = totalPages - currentPageIndex;
                     }
                     updateBookPosition();
                 }
@@ -1081,6 +1105,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
             updateNavigationButtons();
             loadNearbyPages();
+            cullPages();
 
             window.addEventListener('resize', () => {
                 if (isMobile()) {

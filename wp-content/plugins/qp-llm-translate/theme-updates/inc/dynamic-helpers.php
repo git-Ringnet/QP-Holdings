@@ -103,6 +103,32 @@ function qp_holdings_card_image_html( $image, int $post_id, string $size = 'larg
 }
 
 /**
+ * <img> từ một URL ảnh: nếu URL thuộc Media Library (không phải ảnh seed) thì xuất kèm
+ * srcset/width/height để trình duyệt chọn bản vừa khung thay vì ảnh gốc (PNG 3 MB…);
+ * ngược lại giữ nguyên <img src="URL">.
+ *
+ * @param array<string,string> $attrs Thuộc tính thêm (alt, loading, fetchpriority, class…).
+ */
+function qp_holdings_url_image_html( string $url, string $sizes, array $attrs = array(), string $size = 'large' ): string {
+	if ( '' === $url ) {
+		return '';
+	}
+	$attrs = array_merge( array( 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async' ), $attrs );
+	$id    = attachment_url_to_postid( $url );
+	if ( $id && wp_attachment_is_image( $id ) && ! qp_holdings_seed_media_attachment_url( $id ) ) {
+		$html = wp_get_attachment_image( $id, $size, false, array_merge( $attrs, array( 'sizes' => $sizes ) ) );
+		if ( $html ) {
+			return str_replace( 'sizes="auto, ', 'sizes="', $html ); // bỏ "auto" để giới hạn $sizes có hiệu lực
+		}
+	}
+	$out = '<img src="' . esc_url( $url ) . '"';
+	foreach ( $attrs as $k => $v ) {
+		$out .= ' ' . esc_attr( $k ) . '="' . esc_attr( $v ) . '"';
+	}
+	return $out . '>';
+}
+
+/**
  * Ảnh seed nằm trong assets/seed-media/ kèm các bản thu nhỏ WordPress đã tạo,
  * nhưng srcset mặc định của core trỏ vào uploads/ (không có file) → tự dựng srcset
  * từ metadata, chỉ lấy file thật sự tồn tại trong theme.
