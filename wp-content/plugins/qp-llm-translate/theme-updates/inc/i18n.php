@@ -13,6 +13,30 @@ function qp_holdings_polylang_active(): bool {
 	return function_exists( 'pll_current_language' ) && function_exists( 'pll_get_post' );
 }
 
+/**
+ * Current request path without the WordPress install folder.
+ *
+ * On qpholdings.vn the site lives at the domain root, so this is the plain
+ * path ("en/about"). On a dev machine installed in a sub-folder
+ * (http://localhost/QP-Holdings/en/about/) the "QP-Holdings/" prefix is
+ * removed so language detection and menus behave the same as production.
+ */
+function qp_holdings_request_path(): string {
+	$path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+	if ( '' === $path ) {
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$path        = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
+	}
+	$base = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	if ( '' !== $base ) {
+		$len = strlen( $base );
+		if ( 0 === strncasecmp( $path, $base, $len ) && ( strlen( $path ) === $len || '/' === $path[ $len ] ) ) {
+			$path = trim( substr( $path, $len ), '/' );
+		}
+	}
+	return $path;
+}
+
 function qp_holdings_current_language(): string {
 	if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], array( 'en', 'zh', 'vi' ), true ) ) {
 		return sanitize_key( $_GET['lang'] );
@@ -37,11 +61,7 @@ function qp_holdings_current_language(): string {
 		return $matches[1];
 	}
 
-	$path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
-	if ( '' === $path ) {
-		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-		$path        = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
-	}
+	$path = qp_holdings_request_path();
 	if ( 0 === strpos( $path, 'en/' ) || 'en' === $path ) {
 		return 'en';
 	}
@@ -206,7 +226,7 @@ add_action( 'init', 'qp_holdings_language_rewrite_rules', 5 );
 
 function qp_holdings_multilingual_home_template( string $template ): string {
 	$lang = qp_holdings_current_language();
-	$path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+	$path = qp_holdings_request_path();
 	if ( in_array( $lang, array( 'en', 'zh' ), true ) && $path === $lang ) {
 		$front = get_template_directory() . '/front-page.php';
 		if ( file_exists( $front ) ) {
@@ -1009,7 +1029,7 @@ function qp_holdings_current_page_key(): string {
 		}
 	}
 
-	$path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+	$path = qp_holdings_request_path();
 	foreach ( $defs as $key => $def ) {
 		foreach ( array( 'vi', 'en', 'zh' ) as $lang ) {
 			$page_path = $def[ $lang ]['slug'] ?? '';
@@ -1597,6 +1617,9 @@ function qp_holdings_static_translation_map( string $lang ): array {
 		'là đơn vị' => array( 'en' => 'is a trusted' , 'zh' => '是一家' ),
 		'đầu tư uy tín' => array( 'en' => 'investment partner', 'zh' => '值得信赖的投资机构' ),
 		'tại Việt Nam' => array( 'en' => 'in Vietnam', 'zh' => '立足越南' ),
+		/* Tiêu đề SEO trang chủ (Rank Math) — trước đây chỉ dịch được "tại Việt Nam" nên tiêu đề EN/ZH lẫn tiếng Việt. */
+		'Nhà phát triển bất động sản tại Việt Nam' => array( 'en' => 'Real Estate Developer in Vietnam', 'zh' => '越南房地产开发商' ),
+		'Nhà phát triển bất động sản' => array( 'en' => 'Real Estate Developer', 'zh' => '房地产开发商' ),
 		'đầu tư và phát triển BĐS' => array( 'en' => 'leading Real Estate investment and development partner', 'zh' => '领先的房地产投资与开发企业' ),
 		'hàng đầu tại Việt Nam' => array( 'en' => 'in Vietnam', 'zh' => '在越南' ),
 		'QP Holdings hoạt động trong các lĩnh vực trọng tâm gồm: Đầu tư Tài chính, Đầu tư - Phát triển Bất động sản, Phát triển Khu Công nghiệp.' => array( 'en' => 'QP Holdings operates across three focus areas: Financial Investment, Real Estate Investment & Development, and Industrial Park Development.', 'zh' => 'QP Holdings 主要业务涵盖三大领域：金融投资、房地产投资与开发、工业园区开发。' ),

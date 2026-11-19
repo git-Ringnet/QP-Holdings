@@ -575,7 +575,6 @@ function qp_holdings_project_figma_card_html( WP_Post $post, string $variant = '
 	}
 
 	$img     = qp_holdings_acf_or_meta( $id, 'card_image', 'card_image' );
-	$img_url = qp_holdings_image_url( $img, $id, 'large' );
 	$assets  = get_template_directory_uri() . '/assets/site';
 	$classes = 'project-figma-card project-figma-card--' . sanitize_html_class( $variant );
 	$location_icon = $assets . '/project-location-icon.svg';
@@ -584,9 +583,9 @@ function qp_holdings_project_figma_card_html( WP_Post $post, string $variant = '
 
 	$out  = '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $classes ) . '"' . $target . '>';
 	$out .= '<div class="project-figma-card__media">';
-	if ( $img_url ) {
-		$out .= '<img src="' . esc_url( $img_url ) . '" alt="" loading="lazy" aria-hidden="true">';
-	}
+	// srcset theo khung thẻ (lưới 3/2/1 cột; thẻ nổi bật chiếm cả hàng) — không tải ảnh gốc.
+	$card_sizes = 'featured' === $variant ? '(max-width: 640px) 60vw, (max-width: 1440px) 100vw, 1344px' : '(max-width: 640px) 60vw, (max-width: 1100px) 50vw, 440px';
+	$out       .= qp_holdings_card_image_html( $img, $id, 'large', $card_sizes );
 	$out .= '</div>';
 	$out .= '<div class="project-figma-card__content">';
 	$out .= '<div class="project-figma-card__body">';
@@ -671,7 +670,6 @@ function qp_holdings_project_card_html( WP_Post $post ): string {
 	$status_name = qp_holdings_first_term_name( $id, 'qp_project_status' );
 	$loc_name    = qp_holdings_first_term_name( $id, 'qp_project_location' );
 	$img         = qp_holdings_acf_or_meta( $id, 'card_image', 'card_image' );
-	$img_url     = qp_holdings_image_url( $img, $id, 'large' );
 	$_raw_sub    = (string) qp_holdings_acf_or_meta( $id, 'subtitle', 'subtitle' );
 	$scale       = qp_holdings_acf_or_meta( $id, 'scale', 'scale' );
 	$title       = get_the_title( $id ); // filtered by the_title hook — already translated.
@@ -692,7 +690,7 @@ function qp_holdings_project_card_html( WP_Post $post ): string {
 
 	$out  = '<a href="' . esc_url( $url ) . '" class="qp-project-card"' . $target . '>';
 	$out .= '<div class="qp-project-card__media">';
-	$out .= $img_url ? '<img src="' . esc_url( $img_url ) . '" alt="" loading="lazy" aria-hidden="true">' : '';
+	$out .= qp_holdings_card_image_html( $img, $id, 'large', '(max-width: 640px) 60vw, (max-width: 1100px) 50vw, 440px' );
 	if ( $status_name ) {
 		$out .= '<span class="qp-project-card__status qp-project-card__status--' . esc_attr( sanitize_html_class( strtolower( str_replace( ' ', '-', remove_accents( $status_name ) ) ) ) ) . '">' . esc_html( $status_name ) . '</span>';
 	}

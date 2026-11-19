@@ -329,7 +329,33 @@ while ( have_posts() ) :
 					</header>
 
 					<?php if ( $hero_image && ! qp_holdings_news_content_starts_with_image( $post_id ) ) : ?>
-					<img class="news-detail-hero-image" src="<?php echo esc_url( $hero_image ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="eager">
+					<?php
+					// Ảnh đầu bài là LCP: cần width/height (tránh giật trang khi ảnh tải xong),
+					// srcset (điện thoại không tải bản gốc) và fetchpriority=high.
+					$hero_attrs = array(
+						'class'         => 'news-detail-hero-image',
+						'alt'           => $title,
+						'loading'       => 'eager',
+						'fetchpriority' => 'high',
+						'decoding'      => 'async',
+						'sizes'         => '(max-width: 900px) calc(100vw - 48px), 880px',
+					);
+					$hero_att_id = function_exists( 'qp_holdings_news_image_attachment_id' ) ? qp_holdings_news_image_attachment_id( $post_id ) : 0;
+					$hero_html   = $hero_att_id ? wp_get_attachment_image( $hero_att_id, 'full', false, $hero_attrs ) : '';
+					if ( '' === $hero_html ) {
+						$hero_size = '';
+						$theme_uri = get_template_directory_uri();
+						if ( 0 === strpos( $hero_image, $theme_uri ) ) {
+							$hero_file = get_template_directory() . substr( (string) strtok( $hero_image, '?' ), strlen( $theme_uri ) );
+							$hero_dims = is_readable( $hero_file ) ? @getimagesize( $hero_file ) : false; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+							if ( $hero_dims ) {
+								$hero_size = ' width="' . (int) $hero_dims[0] . '" height="' . (int) $hero_dims[1] . '"';
+							}
+						}
+						$hero_html = '<img class="news-detail-hero-image" src="' . esc_url( $hero_image ) . '" alt="' . esc_attr( $title ) . '"' . $hero_size . ' loading="eager" fetchpriority="high" decoding="async">';
+					}
+					echo $hero_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts / core output.
+					?>
 					<?php endif; ?>
 
 					<div class="news-detail-content">

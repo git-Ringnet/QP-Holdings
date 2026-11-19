@@ -361,22 +361,11 @@
   /* ── Newsletter form ───────────────────── */
   const newsletterForm = document.querySelector('.newsletter-form');
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = newsletterForm.querySelector('.newsletter-input');
-      if (input && input.value.trim()) {
-        const btn = newsletterForm.querySelector('.newsletter-btn');
-        const originalText = btn.textContent;
-        btn.textContent = t('✓ Đã đăng ký', '✓ Subscribed', '✓ 已订阅');
-        btn.style.background = 'linear-gradient(90deg, #4CAF50, #81C784)';
-        btn.disabled = true;
-        input.value = '';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 3000);
-      }
+    // Gửi thật lên máy chủ (admin-post.php → lưu + email + quay lại kèm ?newsletter=sent).
+    // Trước đây chặn gửi (preventDefault) và chỉ đổi nút "Đã đăng ký" → dữ liệu đăng ký bị mất.
+    newsletterForm.addEventListener('submit', () => {
+      const btn = newsletterForm.querySelector('.newsletter-btn');
+      if (btn) setTimeout(() => { btn.disabled = true; }, 0); // chống bấm 2 lần, sau khi form đã gửi
     });
   }
 

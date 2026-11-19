@@ -49,6 +49,116 @@ function qp_holdings_image_url( $image, int $post_id, string $size = 'large' ): 
 }
 
 /**
+ * Ảnh trang trí trong thẻ (dự án...): ưu tiên ảnh Media Library có srcset/width/height
+ * để trình duyệt tải bản vừa khung thay vì ảnh gốc (có ảnh gốc PNG 3 MB cho ô cao 260px).
+ * Ảnh seed trong theme (không có bản thu nhỏ) giữ nguyên URL như qp_holdings_image_url().
+ *
+ * @param mixed  $image   Giá trị ACF (mảng / ID / URL) hoặc rỗng (dùng ảnh đại diện).
+ * @param string $sizes   Thuộc tính sizes theo bố cục thẻ.
+ */
+function qp_holdings_card_image_html( $image, int $post_id, string $size = 'large', string $sizes = '100vw' ): string {
+	$att_id = 0;
+	if ( is_array( $image ) ) {
+		$att_id = (int) ( $image['ID'] ?? $image['id'] ?? 0 );
+	} elseif ( is_numeric( $image ) ) {
+		$att_id = (int) $image;
+	} elseif ( empty( $image ) ) {
+		$att_id = (int) get_post_thumbnail_id( $post_id );
+	} elseif ( is_string( $image ) ) {
+		// Trường ACF trả về URL nhưng meta lưu ID; ảnh seed trong theme → 0, giữ URL.
+		$raw_id = get_post_meta( $post_id, 'card_image', true );
+		$att_id = is_numeric( $raw_id ) && wp_get_attachment_url( (int) $raw_id ) === $image ? (int) $raw_id : attachment_url_to_postid( $image );
+	}
+
+	$seed_url = $att_id ? qp_holdings_seed_media_attachment_url( $att_id ) : '';
+	if ( $seed_url ) {
+		$html = qp_holdings_seed_image_html( $att_id, $seed_url, $sizes );
+		if ( $html ) {
+			return $html;
+		}
+	}
+
+	if ( $att_id && wp_attachment_is_image( $att_id ) && ! $seed_url ) {
+		$html = wp_get_attachment_image(
+			$att_id,
+			$size,
+			false,
+			array(
+				'alt'         => '',
+				'loading'     => 'lazy',
+				'decoding'    => 'async',
+				'aria-hidden' => 'true',
+				'sizes'       => $sizes,
+			)
+		);
+		if ( $html ) {
+			// Core tự thêm "auto," cho ảnh lazy → trình duyệt bỏ qua $sizes và lấy bản 1536px
+			// trên điện thoại DPR 3. Bỏ "auto" để giới hạn $sizes có hiệu lực.
+			return str_replace( 'sizes="auto, ', 'sizes="', $html );
+		}
+	}
+
+	$url = qp_holdings_image_url( $image, $post_id, $size );
+	return $url ? '<img src="' . esc_url( $url ) . '" alt="" loading="lazy" decoding="async" aria-hidden="true">' : '';
+}
+
+/**
+ * Ảnh seed nằm trong assets/seed-media/ kèm các bản thu nhỏ WordPress đã tạo,
+ * nhưng srcset mặc định của core trỏ vào uploads/ (không có file) → tự dựng srcset
+ * từ metadata, chỉ lấy file thật sự tồn tại trong theme.
+ */
+function qp_holdings_seed_image_html( int $att_id, string $seed_url, string $sizes ): string {
+	$meta = wp_get_attachment_metadata( $att_id );
+	if ( ! is_array( $meta ) || empty( $meta['width'] ) || empty( $meta['height'] ) ) {
+		return '';
+	}
+
+	$ratio    = (int) $meta['width'] / (int) $meta['height'];
+	$dir_url  = trailingslashit( dirname( $seed_url ) );
+	$rel_dir  = dirname( qp_holdings_seed_media_relative_path( $seed_url ) );
+	$dir_path = trailingslashit( get_template_directory() . '/assets/seed-media/' . ( '.' === $rel_dir ? '' : $rel_dir ) );
+
+	$candidates = array();
+	if ( is_file( $dir_path . basename( $seed_url ) ) ) {
+		$candidates[ (int) $meta['width'] ] = array( $seed_url, (int) $meta['width'], (int) $meta['height'] );
+	}
+	foreach ( (array) ( $meta['sizes'] ?? array() ) as $size ) {
+		if ( empty( $size['file'] ) || empty( $size['width'] ) || empty( $size['height'] ) ) {
+			continue;
+		}
+		if ( abs( (int) $size['width'] / (int) $size['height'] - $ratio ) > 0.02 || ! is_file( $dir_path . $size['file'] ) ) {
+			continue; // bản cắt khác tỉ lệ (thumbnail vuông) hoặc file không có trong theme
+		}
+		$candidates[ (int) $size['width'] ] = array( $dir_url . $size['file'], (int) $size['width'], (int) $size['height'] );
+	}
+	if ( count( $candidates ) < 2 ) {
+		return '';
+	}
+	ksort( $candidates );
+
+	// src mặc định: bản lớn nhất không quá 1024px (trình duyệt cũ không hiểu srcset).
+	$src = reset( $candidates );
+	foreach ( $candidates as $w => $c ) {
+		if ( $w <= 1024 ) {
+			$src = $c;
+		}
+	}
+	$srcset = array();
+	foreach ( $candidates as $w => $c ) {
+		$srcset[] = esc_url( $c[0] ) . ' ' . $w . 'w';
+	}
+
+	return sprintf(
+		'<img src="%s" srcset="%s" sizes="%s" width="%d" height="%d" alt="" loading="lazy" decoding="async" aria-hidden="true">',
+		esc_url( $src[0] ),
+		esc_attr( implode( ', ', $srcset ) ),
+		esc_attr( $sizes ),
+		$src[1],
+		$src[2]
+	);
+}
+
+/**
  * Convert theme-relative asset paths to absolute theme URLs.
  *
  * Language-prefixed routes such as /en/news/ break relative paths like

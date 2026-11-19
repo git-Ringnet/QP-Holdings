@@ -49,7 +49,7 @@ $qp_nav_label = static function ( string $key ) use ( $qp_nav_pages, $qp_lang ):
 	return $qp_nav_pages[ $key ][ $qp_lang ]['title'] ?? ( $defaults[ $key ] ?? $key );
 };
 
-$qp_current_path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+$qp_current_path = function_exists( 'qp_holdings_request_path' ) ? qp_holdings_request_path() : trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
 
 $qp_is_nav_active = static function ( string $slug ) use ( $qp_current_path, $qp_nav_pages ): bool {
 	if ( 'home' === $slug ) {

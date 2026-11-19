@@ -60,385 +60,385 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     <div class="page p1" id="page1">
                         <div class="front">
                             <!-- Ảnh Desktop -->
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-01.jpg" alt="Bìa Trước Desktop">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-01.webp" width="1087" height="1512" alt="Bìa Trước Desktop" decoding="async">
                             <!-- Ảnh Mobile -->
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-01.jpg" alt="Bìa Trước Mobile">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-01.webp" width="1087" height="1512" alt="Bìa Trước Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-02.jpg" alt="Trang 1 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-02.jpg" alt="Trang 1 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-02.webp" width="1087" height="1512" alt="Trang 1 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-02.webp" width="1087" height="1512" alt="Trang 1 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 2 -->
                     <div class="page p2" id="page2">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-03.jpg" alt="Trang 2 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-03.jpg" alt="Trang 2 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-03.webp" width="1087" height="1512" alt="Trang 2 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-03.webp" width="1087" height="1512" alt="Trang 2 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-04.jpg" alt="Trang 3 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-04.jpg" alt="Trang 3 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-04.webp" width="1087" height="1512" alt="Trang 3 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-04.webp" width="1087" height="1512" alt="Trang 3 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 3 -->
                     <div class="page p3" id="page3">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-05.jpg" alt="Trang 4 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-05.jpg" alt="Trang 4 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-05.webp" width="1087" height="1512" alt="Trang 4 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-05.webp" width="1087" height="1512" alt="Trang 4 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-06.jpg" alt="Trang 5 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-06.jpg" alt="Trang 5 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-06.webp" width="1087" height="1512" alt="Trang 5 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-06.webp" width="1087" height="1512" alt="Trang 5 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 4 -->
                     <div class="page p4" id="page4">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-07.jpg" alt="Trang 6 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-07.jpg" alt="Trang 6 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-07.webp" width="1087" height="1512" alt="Trang 6 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-07.webp" width="1087" height="1512" alt="Trang 6 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-08.jpg" alt="Trang 7 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-08.jpg" alt="Trang 7 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-08.webp" width="1087" height="1512" alt="Trang 7 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-08.webp" width="1087" height="1512" alt="Trang 7 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 5 -->
                     <div class="page p5" id="page5">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-09.jpg" alt="Trang 8 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-09.jpg" alt="Trang 8 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-09.webp" width="1087" height="1512" alt="Trang 8 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-09.webp" width="1087" height="1512" alt="Trang 8 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-10.jpg" alt="Trang 9 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-10.jpg" alt="Trang 9 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-10.webp" width="1087" height="1512" alt="Trang 9 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-10.webp" width="1087" height="1512" alt="Trang 9 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 6 -->
                     <div class="page p6" id="page6">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-11.jpg" alt="Trang 10 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-11.jpg" alt="Trang 11 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-11.webp" width="1087" height="1512" alt="Trang 10 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-11.webp" width="1087" height="1512" alt="Trang 11 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-12.jpg" alt="Trang 12 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-12.jpg" alt="12 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-12.webp" width="1087" height="1512" alt="Trang 12 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-12.webp" width="1087" height="1512" alt="12 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 7 -->
                     <div class="page p7" id="page7">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-13.jpg" alt="Trang 13 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-13.jpg" alt="Trang 13 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-13.webp" width="1087" height="1512" alt="Trang 13 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-13.webp" width="1087" height="1512" alt="Trang 13 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-14.jpg" alt="Trang 14 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-14.jpg" alt="Trang 14 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-14.webp" width="1087" height="1512" alt="Trang 14 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-14.webp" width="1087" height="1512" alt="Trang 14 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 8 -->
                     <div class="page p8" id="page8">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-15.jpg" alt="Trang 15 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-15.jpg" alt="Trang 15 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-15.webp" width="1087" height="1512" alt="Trang 15 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-15.webp" width="1087" height="1512" alt="Trang 15 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-16.jpg" alt="Trang 16 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-16.jpg" alt="Trang 16 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-16.webp" width="1087" height="1512" alt="Trang 16 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-16.webp" width="1087" height="1512" alt="Trang 16 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 9 -->
                     <div class="page p9" id="page9">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-17.jpg" alt="Trang 17 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-17.jpg" alt="Trang 7 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-17.webp" width="1087" height="1512" alt="Trang 17 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-17.webp" width="1087" height="1512" alt="Trang 7 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-18.jpg" alt="Trang 18 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-18.jpg" alt="Trang 18 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-18.webp" width="1087" height="1512" alt="Trang 18 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-18.webp" width="1087" height="1512" alt="Trang 18 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 10 -->
                     <div class="page p10" id="page10">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-19.jpg" alt="Trang 19 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-19.jpg" alt="Trang 19 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-19.webp" width="1087" height="1512" alt="Trang 19 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-19.webp" width="1087" height="1512" alt="Trang 19 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-20.jpg" alt="Trang 20 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-20.jpg" alt="Trang 20 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-20.webp" width="1087" height="1512" alt="Trang 20 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-20.webp" width="1087" height="1512" alt="Trang 20 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 11 -->
                     <div class="page p11" id="page11">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-21.jpg" alt="Trang 21 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-21.jpg" alt="Trang 21 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-21.webp" width="1087" height="1512" alt="Trang 21 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-21.webp" width="1087" height="1512" alt="Trang 21 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-22.jpg" alt="Trang 22 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-22.jpg" alt="Trang 22 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-22.webp" width="1087" height="1512" alt="Trang 22 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-22.webp" width="1087" height="1512" alt="Trang 22 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 12 -->
                     <div class="page p12" id="page12">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-23.jpg" alt="Trang 23 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-23.jpg" alt="Trang 23 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-23.webp" width="1087" height="1512" alt="Trang 23 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-23.webp" width="1087" height="1512" alt="Trang 23 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-24.jpg" alt="Trang 24 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-24.jpg" alt="Trang 24 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-24.webp" width="1087" height="1512" alt="Trang 24 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-24.webp" width="1087" height="1512" alt="Trang 24 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 13 -->
                     <div class="page p13" id="page13">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-25.jpg" alt="Trang 25 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-25.jpg" alt="Trang 25 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-25.webp" width="1087" height="1512" alt="Trang 25 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-25.webp" width="1087" height="1512" alt="Trang 25 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-26.jpg" alt="Trang 26 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-26.jpg" alt="Trang 26 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-26.webp" width="1087" height="1512" alt="Trang 26 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-26.webp" width="1087" height="1512" alt="Trang 26 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 14 -->
                     <div class="page p14" id="page14">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-27.jpg" alt="Trang 27 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-27.jpg" alt="Trang 27 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-27.webp" width="1087" height="1512" alt="Trang 27 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-27.webp" width="1087" height="1512" alt="Trang 27 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-28.jpg" alt="Trang 28 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-28.jpg" alt="Trang 28 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-28.webp" width="1087" height="1512" alt="Trang 28 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-28.webp" width="1087" height="1512" alt="Trang 28 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 15 -->
                     <div class="page p15" id="page15">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-29.jpg" alt="Trang 29 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-29.jpg" alt="Trang 29 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-29.webp" width="1087" height="1512" alt="Trang 29 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-29.webp" width="1087" height="1512" alt="Trang 29 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-30.jpg" alt="Trang 30 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-30.jpg" alt="Trang 30 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-30.webp" width="1087" height="1512" alt="Trang 30 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-30.webp" width="1087" height="1512" alt="Trang 30 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 16 -->
                     <div class="page p16" id="page16">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-31.jpg" alt="Trang 31 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-31.jpg" alt="Trang 31 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-31.webp" width="1087" height="1512" alt="Trang 31 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-31.webp" width="1087" height="1512" alt="Trang 31 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-32.jpg" alt="Trang 32 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-32.jpg" alt="Trang 32 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-32.webp" width="1087" height="1512" alt="Trang 32 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-32.webp" width="1087" height="1512" alt="Trang 32 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 17 -->
                     <div class="page p17" id="page17">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-33.jpg" alt="Trang 33 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-33.jpg" alt="Trang 33 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-33.webp" width="1087" height="1512" alt="Trang 33 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-33.webp" width="1087" height="1512" alt="Trang 33 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-34.jpg" alt="Trang 34 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-34.jpg" alt="Trang 34 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-34.webp" width="1087" height="1512" alt="Trang 34 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-34.webp" width="1087" height="1512" alt="Trang 34 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 18 -->
                     <div class="page p18" id="page18">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-35.jpg" alt="Trang 35 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-35.jpg" alt="Trang 35 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-35.webp" width="1087" height="1512" alt="Trang 35 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-35.webp" width="1087" height="1512" alt="Trang 35 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-36.jpg" alt="Trang 36 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-36.jpg" alt="Trang 36 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-36.webp" width="1087" height="1512" alt="Trang 36 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-36.webp" width="1087" height="1512" alt="Trang 36 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 19 -->
                     <div class="page p19" id="page19">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-37.jpg" alt="Trang 37 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-37.jpg" alt="Trang 37 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-37.webp" width="1087" height="1512" alt="Trang 37 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-37.webp" width="1087" height="1512" alt="Trang 37 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-38.jpg" alt="Trang 38 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-38.jpg" alt="Trang 38 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-38.webp" width="1087" height="1512" alt="Trang 38 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-38.webp" width="1087" height="1512" alt="Trang 38 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 20 -->
                     <div class="page p20" id="page20">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-39.jpg" alt="Trang 39 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-39.jpg" alt="Trang 39 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-39.webp" width="1087" height="1512" alt="Trang 39 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-39.webp" width="1087" height="1512" alt="Trang 39 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-40.jpg" alt="Trang 40 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-40.jpg" alt="Trang 40 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-40.webp" width="1087" height="1512" alt="Trang 40 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-40.webp" width="1087" height="1512" alt="Trang 40 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 21 -->
                     <div class="page p21" id="page21">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-41.jpg" alt="Trang 41 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-41.jpg" alt="Trang 41 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-41.webp" width="1087" height="1512" alt="Trang 41 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-41.webp" width="1087" height="1512" alt="Trang 41 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-42.jpg" alt="Trang 42 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-42.jpg" alt="Trang 42 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-42.webp" width="1087" height="1512" alt="Trang 42 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-42.webp" width="1087" height="1512" alt="Trang 42 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 22 -->
                     <div class="page p22" id="page22">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-43.jpg" alt="Trang 43 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-43.jpg" alt="Trang 43 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-43.webp" width="1087" height="1512" alt="Trang 43 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-43.webp" width="1087" height="1512" alt="Trang 43 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-44.jpg" alt="Trang 44 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-44.jpg" alt="Trang 44 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-44.webp" width="1087" height="1512" alt="Trang 44 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-44.webp" width="1087" height="1512" alt="Trang 44 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 23 -->
                     <div class="page p23" id="page23">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-45.jpg" alt="Trang 45 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-45.jpg" alt="Trang 45 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-45.webp" width="1087" height="1512" alt="Trang 45 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-45.webp" width="1087" height="1512" alt="Trang 45 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-46.jpg" alt="Trang 46 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-46.jpg" alt="Trang 46 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-46.webp" width="1087" height="1512" alt="Trang 46 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-46.webp" width="1087" height="1512" alt="Trang 46 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 24 -->
                     <div class="page p24" id="page24">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-47.jpg" alt="Trang 47 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-47.jpg" alt="Trang 47 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-47.webp" width="1087" height="1512" alt="Trang 47 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-47.webp" width="1087" height="1512" alt="Trang 47 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-48.jpg" alt="Trang 48 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-48.jpg" alt="Trang 48 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-48.webp" width="1087" height="1512" alt="Trang 48 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-48.webp" width="1087" height="1512" alt="Trang 48 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 25 -->
                     <div class="page p25" id="page25">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-49.jpg" alt="Trang 49 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-49.jpg" alt="Trang 49 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-49.webp" width="1087" height="1512" alt="Trang 49 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-49.webp" width="1087" height="1512" alt="Trang 49 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-50.jpg" alt="Trang 50 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-50.jpg" alt="Trang 50 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-50.webp" width="1087" height="1512" alt="Trang 50 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-50.webp" width="1087" height="1512" alt="Trang 50 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 26 -->
                     <div class="page p26" id="page26">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-51.jpg" alt="Trang 51 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-51.jpg" alt="Trang 51 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-51.webp" width="1087" height="1512" alt="Trang 51 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-51.webp" width="1087" height="1512" alt="Trang 51 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-52.jpg" alt="Trang 52 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-52.jpg" alt="Trang 52 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-52.webp" width="1087" height="1512" alt="Trang 52 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-52.webp" width="1087" height="1512" alt="Trang 52 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 27 -->
                     <div class="page p27" id="page27">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-53.jpg" alt="Trang 53 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-53.jpg" alt="Trang 53 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-53.webp" width="1087" height="1512" alt="Trang 53 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-53.webp" width="1087" height="1512" alt="Trang 53 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-54.jpg" alt="Trang 54 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-54.jpg" alt="Trang 54 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-54.webp" width="1087" height="1512" alt="Trang 54 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-54.webp" width="1087" height="1512" alt="Trang 54 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 28 -->
                     <div class="page p28" id="page28">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-55.jpg" alt="Trang 55 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-55.jpg" alt="Trang 55 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-55.webp" width="1087" height="1512" alt="Trang 55 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-55.webp" width="1087" height="1512" alt="Trang 55 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-56.jpg" alt="Trang 56 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-56.jpg" alt="Trang 56 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-56.webp" width="1087" height="1512" alt="Trang 56 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-56.webp" width="1087" height="1512" alt="Trang 56 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 29 -->
                     <div class="page p29" id="page29">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-57.jpg" alt="Trang 57 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-57.jpg" alt="Trang 57 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-57.webp" width="1087" height="1512" alt="Trang 57 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-57.webp" width="1087" height="1512" alt="Trang 57 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-58.jpg" alt="Trang 58 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-58.jpg" alt="Trang 58 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-58.webp" width="1087" height="1512" alt="Trang 58 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-58.webp" width="1087" height="1512" alt="Trang 58 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 30 -->
                     <div class="page p30" id="page30">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-59.jpg" alt="Trang 59 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-59.jpg" alt="Trang 59 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-59.webp" width="1087" height="1512" alt="Trang 59 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-59.webp" width="1087" height="1512" alt="Trang 59 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-60.jpg" alt="Trang 60 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-60.jpg" alt="Trang 60 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-60.webp" width="1087" height="1512" alt="Trang 60 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-60.webp" width="1087" height="1512" alt="Trang 60 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 31 -->
                     <div class="page p31" id="page31">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-61.jpg" alt="Trang 61 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-61.jpg" alt="Trang 61 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-61.webp" width="1087" height="1512" alt="Trang 61 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-61.webp" width="1087" height="1512" alt="Trang 61 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-62.jpg" alt="Trang 62 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-62.jpg" alt="Trang 62 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-62.webp" width="1087" height="1512" alt="Trang 62 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-62.webp" width="1087" height="1512" alt="Trang 62 Mobile" decoding="async">
                         </div>
                     </div>
 
                     <!-- TRANG 31 -->
                     <div class="page p32" id="page32">
                         <div class="front">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-63.jpg" alt="Trang 63 Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-63.jpg" alt="Trang 63 Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-63.webp" width="1087" height="1512" alt="Trang 63 Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-63.webp" width="1087" height="1512" alt="Trang 63 Mobile" decoding="async">
                         </div>
                         <div class="back">
-                            <img class="img-desktop" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/QP_Profile_Trang-64.jpg" alt="Bìa Sau Desktop">
-                            <img class="img-mobile" src="<?php echo get_template_directory_uri(); ?>/hinh/zh/mobile/QP_Profile_Trang-64.jpg" alt="Bìa Sau Mobile">
+                            <img class="img-desktop" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_Trang-64.webp" width="1087" height="1512" alt="Bìa Sau Desktop" decoding="async">
+                            <img class="img-mobile" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/mobile/QP_Profile_Trang-64.webp" width="1087" height="1512" alt="Bìa Sau Mobile" decoding="async">
                         </div>
                     </div>
 
@@ -449,7 +449,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
         <!-- QR CODE DOWNLOAD PROFILE -->
         <div class="footer-qr-wrapper" style="text-align: center; background: #eef1f6;">
             <div class="footer-qr-card" style="display: inline-block; padding: 6px; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-            <img src="http://qpholdings.vn/wp-content/themes/qp-holdings/hinh/zh/qr_profile_zh.png"
+            <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/qr_profile_zh.png"
             alt="QR Code QP Holdings"
             width="96"
             height="96"
@@ -464,7 +464,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
             <a
                 class="flipbook-download-btn"
                 id="downloadProfileBtn"
-                href="/wp-content/themes/qp-holdings/hinh/zh/QP_Profile_CN_trang-doi.pdf"
+                href="<?php echo esc_url( get_template_directory_uri() ); ?>/hinh/zh/QP_Profile_CN_trang-doi.pdf"
                 download="QP_Profile_Company.pdf"
                 aria-label="下载资料"
             >
@@ -1001,17 +1001,39 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
             }
 
+            // Chỉ tải ảnh của tờ đang xem và các tờ kế bên (ảnh khác chờ trong data-src).
+            function loadSheetImages(index) {
+                const sheet = pages[index];
+                if (!sheet) return;
+                sheet.querySelectorAll(isMobile() ? 'img.img-mobile[data-src]' : 'img.img-desktop[data-src]').forEach((img) => {
+                    const webp = img.dataset.src;
+                    // Trình duyệt cũ không hiển thị được WebP (iOS 13 trở xuống, IE) → dùng file JPG gốc cùng tên.
+                    img.onerror = () => { img.onerror = null; img.src = webp.replace(/\.webp$/, '.jpg'); };
+                    img.src = webp;
+                    img.removeAttribute('data-src');
+                });
+            }
+
+            function loadNearbyPages() {
+                const base = isMobile() ? Math.floor(mobilePageIndex / 2) : currentPageIndex;
+                for (let i = base - 1; i <= base + 2; i++) {
+                    loadSheetImages(i);
+                }
+            }
+
             // Cập nhật trạng thái nút khi trang thay đổi.
             const originalUpdateMobilePage = updateMobilePage;
             updateMobilePage = function() {
                 originalUpdateMobilePage();
                 updateNavigationButtons();
+                loadNearbyPages();
             };
 
             const originalUpdateBookPosition = updateBookPosition;
             updateBookPosition = function() {
                 originalUpdateBookPosition();
                 updateNavigationButtons();
+                loadNearbyPages();
             };
 
             document.getElementById('nextBtn').addEventListener('click', () => {
@@ -1058,6 +1080,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
             });
 
             updateNavigationButtons();
+            loadNearbyPages();
 
             window.addEventListener('resize', () => {
                 if (isMobile()) {
