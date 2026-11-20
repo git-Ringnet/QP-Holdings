@@ -1020,6 +1020,21 @@ function qp_holdings_is_home_request(): bool {
 add_filter( 'style_loader_tag', 'qp_holdings_defer_noncritical_css', 10, 4 );
 
 /**
+ * Trang chủ (VI/EN/ZH) dùng template riêng, không có nội dung khối Gutenberg (bài viết soạn bằng
+ * Classic Editor) → bỏ 3 khối CSS khối inline (~3,3 KB nén) để HTML nhẹ hơn, trang hiện sớm hơn
+ * trên điện thoại. Trang bài viết/trang con vẫn giữ nguyên.
+ */
+function qp_holdings_trim_block_css_on_home(): void {
+    if ( is_admin() || ! qp_holdings_is_home_request() ) {
+        return;
+    }
+    foreach ( array( 'global-styles', 'wp-block-library', 'wp-block-library-theme', 'classic-theme-styles' ) as $handle ) {
+        wp_dequeue_style( $handle );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'qp_holdings_trim_block_css_on_home', 100 );
+
+/**
  * Legacy exported templates include duplicate stylesheet tags after get_header().
  * Keep the canonical wp_enqueue_* output and strip only those known duplicate tags.
  */
