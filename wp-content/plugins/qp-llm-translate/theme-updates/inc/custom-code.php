@@ -545,10 +545,70 @@ function qp_holdings_custom_code_output( string $slot ): void {
 		if ( empty( $snippet['enabled'] ) || empty( $snippet['valid'] ) || '' === trim( $snippet['content'] ) ) {
 			continue;
 		}
+		$content = $snippet['content'];
+		if ( qp_holdings_custom_code_delay_enabled() ) {
+			$content = qp_holdings_custom_code_mark_delayed( $content );
+		}
 		// Trusted unfiltered_html output by design — do not escape.
-		echo "\n" . $snippet['content'] . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "\n" . $content . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
+
+/**
+ * Hoãn mã theo dõi (GTM, gtag, pixel...) tới khi trang đã hiển thị xong.
+ *
+ * Các mã này nặng (mỗi bộ GTM/gtag ~150–190 KB JS) và chạy ngay khi trang đang tải làm chậm
+ * thời gian hiện nội dung chính (LCP) trên điện thoại. Khi bật, thẻ <script> trong các ô
+ * "Mã tùy chỉnh" được đổi sang type="text/qp-delay" và chỉ chạy lại (đúng thứ tự) khi người
+ * xem tương tác đầu tiên (cuộn, chạm, gõ phím, di chuột) hoặc sau khi trang tải xong 3 giây.
+ * Tắt bằng: add_filter( 'qp_holdings_delay_custom_scripts', '__return_false' );
+ */
+function qp_holdings_custom_code_delay_enabled(): bool {
+	if ( is_admin() || wp_doing_ajax() || is_customize_preview() ) {
+		return false;
+	}
+	return (bool) apply_filters( 'qp_holdings_delay_custom_scripts', true );
+}
+
+/**
+ * Đổi <script> (JS thường, không phải JSON-LD/template/module) sang type hoãn.
+ *
+ * @param string $html Snippet HTML.
+ */
+function qp_holdings_custom_code_mark_delayed( string $html ): string {
+	return (string) preg_replace_callback(
+		'/<script\b([^>]*)>/i',
+		static function ( array $m ): string {
+			$attrs = $m[1];
+			if ( preg_match( '/\btype\s*=\s*["\']?([^"\'\s>]+)/i', $attrs, $t ) ) {
+				$type = strtolower( $t[1] );
+				if ( ! in_array( $type, array( 'text/javascript', 'application/javascript' ), true ) ) {
+					return $m[0];
+				}
+				$attrs = (string) preg_replace( '/\btype\s*=\s*["\']?[^"\'\s>]+["\']?/i', '', $attrs );
+			}
+			return '<script type="text/qp-delay"' . $attrs . '>';
+		},
+		$html
+	);
+}
+
+add_action( 'wp_footer', static function (): void {
+	if ( ! qp_holdings_custom_code_delay_enabled() ) {
+		return;
+	}
+	?>
+<script>(function(){var d=document,w=window,done=0,ev=['scroll','keydown','pointerdown','touchstart','mousemove','wheel'];
+function run(){if(done)return;done=1;ev.forEach(function(e){w.removeEventListener(e,run,{passive:true});});
+var list=[].slice.call(d.querySelectorAll('script[type="text/qp-delay"]'));
+(function next(){var o=list.shift();if(!o)return;var s=d.createElement('script');
+for(var i=0;i<o.attributes.length;i++){var a=o.attributes[i];if(a.name!=='type')s.setAttribute(a.name,a.value);}
+var wait=o.src&&!o.async&&!o.defer;if(!o.src)s.text=o.text;
+if(wait){s.onload=s.onerror=next;}o.parentNode.replaceChild(s,o);if(!wait)next();})();}
+ev.forEach(function(e){w.addEventListener(e,run,{passive:true});});
+function later(){setTimeout(run,3000);}if(d.readyState==='complete')later();else w.addEventListener('load',later);})();</script>
+	<?php
+}, 100 );
 
 add_action( 'wp_head', static function (): void {
 	qp_holdings_custom_code_output( 'head' );

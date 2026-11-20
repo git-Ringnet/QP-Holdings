@@ -982,20 +982,21 @@ add_filter( 'script_loader_tag', 'qp_holdings_defer_scripts', 10, 3 );
  */
 function qp_holdings_defer_noncritical_css( string $tag, string $handle, string $href, string $media ): string {
     $defer_handles = array( 'qp-site', 'qp-holdings-theme', 'qp-dynamic', 'qp-swiper', 'qp-intl-tel-input', 'contact-form-7' );
+
+    // critical.css chỉ được tinh chỉnh cho trang chủ. Ở trang con, khối đầu trang cần
+    // margin-top 72px (chừa chỗ header cố định) nằm trong CSS đầy đủ; tải CSS sau khiến
+    // cả trang bị đẩy xuống 72px khi CSS về (CLS 0.15–0.46 trên điện thoại chậm, Lighthouse).
+    // → Trang con: 3 file CSS chính tải chặn-render ở mọi kích thước màn hình (đã nén ~40 KB).
+    if ( in_array( $handle, array( 'qp-site', 'qp-holdings-theme', 'qp-dynamic' ), true ) && ! qp_holdings_is_home_request() ) {
+        return $tag;
+    }
+
     if ( in_array( $handle, $defer_handles, true ) ) {
         $tag = str_replace( "media='all'", "media='print' onload=\"this.media='all'\"", $tag );
         if ( false === strpos( $tag, 'onload' ) ) {
             $tag = str_replace( '/>', "media='print' onload=\"this.media='all'\" />", $tag );
         }
         $tag .= '<noscript>' . str_replace( array( "media='print' onload=\"this.media='all'\"", "media=\"print\" onload=\"this.media='all'\"" ), "media='all'", $tag ) . '</noscript>';
-
-        // critical.css chỉ được tinh chỉnh cho trang chủ. Ở trang con, màn hình rộng
-        // vẽ trước khi CSS đầy đủ về → header/hero nhảy 96px (CLS 0.3–0.85 trên máy tính).
-        // Thêm bản chặn-render cùng URL chỉ cho màn hình > 640px (trình duyệt tải 1 lần);
-        // điện thoại vẫn tải CSS sau như cũ (đo được CLS = 0).
-        if ( in_array( $handle, array( 'qp-site', 'qp-holdings-theme', 'qp-dynamic' ), true ) && ! qp_holdings_is_home_request() ) {
-            $tag = "<link rel='stylesheet' id='" . esc_attr( $handle ) . "-wide-css' href='" . esc_url( $href ) . "' media='(min-width: 641px)' />\n" . $tag;
-        }
     }
     return $tag;
 }
