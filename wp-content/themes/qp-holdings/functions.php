@@ -639,6 +639,12 @@ function qp_holdings_output_critical_preloads(): void {
     // that Lighthouse flagged on production (Δ CLS ≈ 0.16).
     $font_dir = $theme_uri . '/assets/fonts';
     $preload_fonts = array( 'noto-sans-latin-400.woff2', 'noto-sans-latin-ext-400.woff2', 'noto-sans-vi-400.woff2' );
+    // Bản tiếng Anh chỉ cần bộ latin: bỏ preload latin-ext + vi (~200 KB) để không tranh
+    // băng thông với lần vẽ đầu (LCP trang chủ /en/ trên điện thoại). @font-face vẫn tự tải
+    // 2 bộ này nếu trang có ký tự cần đến (unicode-range).
+    if ( function_exists( 'qp_holdings_current_language' ) && 'en' === qp_holdings_current_language() ) {
+        $preload_fonts = array( 'noto-sans-latin-400.woff2' );
+    }
     // Preload the Simplified-Chinese subset only on zh so vi/en visitors don't
     // pay for the ~1 MB CJK file. The @font-face still loads it on demand
     // elsewhere; this just removes the FOUT on the Chinese site.
