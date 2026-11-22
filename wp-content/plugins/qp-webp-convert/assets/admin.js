@@ -80,7 +80,8 @@
 			if ( e.target.checked ) {
 				call( 'confirm_backup' ).then( function ( res ) { if ( show( res ) ) { $( 'qpwc-backup-at' ).textContent = '(vừa xác nhận)'; } } );
 			} else {
-				e.target.checked = true; // đã xác nhận thì giữ nguyên
+				// Bỏ tick: coi như chưa sao lưu, plugin chặn chạy hàng loạt / thay ảnh gốc cho tới khi tick lại.
+				call( 'unconfirm_backup' ).then( function ( res ) { if ( show( res ) ) { $( 'qpwc-backup-at' ).textContent = ''; } } );
 			}
 		} );
 		$( 'qpwc-start' ).addEventListener( 'click', function ( e ) {

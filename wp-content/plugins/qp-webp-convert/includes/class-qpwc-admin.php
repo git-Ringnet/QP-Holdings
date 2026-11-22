@@ -141,7 +141,7 @@ final class QPWC_Admin {
 				<?php submit_button( 'Lưu cài đặt' ); ?>
 			</form>
 
-			<h2>2. Chẩn đoán hosting (phần A của bảng nghiệm thu)</h2>
+			<h2>2. Chẩn đoán hosting</h2>
 			<table class="widefat striped" id="qpwc-diag" style="max-width:980px">
 				<thead><tr><th>Mã</th><th>Hạng mục</th><th>Giá trị</th><th>Đánh giá</th></tr></thead>
 				<tbody>
@@ -158,7 +158,7 @@ final class QPWC_Admin {
 				<?php wp_nonce_field( 'qpwc_measure' ); ?>
 				<button class="button" name="qpwc_measure" value="1" id="qpwc-measure">Đo dung lượng uploads</button>
 			</form>
-			<p><strong>Văn bản để dán vào cột Ghi chú:</strong></p>
+			<p><strong>Kết quả chẩn đoán dạng văn bản</strong> (copy gửi bộ phận kỹ thuật khi cần hỗ trợ):</p>
 			<textarea readonly rows="8" style="width:100%;max-width:980px;font-family:monospace" id="qpwc-diag-text"><?php echo esc_textarea( QPWC_Diagnostics::as_text( $rows ) ); ?></textarea>
 
 			<h2>3. Chuyển đổi hàng loạt ảnh đang có</h2>

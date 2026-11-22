@@ -135,8 +135,17 @@ final class QPWC_Replace {
 			}
 
 			// 4. Chuyển file gốc vào thư mục tạm.
-			foreach ( array_keys( $map ) as $rel ) {
+			$webp_bytes = 0;
+			foreach ( $map as $rel => $new_rel ) {
 				$out['freed'] += self::move_file( $base . '/' . $rel, self::backup_root() . '/' . $rel );
+				$webp_bytes   += is_file( $base . '/' . $new_rel ) ? (int) filesize( $base . '/' . $new_rel ) : 0;
+			}
+			// Bảng thống kê mục 3 (Thành công / Lỗi / dung lượng) phản ánh đúng ảnh đã thay.
+			foreach ( $ids as $aid ) {
+				update_post_meta( (int) $aid, QPWC_Media::META_STATUS, 'done' );
+				update_post_meta( (int) $aid, QPWC_Media::META_REASON, 'replaced' );
+				update_post_meta( (int) $aid, QPWC_Media::META_SRC, (int) $out['freed'] );
+				update_post_meta( (int) $aid, QPWC_Media::META_WEBP, $webp_bytes );
 			}
 
 			if ( empty( $GLOBALS['qpwc_in_batch'] ) ) {

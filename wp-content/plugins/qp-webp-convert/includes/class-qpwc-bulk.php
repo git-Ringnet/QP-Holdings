@@ -132,6 +132,10 @@ final class QPWC_Bulk {
 		if ( 'confirm_backup' === $do ) {
 			QPWC_Settings::update( array( 'backup_at' => time() ) );
 			$out = self::state();
+		} elseif ( 'unconfirm_backup' === $do ) {
+			// Bỏ tick: coi như chưa sao lưu → chặn chạy hàng loạt / thay ảnh gốc cho tới khi tick lại.
+			QPWC_Settings::update( array( 'backup_at' => 0 ) );
+			$out = self::state();
 		} elseif ( 'start' === $do ) {
 			$out = self::start();
 		} elseif ( 'pause' === $do ) {
