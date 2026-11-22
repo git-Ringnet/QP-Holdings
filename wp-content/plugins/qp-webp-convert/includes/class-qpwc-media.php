@@ -14,7 +14,30 @@ final class QPWC_Media {
 
 	public static function init(): void {
 		add_filter( 'wp_update_attachment_metadata', array( __CLASS__, 'on_metadata' ), 20, 2 );
+		// Chạy một lần khi WordPress đã tạo xong mọi kích thước ảnh mới tải lên (trước khi trả về trình soạn bài).
+		add_filter( 'wp_generate_attachment_metadata', array( __CLASS__, 'on_generated' ), 30, 2 );
 		add_action( 'delete_attachment', array( __CLASS__, 'on_delete' ), 10, 1 );
+	}
+
+	/**
+	 * Bật "Ảnh mới tải lên: thay luôn bằng WebP" → ảnh vừa tải lên được đổi sang WebP và xóa ảnh gốc ngay
+	 * (ảnh mới chưa có bài nào dùng nên không cần đổi đường dẫn trong bài).
+	 *
+	 * @param mixed $data
+	 */
+	public static function on_generated( $data, $attachment_id ) {
+		if ( ! QPWC_Settings::enabled() || ! QPWC_Settings::get( 'replace_new' ) || ! is_array( $data ) ) {
+			return $data;
+		}
+		try {
+			$agg = self::process_attachment( (int) $attachment_id, $data );
+			if ( 'done' === $agg['status'] ) {
+				$data = QPWC_Replace::replace_new_upload( (int) $attachment_id, $data );
+			}
+		} catch ( \Throwable $e ) {
+			QPWC_Settings::log( 'Lỗi khi thay ảnh mới bằng WebP: ' . $e->getMessage(), (int) $attachment_id );
+		}
+		return $data;
 	}
 
 	/** @param mixed $data */
@@ -39,6 +62,15 @@ final class QPWC_Media {
 	 */
 	public static function process_attachment( int $attachment_id, ?array $metadata = null, bool $force = false ): array {
 		$mime = (string) get_post_mime_type( $attachment_id );
+		// Ảnh đã được thay bằng WebP (file chính là anh.jpg.webp): đã xong, không xử lý lại.
+		if ( 'image/webp' === $mime && ( get_post_meta( $attachment_id, QPWC_Replace::META, true ) || preg_match( '/\.(jpe?g|png)\.webp$/i', (string) get_post_meta( $attachment_id, '_wp_attached_file', true ) ) ) ) {
+			return array(
+				'status'     => 'done',
+				'reason'     => 'replaced',
+				'src_bytes'  => (int) get_post_meta( $attachment_id, self::META_SRC, true ),
+				'webp_bytes' => (int) get_post_meta( $attachment_id, self::META_WEBP, true ),
+			);
+		}
 		if ( ! in_array( $mime, array( 'image/jpeg', 'image/png' ), true ) ) {
 			// GIF, SVG, PDF... giữ nguyên (WP-12).
 			$agg = array(

@@ -240,6 +240,10 @@ final class QPWC_Bulk {
 	 */
 	public static function cleanup(): int {
 		global $wpdb;
+		// Đã thay ảnh gốc bằng WebP thì các file .jpg.webp chính là ảnh của website — không được xóa.
+		if ( class_exists( 'QPWC_Replace' ) && QPWC_Replace::replaced_count() > 0 ) {
+			return -1;
+		}
 		$up      = wp_get_upload_dir();
 		$deleted = 0;
 		if ( is_dir( $up['basedir'] ) ) {

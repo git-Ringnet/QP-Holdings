@@ -8,3 +8,4 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 delete_option( 'qpwc_settings' );
 delete_option( 'qpwc_log' );
 delete_option( 'qpwc_bulk' );
+delete_option( 'qpwc_replace' );

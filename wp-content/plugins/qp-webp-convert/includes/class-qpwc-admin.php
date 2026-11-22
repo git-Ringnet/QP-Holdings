@@ -68,8 +68,9 @@ final class QPWC_Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'Không đủ quyền.' );
 		}
-		$n = QPWC_Bulk::cleanup();
-		wp_safe_redirect( add_query_arg( array( 'page' => self::PAGE, 'qpwc_cleaned' => $n ), admin_url( 'upload.php' ) ) );
+		$n   = QPWC_Bulk::cleanup();
+		$arg = $n < 0 ? array( 'page' => self::PAGE, 'qpwc_cleanup_blocked' => 1 ) : array( 'page' => self::PAGE, 'qpwc_cleaned' => $n );
+		wp_safe_redirect( add_query_arg( $arg, admin_url( 'upload.php' ) ) );
 		exit;
 	}
 
@@ -104,6 +105,9 @@ final class QPWC_Admin {
 			<?php if ( isset( $_GET['qpwc_cleaned'] ) ) : // phpcs:ignore ?>
 				<div class="notice notice-success"><p>Đã xóa <?php echo (int) $_GET['qpwc_cleaned']; // phpcs:ignore ?> file WebP. Website dùng lại ảnh gốc.</p></div>
 			<?php endif; ?>
+			<?php if ( isset( $_GET['qpwc_cleanup_blocked'] ) ) : // phpcs:ignore ?>
+				<div class="notice notice-error"><p>Không xóa: website đã thay ảnh gốc bằng WebP, các file WebP chính là ảnh của website. Muốn quay lại ảnh gốc hãy dùng nút "Hoàn tác" ở mục 4 (khi ảnh gốc chưa bị xóa vĩnh viễn).</p></div>
+			<?php endif; ?>
 			<?php if ( 'none' === $engine ) : ?>
 				<div class="notice notice-error"><p><strong>Máy chủ chưa hỗ trợ tạo WebP</strong> (thiếu GD/Imagick có WebP). Liên hệ nhà hosting. Plugin sẽ không chuyển đổi cho tới khi có.</p></div>
 			<?php endif; ?>
@@ -124,6 +128,14 @@ final class QPWC_Admin {
 						<th scope="row"><label for="qpwc-quality">Chất lượng WebP (1–100)</label></th>
 						<td><input type="number" id="qpwc-quality" min="1" max="100" name="<?php echo esc_attr( QPWC_Settings::OPTION ); ?>[quality]" value="<?php echo (int) $s['quality']; ?>" class="small-text">
 						<p class="description">Mặc định 80: cân bằng độ nét và dung lượng. Nếu file WebP lớn hơn ảnh gốc, plugin giữ ảnh gốc.</p></td>
+					</tr>
+					<tr>
+						<th scope="row">Ảnh mới tải lên</th>
+						<td>
+							<label><input type="checkbox" id="qpwc-replace-new" name="<?php echo esc_attr( QPWC_Settings::OPTION ); ?>[replace_new]" value="1" <?php checked( (bool) $s['replace_new'] ); ?>>
+							Thay luôn bằng WebP và xóa ảnh gốc JPG/PNG (tiết kiệm dung lượng hosting).</label>
+							<p class="description">Ảnh vừa tải lên chưa có bài nào dùng nên được đổi ngay; bài viết nhận đường dẫn WebP. Tự bật khi chạy "Thay ảnh gốc bằng WebP" ở mục 4. Tắt đi: giữ cả ảnh gốc lẫn bản WebP như trước.</p>
+						</td>
 					</tr>
 				</table>
 				<?php submit_button( 'Lưu cài đặt' ); ?>
@@ -194,15 +206,57 @@ final class QPWC_Admin {
 				</tbody>
 			</table>
 
-			<h2>4. Khôi phục / dọn dẹp</h2>
-			<p>Xóa toàn bộ file <code>.jpg.webp</code>, <code>.png.webp</code> do plugin tạo. Ảnh gốc không bị đụng tới.</p>
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('Xóa toàn bộ file WebP do plugin tạo? Ảnh gốc không bị ảnh hưởng.');">
-				<input type="hidden" name="action" value="qpwc_cleanup">
-				<?php wp_nonce_field( 'qpwc_cleanup' ); ?>
-				<button class="button" id="qpwc-cleanup">Xóa toàn bộ file WebP</button>
-			</form>
+			<?php
+			$rp       = QPWC_Replace::state();
+			$replaced = QPWC_Replace::replaced_count();
+			$backup   = QPWC_Replace::backup_bytes();
+			?>
+			<h2>4. Thay ảnh gốc bằng WebP (giảm dung lượng hosting)</h2>
+			<div style="max-width:980px">
+				<p>Đổi ảnh JPG/PNG trong thư viện thành ảnh WebP (nhẹ hơn khoảng 70–80%) và <strong>tự cập nhật đường dẫn ảnh trong mọi bài viết, trang, bản dịch</strong>. Chỉ đụng ảnh JPG/PNG; <strong>PDF, video, GIF, SVG giữ nguyên</strong>. Ảnh nào chuyển WebP không nhỏ hơn thì giữ ảnh gốc.</p>
+				<ol>
+					<li>Sao lưu toàn bộ website (thư mục ảnh và database), tick xác nhận ở mục 3.</li>
+					<li>Bấm <strong>Thay ảnh gốc bằng WebP</strong>. Chạy theo lô, có thể tạm dừng / chạy tiếp. Ảnh gốc được <strong>chuyển vào thư mục tạm</strong> <code>uploads/<?php echo esc_html( QPWC_Replace::BACKUP_DIR ); ?>/</code>, chưa xóa.</li>
+					<li>Xem lại website (trang chủ, tin tức, bài viết, dự án…). Có vấn đề thì bấm <strong>Hoàn tác</strong> để trả lại ảnh gốc như cũ.</li>
+					<li>Website hiển thị tốt thì bấm <strong>Xóa vĩnh viễn ảnh gốc</strong> để giải phóng dung lượng. Sau bước này không hoàn tác được nữa.</li>
+				</ol>
+				<p>Link ảnh cũ (.jpg/.png) ở nơi khác (bài chia sẻ mạng xã hội…) tự chuyển sang ảnh WebP mới.</p>
+			</div>
+			<p>
+				<button class="button button-primary" id="qpwc-rp-start">Thay ảnh gốc bằng WebP</button>
+				<button class="button" id="qpwc-rp-pause">Tạm dừng</button>
+				<button class="button" id="qpwc-rp-resume">Chạy tiếp</button>
+				<button class="button" id="qpwc-rp-undo">Hoàn tác (trả lại ảnh gốc)</button>
+				<span id="qpwc-rp-msg" style="margin-left:10px;color:#cf222e"></span>
+			</p>
+			<table class="widefat striped" id="qpwc-rp-report" style="max-width:640px">
+				<tbody>
+					<tr><th>Trạng thái</th><td><strong id="rp-status" data-status="<?php echo esc_attr( $rp['status'] ); ?>" data-mode="<?php echo esc_attr( $rp['mode'] ); ?>"><?php echo esc_html( $rp['status'] . ( 'undo' === $rp['mode'] ? ' (hoàn tác)' : '' ) ); ?></strong></td></tr>
+					<tr><th>Lượt này đã xử lý</th><td id="rp-processed"><?php echo (int) $rp['processed']; ?></td></tr>
+					<tr><th>Ảnh đang dùng bản WebP thay ảnh gốc</th><td id="rp-replaced"><?php echo (int) $replaced; ?></td></tr>
+					<tr><th>Bỏ qua lượt này (không phải JPG/PNG, WebP không nhỏ hơn…)</th><td id="rp-skipped"><?php echo (int) $rp['skipped']; ?></td></tr>
+					<tr><th>Lỗi lượt này (xem Nhật ký lỗi)</th><td id="rp-failed"><?php echo (int) $rp['failed']; ?></td></tr>
+					<tr><th>Ảnh gốc trong thư mục tạm (chờ xóa vĩnh viễn)</th><td id="rp-backup" data-bytes="<?php echo (int) $backup; ?>"><?php echo esc_html( size_format( (float) $backup, 2 ) ?: '0 B' ); ?></td></tr>
+					<tr><th>Đã giải phóng (xóa vĩnh viễn)</th><td id="rp-purged"><?php echo esc_html( size_format( (float) $rp['purged'], 2 ) ?: '0 B' ); ?></td></tr>
+				</tbody>
+			</table>
+			<p style="margin-top:12px">
+				<button class="button button-link-delete" id="qpwc-rp-purge" <?php disabled( 0 === $backup ); ?>>Xóa vĩnh viễn ảnh gốc (giải phóng dung lượng)</button>
+			</p>
 
-			<h2>5. Nhật ký lỗi</h2>
+			<h2>5. Khôi phục / dọn dẹp</h2>
+			<?php if ( $replaced > 0 ) : ?>
+				<p>Website đang dùng ảnh WebP thay cho ảnh gốc nên <strong>không thể xóa file WebP</strong>. Muốn quay lại ảnh gốc hãy dùng nút <strong>Hoàn tác</strong> ở mục 4 (chỉ được khi ảnh gốc chưa bị xóa vĩnh viễn).</p>
+			<?php else : ?>
+				<p>Xóa toàn bộ file <code>.jpg.webp</code>, <code>.png.webp</code> do plugin tạo. Ảnh gốc không bị đụng tới.</p>
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('Xóa toàn bộ file WebP do plugin tạo? Ảnh gốc không bị ảnh hưởng.');">
+					<input type="hidden" name="action" value="qpwc_cleanup">
+					<?php wp_nonce_field( 'qpwc_cleanup' ); ?>
+					<button class="button" id="qpwc-cleanup">Xóa toàn bộ file WebP</button>
+				</form>
+			<?php endif; ?>
+
+			<h2>6. Nhật ký lỗi</h2>
 			<table class="widefat striped" id="qpwc-log" style="max-width:840px">
 				<thead><tr><th>Thời gian</th><th>Ảnh</th><th>Nội dung</th></tr></thead>
 				<tbody>

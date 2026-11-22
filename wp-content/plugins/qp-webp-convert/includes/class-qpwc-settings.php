@@ -17,7 +17,8 @@ final class QPWC_Settings {
 		return array(
 			'enabled'   => 1,
 			'quality'   => self::DEFAULT_QUALITY,
-			'backup_at' => 0, // thời điểm quản trị xác nhận đã sao lưu (WP-07)
+			'backup_at'   => 0, // thời điểm quản trị xác nhận đã sao lưu (WP-07)
+			'replace_new' => 0, // ảnh mới tải lên: thay luôn bằng WebP, xóa ảnh gốc
 		);
 	}
 
@@ -50,7 +51,8 @@ final class QPWC_Settings {
 			'enabled'   => empty( $input['enabled'] ) ? 0 : 1,
 			'quality'   => max( 1, min( 100, (int) ( $input['quality'] ?? self::DEFAULT_QUALITY ) ) ),
 			// Form cài đặt không gửi backup_at → giữ giá trị cũ; update() trong code gửi giá trị mới → dùng giá trị đó.
-			'backup_at' => isset( $input['backup_at'] ) ? (int) $input['backup_at'] : (int) $current['backup_at'],
+			'backup_at'   => isset( $input['backup_at'] ) ? (int) $input['backup_at'] : (int) $current['backup_at'],
+			'replace_new' => empty( $input['replace_new'] ) ? 0 : 1,
 		);
 	}
 
