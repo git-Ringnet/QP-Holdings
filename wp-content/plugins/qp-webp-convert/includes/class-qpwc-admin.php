@@ -237,7 +237,7 @@ final class QPWC_Admin {
 				<button class="button" id="qpwc-rp-undo">Hoàn tác (trả lại ảnh gốc)</button>
 				<span id="qpwc-rp-msg" style="margin-left:10px;color:#cf222e"></span>
 			</p>
-			<table class="widefat striped" id="qpwc-rp-report" style="max-width:640px">
+			<table class="widefat striped" id="qpwc-rp-report" style="max-width:820px">
 				<tbody>
 					<tr><th>Trạng thái</th><td><strong id="rp-status" data-status="<?php echo esc_attr( $rp['status'] ); ?>" data-mode="<?php echo esc_attr( $rp['mode'] ); ?>"><?php echo esc_html( $rp['status'] . ( 'undo' === $rp['mode'] ? ' (hoàn tác)' : '' ) ); ?></strong></td></tr>
 					<tr><th>Tiến độ lượt này (đã xử lý / tổng ảnh JPG/PNG)</th><td id="rp-processed"><?php echo esc_html( QPWC_Admin::progress_text( (int) $rp['processed'], (int) $rp['total'] ) ); ?></td></tr>
