@@ -9,6 +9,14 @@ final class QPWC_Admin {
 
 	const PAGE = 'qp-webp-convert';
 
+	/** "221 / 855 (25,8%)" — tiến độ mục 4. */
+	public static function progress_text( int $done, int $total ): string {
+		if ( $total <= 0 ) {
+			return (string) $done;
+		}
+		return sprintf( '%d / %d (%s%%)', $done, $total, number_format( min( 100, 100 * $done / $total ), 1, ',', '' ) );
+	}
+
 	private static ?QPWC_Admin $instance = null;
 
 	public static function instance(): self {
@@ -232,10 +240,10 @@ final class QPWC_Admin {
 			<table class="widefat striped" id="qpwc-rp-report" style="max-width:640px">
 				<tbody>
 					<tr><th>Trạng thái</th><td><strong id="rp-status" data-status="<?php echo esc_attr( $rp['status'] ); ?>" data-mode="<?php echo esc_attr( $rp['mode'] ); ?>"><?php echo esc_html( $rp['status'] . ( 'undo' === $rp['mode'] ? ' (hoàn tác)' : '' ) ); ?></strong></td></tr>
-					<tr><th>Lượt này đã xử lý</th><td id="rp-processed"><?php echo (int) $rp['processed']; ?></td></tr>
+					<tr><th>Tiến độ lượt này (đã xử lý / tổng ảnh JPG/PNG)</th><td id="rp-processed"><?php echo esc_html( QPWC_Admin::progress_text( (int) $rp['processed'], (int) $rp['total'] ) ); ?></td></tr>
 					<tr><th>Ảnh đang dùng bản WebP thay ảnh gốc</th><td id="rp-replaced"><?php echo (int) $replaced; ?></td></tr>
-					<tr><th>Bỏ qua lượt này (không phải JPG/PNG, WebP không nhỏ hơn…)</th><td id="rp-skipped"><?php echo (int) $rp['skipped']; ?></td></tr>
-					<tr><th>Lỗi lượt này (xem Nhật ký lỗi)</th><td id="rp-failed"><?php echo (int) $rp['failed']; ?></td></tr>
+					<tr><th>Bỏ qua lượt này (WebP không nhỏ hơn → giữ nguyên ảnh gốc)</th><td id="rp-skipped"><?php echo (int) $rp['skipped']; ?></td></tr>
+					<tr><th>Lỗi lượt này (thường do thiếu file ảnh, giữ nguyên; xem Danh sách ảnh lỗi / Nhật ký lỗi)</th><td id="rp-failed"><?php echo (int) $rp['failed']; ?></td></tr>
 					<tr><th>Ảnh gốc trong thư mục tạm (chờ xóa vĩnh viễn)</th><td id="rp-backup" data-bytes="<?php echo (int) $backup; ?>"><?php echo esc_html( size_format( (float) $backup, 2 ) ?: '0 B' ); ?></td></tr>
 					<tr><th>Đã giải phóng (xóa vĩnh viễn)</th><td id="rp-purged"><?php echo esc_html( size_format( (float) $rp['purged'], 2 ) ?: '0 B' ); ?></td></tr>
 				</tbody>

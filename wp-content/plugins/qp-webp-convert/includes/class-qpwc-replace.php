@@ -475,6 +475,24 @@ final class QPWC_Replace {
 		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::META ) );
 	}
 
+	/** Tổng số ảnh một lượt sẽ đi qua (để hiện tiến độ "đã xử lý / tổng"). */
+	public static function total( string $mode = 'replace' ): int {
+		global $wpdb;
+		if ( 'undo' === $mode ) {
+			return self::replaced_count();
+		}
+		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png')" ); // phpcs:ignore WordPress.DB
+	}
+
+	/** Số ảnh còn lại phía sau $last_id trong lượt đang chạy. */
+	private static function remaining( string $mode, int $last_id ): int {
+		global $wpdb;
+		if ( 'undo' === $mode ) {
+			return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT post_id) FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id > %d", self::META, $last_id ) );
+		}
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png') AND ID > %d", $last_id ) );
+	}
+
 	/* ------------------------------------------------------------------ an toàn */
 
 	/** Link cũ anh.jpg (bài chia sẻ, chỗ sót) → chuyển hướng 301 sang anh.jpg.webp nếu ảnh gốc đã được thay. */
@@ -585,6 +603,7 @@ final class QPWC_Replace {
 			'status'    => 'idle', // idle | running | paused | done | undoing
 			'mode'      => 'replace', // replace | undo
 			'last_id'   => 0,
+			'total'     => 0, // số ảnh lượt này sẽ đi qua (để hiện tiến độ)
 			'processed' => 0,
 			'replaced'  => 0,
 			'skipped'   => 0,
@@ -599,7 +618,12 @@ final class QPWC_Replace {
 
 	public static function state(): array {
 		$s = get_option( self::STATE, array() );
-		return wp_parse_args( is_array( $s ) ? $s : array(), self::default_state() );
+		$s = wp_parse_args( is_array( $s ) ? $s : array(), self::default_state() );
+		if ( 'idle' !== $s['status'] ) {
+			// Tổng = đã xử lý + còn lại phía sau (đúng cả khi có ảnh mới tải lên giữa chừng).
+			$s['total'] = (int) $s['processed'] + self::remaining( $s['mode'], (int) $s['last_id'] );
+		}
+		return $s;
 	}
 
 	private static function save( array $s ): void {
@@ -622,6 +646,7 @@ final class QPWC_Replace {
 		$s['status']      = 'running';
 		$s['mode']        = 'undo' === $mode ? 'undo' : 'replace';
 		$s['started']     = time();
+		$s['total']       = self::total( $s['mode'] );
 		self::save( $s );
 		return $s;
 	}
@@ -756,7 +781,7 @@ final class QPWC_Replace {
 		}
 		do {
 			$s = self::step( 10, 30 );
-			\WP_CLI::log( sprintf( 'Đã xử lý %d (thay %d, hoàn tác %d, bỏ qua %d, lỗi %d)', $s['processed'], $s['replaced'], $s['restored'], $s['skipped'], $s['failed'] ) );
+			\WP_CLI::log( sprintf( 'Đã xử lý %d/%d (thay %d, hoàn tác %d, bỏ qua %d, lỗi %d)', $s['processed'], $s['total'], $s['replaced'], $s['restored'], $s['skipped'], $s['failed'] ) );
 		} while ( 'running' === $s['status'] );
 		\WP_CLI::success( 'Hoàn tất.' );
 	}

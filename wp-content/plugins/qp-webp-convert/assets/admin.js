@@ -130,7 +130,7 @@
 		$( 'rp-status' ).textContent = s.status + ( s.mode === 'undo' ? ' (hoàn tác)' : '' );
 		$( 'rp-status' ).setAttribute( 'data-status', s.status );
 		$( 'rp-status' ).setAttribute( 'data-mode', s.mode );
-		$( 'rp-processed' ).textContent = s.processed;
+		$( 'rp-processed' ).textContent = s.total ? s.processed + ' / ' + s.total + ' (' + Math.min( 100, 100 * s.processed / s.total ).toFixed( 1 ).replace( '.', ',' ) + '%)' : s.processed;
 		$( 'rp-replaced' ).textContent = d.replaced;
 		$( 'rp-skipped' ).textContent = s.skipped;
 		$( 'rp-failed' ).textContent = s.failed;
@@ -157,6 +157,8 @@
 					next();
 				} else {
 					rpRunning = false;
+					// Xong lượt: tải lại để bảng mục 3, danh sách ảnh lỗi và nhật ký cập nhật theo.
+					if ( d && d.state.status === 'done' ) { window.location.reload(); }
 				}
 			} ).catch( function () {
 				rpRunning = false;
