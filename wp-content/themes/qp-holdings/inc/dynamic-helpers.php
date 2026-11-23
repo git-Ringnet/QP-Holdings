@@ -527,6 +527,14 @@ function qp_holdings_current_url_path(): string {
 		$path = '/';
 	}
 
+	// Site cài trong thư mục con (vd. localhost/qpholdings): REQUEST_URI đã có sẵn thư mục đó,
+	// bỏ đi để home_url() không lặp thành /qpholdings/qpholdings/… (production ở gốc domain: không đổi).
+	$base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	if ( '' !== $base && ( $path === $base || 0 === strpos( $path, $base . '/' ) ) ) {
+		$path = substr( $path, strlen( $base ) );
+		$path = '' === $path ? '/' : $path;
+	}
+
 	return home_url( $path );
 }
 
