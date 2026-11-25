@@ -602,6 +602,38 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     max-height: 100%;
                     object-fit: cover;
                 }
+
+                /* Lật 1 trang: tờ phủ xoay quanh mép trái như lật sách */
+                .flipbook-wrapper .book-container { perspective: 1400px; }
+                .flipbook-wrapper .qp-turn {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 60;
+                    transform-origin: left center;
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
+                    transition: transform 0.6s cubic-bezier(0.3, 0.1, 0.3, 1);
+                    will-change: transform;
+                    pointer-events: none;
+                    overflow: hidden;
+                    border-radius: 0 12px 12px 0;
+                    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+                }
+                .flipbook-wrapper .qp-turn img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .flipbook-wrapper .qp-turn::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(to left, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0) 55%);
+                    opacity: 0;
+                    transition: opacity 0.65s ease;
+                }
+                .flipbook-wrapper .qp-turn.is-out::after { opacity: 1; }
             }
 
             .flipbook-wrapper .book {
@@ -790,6 +822,17 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     width: min(450px, calc(100vw - 40px));
                     height: auto;
                     aspect-ratio: 3 / 4;
+                }
+            }
+
+            /* ĐIỆN THOẠI XOAY NGANG (đặt sau khối máy tính bảng để không bị đè): trang vừa chiều cao màn hình */
+            @media (orientation: landscape) and (max-height: 600px) {
+                .flipbook-wrapper {
+                    padding-top: 84px;
+                }
+
+                .flipbook-wrapper .book-container {
+                    width: min(450px, calc((100vh - 110px) * 0.75));
                 }
             }
 
@@ -1062,12 +1105,59 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 cullPages();
             };
 
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                if (isMobile()) {
-                    if (mobilePageIndex < mobileTotalPages - 1) {
-                        mobilePageIndex++;
+            // ĐIỆN THOẠI: lật từng trang. Tờ phủ mang ảnh trang cũ xoay sang trái (trang sau) hoặc ảnh trang mới xoay về (trang trước).
+            let mobileTurning = false;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function mobileImage(index) {
+                const sheet = pages[Math.floor(index / 2)];
+                const img = sheet && sheet.querySelector((index % 2 ? '.back' : '.front') + ' img.img-mobile');
+                if (!img) return '';
+                return img.getAttribute('data-src') || img.currentSrc || img.src;
+            }
+
+            function turnMobile(delta) {
+                const target = mobilePageIndex + delta;
+                if (target < 0 || target > mobileTotalPages - 1) return;
+                if (mobileTurning || reduceMotion) {
+                    mobilePageIndex = target;
+                    updateMobilePage();
+                    return;
+                }
+                mobileTurning = true;
+                const forward = delta > 0;
+                const leaf = document.createElement('div');
+                leaf.className = 'qp-turn';
+                leaf.innerHTML = '<img alt="" decoding="async">';
+                leaf.firstChild.src = mobileImage(forward ? mobilePageIndex : target);
+                leaf.style.transform = forward ? 'rotateY(0deg)' : 'rotateY(-180deg)';
+                container.appendChild(leaf);
+                if (forward) {
+                    mobilePageIndex = target; // trang mới nằm bên dưới tờ đang lật
+                    updateMobilePage();
+                }
+                void leaf.offsetWidth; // áp trạng thái đầu trước khi chuyển động
+                leaf.classList.toggle('is-out', forward);
+                leaf.style.transform = forward ? 'rotateY(-180deg)' : 'rotateY(0deg)';
+                // Xong khi tờ lật tới nơi (transitionend); 1,2s là chốt an toàn nếu trình duyệt không báo.
+                let done = false;
+                const finish = () => {
+                    if (done) return;
+                    done = true;
+                    if (!forward) {
+                        mobilePageIndex = target;
                         updateMobilePage();
                     }
+                    leaf.remove();
+                    mobileTurning = false;
+                };
+                leaf.addEventListener('transitionend', (e) => { if (e.propertyName === 'transform') finish(); });
+                setTimeout(finish, 1200);
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                if (isMobile()) {
+                    turnMobile(1);
                     return;
                 }
 
@@ -1085,10 +1175,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
             document.getElementById('prevBtn').addEventListener('click', () => {
                 if (isMobile()) {
-                    if (mobilePageIndex > 0) {
-                        mobilePageIndex--;
-                        updateMobilePage();
-                    }
+                    turnMobile(-1);
                     return;
                 }
 
