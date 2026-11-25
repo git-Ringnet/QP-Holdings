@@ -306,12 +306,12 @@ final class QP_Menu_Permissions {
 							continue;
 						}
 						$always  = in_array( $top, self::ALWAYS, true );
-						$can     = user_can( $user, (string) ( $item[1] ?? 'read' ) );
+						$can     = self::role_can( $user, $top, (string) ( $item[1] ?? 'read' ) );
 						foreach ( (array) ( $submenu[ $top ] ?? array() ) as $sub_item ) {
 							// Có quyền ở một mục con (vd. "Mã tùy chỉnh" trong Cấu hình) thì mục lớn cũng tick được.
-							$can = $can || user_can( $user, (string) ( $sub_item[1] ?? 'read' ) );
+							$can = $can || self::role_can( $user, $top, (string) ( $sub_item[1] ?? 'read' ) );
 						}
-						$checked = $always || ( $use_default ? $can : in_array( self::key( $top ), array_map( array( __CLASS__, 'norm' ), $allow ), true ) );
+						$checked = $always || ( $can && ( $use_default ? true : in_array( self::key( $top ), array_map( array( __CLASS__, 'norm' ), $allow ), true ) ) );
 						echo '<fieldset class="qpmp-group" style="break-inside:avoid;margin:0 0 12px">';
 						printf(
 							'<label style="font-weight:600"><input type="checkbox" class="qpmp-top" name="qpmp_allow[]" value="%1$s" %2$s %3$s> %4$s</label>%5$s',
@@ -330,11 +330,11 @@ final class QP_Menu_Permissions {
 									continue;
 								}
 								$k     = self::key( $top, $sub );
-								$can_s = user_can( $user, (string) ( $sub_item[1] ?? 'read' ) );
+								$can_s = self::role_can( $user, $top, (string) ( $sub_item[1] ?? 'read' ) );
 								printf(
 									'<label style="display:block;margin:2px 0"><input type="checkbox" class="qpmp-sub" name="qpmp_allow[]" value="%1$s" %2$s %3$s> %4$s%5$s</label>',
 									esc_attr( $k ),
-									checked( $use_default ? $can_s : in_array( $k, array_map( array( __CLASS__, 'norm' ), $allow ), true ), true, false ),
+									checked( $can_s && ( $use_default || in_array( $k, array_map( array( __CLASS__, 'norm' ), $allow ), true ) ), true, false ),
 									disabled( ! $can_s, true, false ),
 									esc_html( self::label( (string) ( $sub_item[0] ?? $sub ) ) ),
 									$can_s ? '' : ' <em>' . esc_html__( '(vai trò không có quyền)', 'qp-menu-permissions' ) . '</em>'
@@ -365,6 +365,21 @@ final class QP_Menu_Permissions {
 		}() );
 		</script>
 		<?php
+	}
+
+	/**
+	 * Tài khoản có vào được mục menu này theo vai trò không.
+	 * Một số plugin đăng ký menu với quyền "read" rồi tự chặn bằng cài đặt riêng → hỏi thẳng plugin đó.
+	 */
+	private static function role_can( \WP_User $user, string $top, string $cap ): bool {
+		if ( ! user_can( $user, $cap ) ) {
+			return false;
+		}
+		// WP Activity Log (WP Security Audit Log): chỉ người được phép trong cài đặt "Ai được xem nhật ký" (mặc định chỉ quản trị viên).
+		if ( 0 === strpos( $top, 'wsal-' ) && class_exists( '\WSAL\Helpers\Settings_Helper' ) ) {
+			return (bool) \WSAL\Helpers\Settings_Helper::user_can( $user, 'view' );
+		}
+		return true;
 	}
 
 	/** Bỏ thẻ HTML và số đếm (bong bóng "18" cạnh tên mục) khỏi tên menu. */
