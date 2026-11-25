@@ -1106,7 +1106,6 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
             };
 
             // ĐIỆN THOẠI: lật từng trang. Tờ phủ mang ảnh trang cũ xoay sang trái (trang sau) hoặc ảnh trang mới xoay về (trang trước).
-            let mobileTurning = false;
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             function mobileImage(index) {
@@ -1116,43 +1115,58 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 return img.getAttribute('data-src') || img.currentSrc || img.src;
             }
 
+            let mobileFinish = null;   // kết thúc ngay tờ đang lật (khi chạm tiếp lúc đang lật)
+            let mobilePreparing = false; // đang chờ ảnh tờ lật sẵn sàng
+
             function turnMobile(delta) {
+                if (mobilePreparing) return;
+                if (mobileFinish) mobileFinish(); // đang lật dở → cho lật xong ngay rồi lật tiếp có hiệu ứng
                 const target = mobilePageIndex + delta;
                 if (target < 0 || target > mobileTotalPages - 1) return;
-                if (mobileTurning || reduceMotion) {
+                if (reduceMotion) {
                     mobilePageIndex = target;
                     updateMobilePage();
                     return;
                 }
-                mobileTurning = true;
                 const forward = delta > 0;
                 const leaf = document.createElement('div');
                 leaf.className = 'qp-turn';
-                leaf.innerHTML = '<img alt="" decoding="async">';
-                leaf.firstChild.src = mobileImage(forward ? mobilePageIndex : target);
-                leaf.style.transform = forward ? 'rotateY(0deg)' : 'rotateY(-180deg)';
-                container.appendChild(leaf);
-                if (forward) {
-                    mobilePageIndex = target; // trang mới nằm bên dưới tờ đang lật
-                    updateMobilePage();
-                }
-                void leaf.offsetWidth; // áp trạng thái đầu trước khi chuyển động
-                leaf.classList.toggle('is-out', forward);
-                leaf.style.transform = forward ? 'rotateY(-180deg)' : 'rotateY(0deg)';
-                // Xong khi tờ lật tới nơi (transitionend); 1,2s là chốt an toàn nếu trình duyệt không báo.
-                let done = false;
-                const finish = () => {
-                    if (done) return;
-                    done = true;
-                    if (!forward) {
-                        mobilePageIndex = target;
+                const img = new Image();
+                img.alt = '';
+                img.src = mobileImage(forward ? mobilePageIndex : target);
+                leaf.appendChild(img);
+
+                // Chờ ảnh của tờ lật giải mã xong (tối đa 300ms): nếu không tờ lật trống, trông như chỉ đổi ảnh.
+                mobilePreparing = true;
+                const decoded = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+                Promise.race([decoded, new Promise((r) => setTimeout(r, 300))]).then(() => {
+                    mobilePreparing = false;
+                    leaf.style.transform = forward ? 'rotateY(0deg)' : 'rotateY(-180deg)';
+                    container.appendChild(leaf);
+                    if (forward) {
+                        mobilePageIndex = target; // trang mới nằm bên dưới tờ đang lật
                         updateMobilePage();
                     }
-                    leaf.remove();
-                    mobileTurning = false;
-                };
-                leaf.addEventListener('transitionend', (e) => { if (e.propertyName === 'transform') finish(); });
-                setTimeout(finish, 1200);
+                    void leaf.offsetWidth; // áp trạng thái đầu trước khi chuyển động
+                    leaf.classList.toggle('is-out', forward);
+                    leaf.style.transform = forward ? 'rotateY(-180deg)' : 'rotateY(0deg)';
+
+                    // Xong khi tờ lật tới nơi (transitionend); 1,2s là chốt an toàn nếu trình duyệt không báo.
+                    let done = false;
+                    const finish = () => {
+                        if (done) return;
+                        done = true;
+                        if (!forward) {
+                            mobilePageIndex = target;
+                            updateMobilePage();
+                        }
+                        leaf.remove();
+                        if (mobileFinish === finish) mobileFinish = null;
+                    };
+                    mobileFinish = finish;
+                    leaf.addEventListener('transitionend', (e) => { if (e.propertyName === 'transform') finish(); });
+                    setTimeout(finish, 1200);
+                });
             }
 
             document.getElementById('nextBtn').addEventListener('click', () => {
