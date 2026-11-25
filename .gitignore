@@ -39,6 +39,8 @@
 !/wp-content/plugins/
 !/wp-content/mu-plugins/
 !/wp-content/languages/
+# Bộ nhớ đệm bản dịch plugin tự tạo khi chạy (Real Media Library...), mỗi máy một khác
+/wp-content/languages/mo-cache/
 
 /wp-content/themes/*
 !/wp-content/themes/index.php
