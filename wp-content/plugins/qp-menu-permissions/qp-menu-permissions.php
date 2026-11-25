@@ -264,6 +264,8 @@ final class QP_Menu_Permissions {
 
 		$on    = (bool) get_user_meta( $user->ID, self::META_ON, true );
 		$allow = self::allowed( $user->ID );
+		// Chưa phân quyền (chưa bật giới hạn): tick sẵn mọi mục vai trò được truy cập, đúng như tài khoản đang thấy.
+		$use_default = ! $on;
 		wp_nonce_field( 'qpmp_save_' . $user->ID, 'qpmp_nonce' );
 		?>
 		<table class="form-table" role="presentation">
@@ -293,7 +295,7 @@ final class QP_Menu_Permissions {
 							// Có quyền ở một mục con (vd. "Mã tùy chỉnh" trong Cấu hình) thì mục lớn cũng tick được.
 							$can = $can || user_can( $user, (string) ( $sub_item[1] ?? 'read' ) );
 						}
-						$checked = $always || in_array( self::key( $top ), array_map( array( __CLASS__, 'norm' ), $allow ), true );
+						$checked = $always || ( $use_default ? $can : in_array( self::key( $top ), array_map( array( __CLASS__, 'norm' ), $allow ), true ) );
 						echo '<fieldset class="qpmp-group" style="break-inside:avoid;margin:0 0 12px">';
 						printf(
 							'<label style="font-weight:600"><input type="checkbox" class="qpmp-top" name="qpmp_allow[]" value="%1$s" %2$s %3$s> %4$s</label>%5$s',
@@ -316,7 +318,7 @@ final class QP_Menu_Permissions {
 								printf(
 									'<label style="display:block;margin:2px 0"><input type="checkbox" class="qpmp-sub" name="qpmp_allow[]" value="%1$s" %2$s %3$s> %4$s%5$s</label>',
 									esc_attr( $k ),
-									checked( in_array( $k, array_map( array( __CLASS__, 'norm' ), $allow ), true ), true, false ),
+									checked( $use_default ? $can_s : in_array( $k, array_map( array( __CLASS__, 'norm' ), $allow ), true ), true, false ),
 									disabled( ! $can_s, true, false ),
 									esc_html( self::label( (string) ( $sub_item[0] ?? $sub ) ) ),
 									$can_s ? '' : ' <em>' . esc_html__( '(vai trò không có quyền)', 'qp-menu-permissions' ) . '</em>'
@@ -367,7 +369,13 @@ final class QP_Menu_Permissions {
 		$allow = isset( $_POST['qpmp_allow'] ) && is_array( $_POST['qpmp_allow'] )
 			? array_values( array_unique( array_map( array( __CLASS__, 'norm' ), array_map( 'sanitize_text_field', wp_unslash( $_POST['qpmp_allow'] ) ) ) ) )
 			: array();
-		update_user_meta( $user_id, self::META_ON, $on ? 1 : 0 );
+		if ( ! $on ) {
+			// Bỏ giới hạn: trở lại như ban đầu, lần bật sau tick sẵn theo vai trò hiện tại.
+			delete_user_meta( $user_id, self::META_ON );
+			delete_user_meta( $user_id, self::META_ALLOW );
+			return;
+		}
+		update_user_meta( $user_id, self::META_ON, 1 );
 		update_user_meta( $user_id, self::META_ALLOW, $allow );
 	}
 }
