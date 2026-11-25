@@ -250,7 +250,15 @@ final class QP_Menu_Permissions {
 		echo '<h2 id="qpmp">' . esc_html__( 'Phân quyền menu quản trị', 'qp-menu-permissions' ) . '</h2>';
 
 		if ( user_can( $user, 'manage_options' ) ) {
-			echo '<p>' . esc_html__( 'Tài khoản này là Quản trị viên nên luôn thấy đầy đủ các mục (không giới hạn được).', 'qp-menu-permissions' ) . '</p>';
+			echo '<div class="notice notice-info inline" style="margin:8px 0 16px;max-width:820px"><p>'
+				. wp_kses(
+					__( 'Tài khoản này đang có vai trò <strong>Quản trị viên</strong> nên luôn thấy đầy đủ các mục, không giới hạn được.<br>Muốn phân quyền menu cho tài khoản này: đổi <strong>Vai trò</strong> (mục Name ở trên) sang <strong>Biên tập viên</strong> hoặc <strong>Tác giả</strong> → bấm <strong>Cập nhật</strong> → danh sách tick chọn sẽ hiện ở đây.', 'qp-menu-permissions' ),
+					array(
+						'strong' => array(),
+						'br'     => array(),
+					)
+				)
+				. '</p></div>';
 			return;
 		}
 
