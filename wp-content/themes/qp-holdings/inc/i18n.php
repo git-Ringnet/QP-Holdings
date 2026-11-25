@@ -3786,9 +3786,13 @@ function qp_holdings_translated_page_permalink( string $permalink, $post_id ): s
 	}
 
 	if ( $target_lang ) {
-		$slug = (string) get_post_field( 'post_name', $id );
-		if ( $slug ) {
-			return home_url( '/' . $target_lang . '/' . $slug . '/' );
+		// Giữ cả trang cha: /en/investor-relations/stock-information/ (chỉ lấy tên trang thì ra /en/stock-information/ → 404).
+		$uri = (string) get_page_uri( $id );
+		if ( '' === $uri ) {
+			$uri = (string) get_post_field( 'post_name', $id );
+		}
+		if ( $uri ) {
+			return home_url( '/' . $target_lang . '/' . $uri . '/' );
 		}
 	}
 
