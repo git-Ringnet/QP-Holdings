@@ -15,8 +15,8 @@ final class QP_Menu_Permissions {
 	const META_ON    = 'qpmp_enabled'; // 1 = tài khoản này bị giới hạn theo danh sách tick
 	const META_ALLOW = 'qpmp_allow';   // mảng khóa: "slug-mục-lớn" và "slug-mục-lớn|slug-mục-con"
 
-	/** Mục luôn được phép (trang đích sau đăng nhập, hồ sơ cá nhân) để không khóa người dùng ra ngoài. */
-	const ALWAYS = array( 'index.php', 'profile.php', 'qph-overview' ); // qph-overview: trang Tổng quan của mu-plugin branding
+	/** Mục luôn được phép (trang đích sau đăng nhập) để không khóa người dùng ra ngoài. */
+	const ALWAYS = array( 'index.php', 'qph-overview' ); // qph-overview: trang Tổng quan của mu-plugin branding
 
 	/** Menu gốc của người dùng hiện tại, chụp lại trước khi ẩn bớt (để chặn truy cập trực tiếp). */
 	private static array $snapshot_menu    = array();
@@ -63,6 +63,11 @@ final class QP_Menu_Permissions {
 		$sub   = self::norm( $sub );
 		if ( in_array( $top, self::ALWAYS, true ) || ( '' !== $sub && in_array( $sub, self::ALWAYS, true ) ) ) {
 			return true;
+		}
+		// Tài khoản không có quyền "list_users" (Biên tập viên, Tác giả…): WordPress đưa "Hồ sơ" thành mục lớn
+		// profile.php, còn trong danh sách tick nó là mục con "Tài khoản → Profile" (users.php|profile.php).
+		if ( 'profile.php' === $top ) {
+			return in_array( 'users.php|profile.php', $allow, true ) || in_array( 'profile.php', $allow, true );
 		}
 		if ( ! in_array( $top, $allow, true ) ) {
 			return false; // mục lớn không tick → ẩn cả các mục con
@@ -238,6 +243,17 @@ final class QP_Menu_Permissions {
 		if ( ! $kids ) {
 			$bar->remove_node( 'new-content' );
 		}
+		// Không được phép vào Hồ sơ → bỏ link "Edit Profile" ở góc phải thanh quản trị.
+		if ( ! self::is_allowed( $allow, 'profile.php' ) ) {
+			$bar->remove_node( 'edit-profile' );
+			foreach ( array( 'my-account', 'user-info' ) as $id ) {
+				$node = $bar->get_node( $id );
+				if ( $node ) {
+					$node->href = false;
+					$bar->add_node( (array) $node );
+				}
+			}
+		}
 	}
 
 	/* ------------------------------------------------------------ giao diện tick chọn */
@@ -274,7 +290,7 @@ final class QP_Menu_Permissions {
 				<td>
 					<label><input type="checkbox" name="qpmp_enabled" id="qpmp-enabled" value="1" <?php checked( $on ); ?>>
 					<?php esc_html_e( 'Chỉ cho tài khoản này thấy và dùng các mục được tick bên dưới', 'qp-menu-permissions' ); ?></label>
-					<p class="description"><?php esc_html_e( 'Không tick: tài khoản dùng đầy đủ quyền theo vai trò. Mục không tick sẽ bị ẩn khỏi menu và không vào được bằng đường link trực tiếp. "Tổng quan" và "Hồ sơ" luôn hiện. Tick chỉ ẩn bớt, không cấp thêm quyền ngoài vai trò của tài khoản.', 'qp-menu-permissions' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Không tick: tài khoản dùng đầy đủ quyền theo vai trò. Mục không tick sẽ bị ẩn khỏi menu và không vào được bằng đường link trực tiếp. "Tổng quan" luôn hiện. Bỏ tick "Tài khoản → Profile" thì tài khoản không tự đổi mật khẩu/hồ sơ được (quản trị viên đổi giúp). Tick chỉ ẩn bớt, không cấp thêm quyền ngoài vai trò của tài khoản.', 'qp-menu-permissions' ); ?></p>
 				</td>
 			</tr>
 			<tr id="qpmp-list"<?php echo $on ? '' : ' style="opacity:.5"'; ?>>
