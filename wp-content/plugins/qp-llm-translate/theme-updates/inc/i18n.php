@@ -3333,6 +3333,19 @@ function qp_holdings_seeded_project_translation_for_post( $post, string $field, 
 		return $fallback;
 	}
 
+	// 0) Đang xem chính bài EN/ZH: giá trị quản trị viên nhập ở bài này được ưu tiên hơn
+	//    bảng dịch có sẵn trong code (trước đây bảng dịch đè lên, sửa trong admin không đổi ngoài web).
+	$own_lang = function_exists( 'pll_get_post_language' ) ? (string) pll_get_post_language( (int) $post_obj->ID ) : '';
+	if ( '' === $own_lang ) {
+		$own_lang = (string) get_post_meta( (int) $post_obj->ID, '_qp_translation_lang', true );
+	}
+	if ( $own_lang === $lang ) {
+		$own = trim( $fallback );
+		if ( '' !== $own && ! qp_holdings_text_looks_vietnamese( $own ) ) {
+			return $fallback;
+		}
+	}
+
 	// 1) Linked Polylang translation copy with a real field.
 	if ( function_exists( 'pll_get_post' ) ) {
 		$translated_id = (int) pll_get_post( (int) $post_obj->ID, $lang );
