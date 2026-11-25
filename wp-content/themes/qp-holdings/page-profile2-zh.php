@@ -526,8 +526,14 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 box-sizing: border-box;
             }
 
-            /* ĐIỆN THOẠI: lật 2 trang như máy tính, sách thu nhỏ theo bề ngang màn hình (mỗi trang = nửa màn hình) */
+            /* TRÊN MOBILE: Hiện ảnh Mobile, Ẩn ảnh Desktop */
             @media (max-width: 600px), (orientation: landscape) and (max-height: 600px) {
+                .flipbook-wrapper .img-desktop {
+                    display: none !important;
+                }
+                .flipbook-wrapper .img-mobile {
+                    display: block !important;
+                }
 
                 /*
                 * MOBILE / iPHONE:
@@ -546,14 +552,14 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vw - 24px) / 2), calc((100vh - 150px) * 0.75));
+                    width: min(100%, 450px);
                     height: auto;
                     aspect-ratio: 3 / 4;
                     max-width: 450px;
                     max-height: none;
                     flex-shrink: 0;
                     box-sizing: border-box;
-                    perspective: 900px;
+                    transform: translateX(0%) !important;
                 }
 
                 .flipbook-wrapper .book,
@@ -720,23 +726,13 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     background: rgba(0, 0, 0, 0.48);
                 }
 
-                .flipbook-wrapper .flipbook-nav {
-                    width: 30px;
-                    height: 48px;
-                    font-size: 20px;
+                .flipbook-wrapper .flipbook-nav-prev {
+                    left: 6px !important;
                 }
 
-                /* Bìa trước: 1 trang ở giữa */
-                .flipbook-wrapper .flipbook-nav-prev { left: 4px; }
-                .flipbook-wrapper .flipbook-nav-next { right: 4px; }
-
-                /* Mở 2 trang: trang trái nằm ở bên trái khung sách */
-                .flipbook-wrapper .book-container.is-open .flipbook-nav-prev { left: calc(-100% + 4px); }
-                .flipbook-wrapper .book-container.is-open .flipbook-nav-next { right: 4px; }
-
-                /* Bìa sau: 1 trang ở giữa (nằm bên trái khung sách) */
-                .flipbook-wrapper .book-container.is-last-page .flipbook-nav-prev { left: calc(-100% + 4px); }
-                .flipbook-wrapper .book-container.is-last-page .flipbook-nav-next { right: calc(100% + 4px); }
+                .flipbook-wrapper .flipbook-nav-next {
+                    right: 6px !important;
+                }
             }
 
             /* ==============================
@@ -797,17 +793,6 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
             }
 
-            /* ĐIỆN THOẠI XOAY NGANG (đặt sau khối máy tính bảng để không bị đè): 2 trang vừa chiều cao màn hình */
-            @media (orientation: landscape) and (max-height: 600px) {
-                .flipbook-wrapper {
-                    padding-top: 84px;
-                }
-
-                .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vw - 24px) / 2), calc((100vh - 110px) * 0.75));
-                }
-            }
-
             /* PHONE: khoảng cách được tính theo nhóm kích thước màn hình */
             @media (max-width: 600px) {
                 .footer-qr-wrapper {
@@ -843,7 +828,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vw - 24px) / 2), calc((100vh - 150px) * 0.75));
+                    width: min(100%, 420px);
                 }
             }
 
@@ -862,13 +847,13 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vw - 24px) / 2), calc((100vh - 150px) * 0.75));
+                    width: 100%;
                 }
 
                 .flipbook-wrapper .flipbook-nav {
-                    width: 28px;
-                    height: 44px;
-                    font-size: 18px;
+                    width: 36px;
+                    height: 54px;
+                    font-size: 23px;
                 }
             }
         </style>
@@ -916,8 +901,8 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
             let mobilePageIndex = 0;
             const mobileTotalPages = totalPages * 2;
 
-            // Điện thoại cũng lật 2 trang như máy tính (khách yêu cầu 11/2026); chế độ 1 trang cũ giữ lại nhưng không dùng.
-            const isMobile = () => false;
+            const isMobile = () =>
+                window.matchMedia('(max-width: 600px), (orientation: landscape) and (max-height: 600px)').matches;
 
             function initZIndex() {
                 for (let i = 0; i < totalPages; i++) {
@@ -1122,9 +1107,17 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
             loadNearbyPages();
             cullPages();
 
-            // Thanh địa chỉ điện thoại ẩn/hiện khi cuộn cũng gây resize → giữ nguyên trang đang xem.
             window.addEventListener('resize', () => {
-                updateBookPosition();
+                if (isMobile()) {
+                    updateMobilePage();
+                } else {
+                    currentPageIndex = 0;
+                    pages.forEach(page => {
+                        page.classList.remove('mobile-current', 'mobile-hidden', 'flipped');
+                    });
+                    initZIndex();
+                    updateBookPosition();
+                }
             });
         </script>
 	</section>
