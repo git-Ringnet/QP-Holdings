@@ -273,9 +273,15 @@ function qp_holdings_custom_menu_render_page(): void {
  * link ra ngoài (trang không tồn tại ở đây) → giữ nguyên.
  */
 function qp_holdings_localize_site_url( string $url ): string {
+	// So cả tên miền lẫn cổng: site chạy ở cổng riêng (vd. qp.ringnet.vn:8443) mà link ghi qp.ringnet.vn thì vẫn phải đổi sang site đang chạy.
 	$host = (string) wp_parse_url( $url, PHP_URL_HOST );
 	$home = (string) wp_parse_url( home_url( '/' ), PHP_URL_HOST );
-	if ( '' === $host || '' === $home || 0 === strcasecmp( $host, $home ) ) {
+	if ( '' === $host || '' === $home ) {
+		return $url;
+	}
+	$port      = (int) wp_parse_url( $url, PHP_URL_PORT );
+	$home_port = (int) wp_parse_url( home_url( '/' ), PHP_URL_PORT );
+	if ( 0 === strcasecmp( $host, $home ) && $port === $home_port ) {
 		return $url;
 	}
 	$path   = (string) wp_parse_url( $url, PHP_URL_PATH );
