@@ -516,11 +516,9 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
             /* Vùng chứa tạo không gian 3D */
             .flipbook-wrapper .book-container {
-                /* Máy tính: trang to theo chiều cao màn hình (tối thiểu 450px như cũ, tối đa 680px), không tràn bề ngang */
-                --qp-page-w: clamp(450px, min(calc((100vh - 170px) * 1087 / 1512), calc((100vw - 140px) / 2)), 680px);
+                --qp-page-w: 450px; /* cỡ trang như source gốc */
                 width: var(--qp-page-w);
-                height: auto;
-                aspect-ratio: 1087 / 1512;
+                height: 570px;
                 position: relative;
                 perspective: 1500px;
                 transform: translateX(0%);
@@ -557,7 +555,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 .flipbook-wrapper .book-container {
                     width: min(100%, 450px);
                     height: auto;
-                    aspect-ratio: 1087 / 1512;
+                    aspect-ratio: 3 / 4;
                     max-width: 450px;
                     max-height: none;
                     flex-shrink: 0;
@@ -825,7 +823,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     --qp-page-w: min(450px, calc((100vw - 60px) / 2));
                     width: var(--qp-page-w);
                     height: auto;
-                    aspect-ratio: 1087 / 1512;
+                    aspect-ratio: 3 / 4;
                 }
             }
 
@@ -836,7 +834,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vh - 110px) * 1087 / 1512));
+                    width: min(450px, calc((100vh - 110px) * 0.75));
                 }
             }
 
