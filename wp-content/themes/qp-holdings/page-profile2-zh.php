@@ -516,8 +516,11 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
             /* Vùng chứa tạo không gian 3D */
             .flipbook-wrapper .book-container {
-                width: 450px;
-                height: 570px;
+                /* Máy tính: trang to theo chiều cao màn hình (tối thiểu 450px như cũ, tối đa 680px), không tràn bề ngang */
+                --qp-page-w: clamp(450px, min(calc((100vh - 170px) * 1087 / 1512), calc((100vw - 140px) / 2)), 680px);
+                width: var(--qp-page-w);
+                height: auto;
+                aspect-ratio: 1087 / 1512;
                 position: relative;
                 perspective: 1500px;
                 transform: translateX(0%);
@@ -554,7 +557,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 .flipbook-wrapper .book-container {
                     width: min(100%, 450px);
                     height: auto;
-                    aspect-ratio: 3 / 4;
+                    aspect-ratio: 1087 / 1512;
                     max-width: 450px;
                     max-height: none;
                     flex-shrink: 0;
@@ -733,7 +736,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
                 /* Khi mở 2 trang ở giữa */
                 .flipbook-wrapper .book-container.is-open .flipbook-nav-prev {
-                    left: -474px; /* Dính mép trái của trang đôi (-450px - 24px) */
+                    left: calc(-1 * var(--qp-page-w) - 24px); /* Dính mép trái của trang đôi */
                 }
                 .flipbook-wrapper .book-container.is-open .flipbook-nav-next {
                     right: -24px;  /* Dính mép phải của trang đôi */
@@ -741,10 +744,10 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
 
                 /* Khi đến Trang bìa cuối (1 trang bên trái) */
                 .flipbook-wrapper .book-container.is-last-page .flipbook-nav-prev {
-                    left: -474px; /* Dính mép trái của trang bìa sau */
+                    left: calc(-1 * var(--qp-page-w) - 24px); /* Dính mép trái của trang bìa sau */
                 }
                 .flipbook-wrapper .book-container.is-last-page .flipbook-nav-next {
-                    right: 426px; /* Dính mép phải của trang bìa sau (450px - 24px) */
+                    right: calc(var(--qp-page-w) - 24px); /* Dính mép phải của trang bìa sau */
                 }
             }
 
@@ -819,9 +822,10 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc(100vw - 40px));
+                    --qp-page-w: min(450px, calc((100vw - 60px) / 2));
+                    width: var(--qp-page-w);
                     height: auto;
-                    aspect-ratio: 3 / 4;
+                    aspect-ratio: 1087 / 1512;
                 }
             }
 
@@ -832,7 +836,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 }
 
                 .flipbook-wrapper .book-container {
-                    width: min(450px, calc((100vh - 110px) * 0.75));
+                    width: min(450px, calc((100vh - 110px) * 1087 / 1512));
                 }
             }
 
@@ -937,6 +941,17 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 document.getElementById('page31'),
                 document.getElementById('page32')
             ];
+
+            const QP_IMG_V = '<?php
+                $qp_img_v = 0;
+                foreach ( array( '', 'en/', 'zh/', 'en/mobile/', 'zh/mobile/' ) as $qp_dir ) {
+                    foreach ( (array) glob( get_template_directory() . '/hinh/' . $qp_dir . 'QP_Profile_Trang-*.webp' ) as $qp_f ) {
+                        $qp_img_v = max( $qp_img_v, (int) @filemtime( $qp_f ) );
+                    }
+                }
+                echo (int) $qp_img_v;
+            ?>';
+            const qpVer = (url) => url + (url.indexOf('?') === -1 ? '?' : '&') + 'v=' + QP_IMG_V;
 
             let currentPageIndex = 0;
             const totalPages = pages.length;
@@ -1075,8 +1090,8 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 sheet.querySelectorAll(isMobile() ? 'img.img-mobile[data-src]' : 'img.img-desktop[data-src]').forEach((img) => {
                     const webp = img.dataset.src;
                     // Trình duyệt cũ không hiển thị được WebP (iOS 13 trở xuống, IE) → dùng file JPG gốc cùng tên.
-                    img.onerror = () => { img.onerror = null; img.src = webp.replace(/\.webp$/, '.jpg'); };
-                    img.src = webp;
+                    img.onerror = () => { img.onerror = null; img.src = qpVer(webp.replace(/\.webp$/, '.jpg')); };
+                    img.src = qpVer(webp);
                     img.removeAttribute('data-src');
                 });
             }
@@ -1112,7 +1127,8 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 const sheet = pages[Math.floor(index / 2)];
                 const img = sheet && sheet.querySelector((index % 2 ? '.back' : '.front') + ' img.img-mobile');
                 if (!img) return '';
-                return img.getAttribute('data-src') || img.currentSrc || img.src;
+                const pending = img.getAttribute('data-src');
+                return pending ? qpVer(pending) : (img.currentSrc || img.src);
             }
 
             let mobileFinish = null;   // kết thúc ngay tờ đang lật (khi chạm tiếp lúc đang lật)
