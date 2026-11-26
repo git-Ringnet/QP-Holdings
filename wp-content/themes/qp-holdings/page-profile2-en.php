@@ -952,6 +952,12 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 echo (int) $qp_img_v;
             ?>';
             const qpVer = (url) => url + (url.indexOf('?') === -1 ? '?' : '&') + 'v=' + QP_IMG_V;
+            // Màn hình thường: dùng ảnh thu nhỏ sẵn 540/700px (đã làm nét) cho chữ rõ; trình duyệt tự thu 1087px làm rụng nét chữ.
+            const qpSized = (url) => {
+                const need = (container.getBoundingClientRect().width || 450) * (window.devicePixelRatio || 1);
+                const suffix = need <= 540 ? '-540' : (need <= 700 ? '-700' : '');
+                return suffix ? url.replace(/\.webp$/, suffix + '.webp') : url;
+            };
 
             let currentPageIndex = 0;
             const totalPages = pages.length;
@@ -1091,7 +1097,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                     const webp = img.dataset.src;
                     // Trình duyệt cũ không hiển thị được WebP (iOS 13 trở xuống, IE) → dùng file JPG gốc cùng tên.
                     img.onerror = () => { img.onerror = null; img.src = qpVer(webp.replace(/\.webp$/, '.jpg')); };
-                    img.src = qpVer(webp);
+                    img.src = qpVer(qpSized(webp));
                     img.removeAttribute('data-src');
                 });
             }
@@ -1128,7 +1134,7 @@ $page_desc = function_exists( 'qp_holdings_t' ) ? qp_holdings_t( 'profile_hero_d
                 const img = sheet && sheet.querySelector((index % 2 ? '.back' : '.front') + ' img.img-mobile');
                 if (!img) return '';
                 const pending = img.getAttribute('data-src');
-                return pending ? qpVer(pending) : (img.currentSrc || img.src);
+                return pending ? qpVer(qpSized(pending)) : (img.currentSrc || img.src);
             }
 
             let mobileFinish = null;   // kết thúc ngay tờ đang lật (khi chạm tiếp lúc đang lật)
