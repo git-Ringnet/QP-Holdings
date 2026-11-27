@@ -525,17 +525,23 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$attrs['alt'] = (string) get_the_title($post_id);
 	}
 
+	// Trang danh mục ("Xem tất cả"): giữ nguyên ảnh như thiết kế gốc (khách yêu cầu không đụng tới).
+	$keep_original = qp_holdings_news_is_category_view();
+
 	if ($attachment_id > 0) {
 		// Hiện trọn ảnh (thu vừa khung) thay vì cắt: dùng kích thước giữ nguyên tỷ lệ của WordPress
 		// thay cho qp_news_featured / qp_news_card (hai kích thước đó cắt cứng 16:10 và 3:2 lúc tải ảnh lên).
 		$proportional = array('qp_news_featured' => 'large', 'qp_news_card' => 'medium_large');
-		$size = $proportional[$size] ?? $size;
+		if (!$keep_original) {
+			$size = $proportional[$size] ?? $size;
+		}
 		$attrs['sizes'] = $sizes_attr;
 		$html = wp_get_attachment_image($attachment_id, $size, false, $attrs);
 		if (is_string($html) && '' !== trim($html)) {
 			// Core tự thêm "auto," cho ảnh lazy → trình duyệt bỏ qua $sizes_attr và lấy ảnh theo bề rộng thật × DPR
 			// (điện thoại DPR 3 tải bản 1024px ~1 MB cho thẻ 242px). Bỏ "auto" để khai báo $sizes_attr có hiệu lực.
-			return qp_holdings_news_fit_image(str_replace('sizes="auto, ', 'sizes="', $html));
+			$html = str_replace('sizes="auto, ', 'sizes="', $html);
+			return $keep_original ? $html : qp_holdings_news_fit_image($html);
 		}
 	}
 
@@ -546,7 +552,7 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 	}
 
 	// Ảnh mặc định / ảnh không qua thư viện: ghi kích thước thật để khung lấy đúng tỷ lệ ảnh.
-	if (empty($attrs['width']) || empty($attrs['height'])) {
+	if (!$keep_original && (empty($attrs['width']) || empty($attrs['height']))) {
 		static $dims = array();
 		if (!isset($dims[$img_url])) {
 			$dims[$img_url] = false;
@@ -572,7 +578,20 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$html_attrs .= ' ' . $key . '="' . esc_attr((string) $value) . '"';
 	}
 
-	return qp_holdings_news_fit_image('<img src="' . esc_url($img_url) . '"' . $html_attrs . '>');
+	$raw = '<img src="' . esc_url($img_url) . '"' . $html_attrs . '>';
+	return $keep_original ? $raw : qp_holdings_news_fit_image($raw);
+}
+
+/** Đang ở trang danh mục tin tức ("Xem tất cả": /tintuc/?group=…, ?cat=…, hoặc trang lưu trữ danh mục). */
+function qp_holdings_news_is_category_view(): bool
+{
+	if (is_tax('qp_news_category')) {
+		return true;
+	}
+	if (!function_exists('qp_holdings_get_query_string')) {
+		return false;
+	}
+	return '' !== (string) qp_holdings_get_query_string('cat') || '' !== (string) qp_holdings_get_query_string('group');
 }
 
 /**
