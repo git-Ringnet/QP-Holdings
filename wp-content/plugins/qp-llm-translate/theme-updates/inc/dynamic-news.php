@@ -545,6 +545,28 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$img_url = qp_holdings_news_fallback_image_url();
 	}
 
+	// Ảnh mặc định / ảnh không qua thư viện: ghi kích thước thật để khung lấy đúng tỷ lệ ảnh.
+	if (empty($attrs['width']) || empty($attrs['height'])) {
+		static $dims = array();
+		if (!isset($dims[$img_url])) {
+			$dims[$img_url] = false;
+			$up = wp_get_upload_dir();
+			$map = array(get_template_directory_uri() => get_template_directory(), (string) $up['baseurl'] => (string) $up['basedir']);
+			foreach ($map as $url_base => $dir) {
+				if ('' !== $url_base && 0 === strpos($img_url, $url_base)) {
+					$file = $dir . substr((string) strtok($img_url, '?'), strlen($url_base));
+					$size = is_file($file) ? @getimagesize($file) : false;
+					$dims[$img_url] = $size ? array((int) $size[0], (int) $size[1]) : false;
+					break;
+				}
+			}
+		}
+		if ($dims[$img_url]) {
+			$attrs['width'] = $dims[$img_url][0];
+			$attrs['height'] = $dims[$img_url][1];
+		}
+	}
+
 	$html_attrs = '';
 	foreach ($attrs as $key => $value) {
 		$html_attrs .= ' ' . $key . '="' . esc_attr((string) $value) . '"';
@@ -565,7 +587,13 @@ function qp_holdings_news_fit_image(string $img): string
 		? preg_replace('/\sclass="/', ' class="qp-fit__img ', $img, 1)
 		: preg_replace('/^<img\b/', '<img class="qp-fit__img"', $img, 1);
 
-	return '<span class="qp-fit">' . $bg . $main . '</span>';
+	// Khung lấy đúng tỷ lệ ảnh (width/height của bản ảnh giữ tỷ lệ) → không cắt, không khoảng dư.
+	$ratio = '';
+	if ( preg_match( '/\swidth="(\d+)"/', $img, $w ) && preg_match( '/\sheight="(\d+)"/', $img, $h ) && (int) $w[1] > 0 && (int) $h[1] > 0 ) {
+		$ratio = ' style="--qp-ar:' . (int) $w[1] . ' / ' . (int) $h[1] . '"';
+	}
+
+	return '<span class="qp-fit"' . $ratio . '>' . $bg . $main . '</span>';
 }
 
 /**
