@@ -8291,3 +8291,9 @@ h3.figma-v-card__title {
 		font-size: 16px;
 	}
 }
+
+/* Ảnh thẻ tin tức: hiện trọn ảnh (thu vừa khung, không cắt), phần trống lấp bằng chính ảnh làm mờ – qp_holdings_news_fit_image() */
+.qp-fit{position:absolute;inset:0;display:block;overflow:hidden;border-radius:inherit;background:#1e3a5f}
+.qp-fit img.qp-fit__bg{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;filter:blur(18px) brightness(.85);transform:scale(1.15);pointer-events:none}
+.qp-fit img.qp-fit__img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:contain!important}
+.figma-h-card__img,.figma-v-card__img{position:relative}

@@ -526,12 +526,16 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 	}
 
 	if ($attachment_id > 0) {
+		// Hiện trọn ảnh (thu vừa khung) thay vì cắt: dùng kích thước giữ nguyên tỷ lệ của WordPress
+		// thay cho qp_news_featured / qp_news_card (hai kích thước đó cắt cứng 16:10 và 3:2 lúc tải ảnh lên).
+		$proportional = array('qp_news_featured' => 'large', 'qp_news_card' => 'medium_large');
+		$size = $proportional[$size] ?? $size;
 		$attrs['sizes'] = $sizes_attr;
 		$html = wp_get_attachment_image($attachment_id, $size, false, $attrs);
 		if (is_string($html) && '' !== trim($html)) {
 			// Core tự thêm "auto," cho ảnh lazy → trình duyệt bỏ qua $sizes_attr và lấy ảnh theo bề rộng thật × DPR
 			// (điện thoại DPR 3 tải bản 1024px ~1 MB cho thẻ 242px). Bỏ "auto" để khai báo $sizes_attr có hiệu lực.
-			return str_replace('sizes="auto, ', 'sizes="', $html);
+			return qp_holdings_news_fit_image(str_replace('sizes="auto, ', 'sizes="', $html));
 		}
 	}
 
@@ -546,7 +550,22 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$html_attrs .= ' ' . $key . '="' . esc_attr((string) $value) . '"';
 	}
 
-	return '<img src="' . esc_url($img_url) . '"' . $html_attrs . '>';
+	return qp_holdings_news_fit_image('<img src="' . esc_url($img_url) . '"' . $html_attrs . '>');
+}
+
+/**
+ * Bọc ảnh thẻ tin để hiện trọn ảnh trong khung (object-fit: contain), phần trống lấp bằng chính ảnh đó làm mờ phía sau.
+ * Ảnh nền dùng cùng src/srcset nên trình duyệt không tải thêm. CSS: .qp-fit trong style.css.
+ */
+function qp_holdings_news_fit_image(string $img): string
+{
+	$bg = preg_replace('/\s(?:alt|class|id|fetchpriority|title)="[^"]*"/', '', $img);
+	$bg = preg_replace('/^<img\b/', '<img class="qp-fit__bg" alt="" aria-hidden="true"', (string) $bg, 1);
+	$main = preg_match('/\sclass="/', $img)
+		? preg_replace('/\sclass="/', ' class="qp-fit__img ', $img, 1)
+		: preg_replace('/^<img\b/', '<img class="qp-fit__img"', $img, 1);
+
+	return '<span class="qp-fit">' . $bg . $main . '</span>';
 }
 
 /**
