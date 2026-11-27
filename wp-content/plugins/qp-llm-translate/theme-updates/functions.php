@@ -120,6 +120,12 @@ if ( file_exists( $qp_holdings_admin_order ) ) {
     require_once $qp_holdings_admin_order;
 }
 
+// Tin tức: cột + bộ lọc danh mục ("Chưa có danh mục"), chuyển danh mục hàng loạt, báo bài mất danh mục khi xoá danh mục.
+$qp_holdings_admin_news_category = get_template_directory() . '/inc/admin-news-category.php';
+if ( file_exists( $qp_holdings_admin_news_category ) ) {
+    require_once $qp_holdings_admin_news_category;
+}
+
 function qp_holdings_setup(): void {
     load_theme_textdomain( 'qp-holdings', get_template_directory() . '/languages' );
     add_theme_support( 'title-tag' );
