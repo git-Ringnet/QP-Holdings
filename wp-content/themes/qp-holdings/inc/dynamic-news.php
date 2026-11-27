@@ -534,6 +534,8 @@ function qp_holdings_news_card_image(int $post_id, string $size, string $sizes_a
 		$proportional = array('qp_news_featured' => 'large', 'qp_news_card' => 'medium_large');
 		if (!$keep_original) {
 			$size = $proportional[$size] ?? $size;
+			// Ảnh nhỏ giờ hiện 188–260px (trước 152px): khai báo 340px để trình duyệt tải bản đủ nét, không phóng to ảnh 152px.
+			$sizes_attr = str_replace(', 152px', ', 340px', $sizes_attr);
 		}
 		$attrs['sizes'] = $sizes_attr;
 		$html = wp_get_attachment_image($attachment_id, $size, false, $attrs);
